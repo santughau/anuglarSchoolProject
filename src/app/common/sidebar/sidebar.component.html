@@ -1,0 +1,11 @@
+<div class="box">
+    <h2 class="text-center text-muted">Quick Menus</h2>
+</div>
+
+<div class="list-group box">
+    <a *ngFor="let item of data;let i = index"
+       class="list-group-item list-group-item-action "
+       (click)="addActiveClass(i,item.urlLink)"> <i class="fa {{item.icon}} "
+           aria-hidden="true"></i> {{item.title}}
+        <span class="badge badge-light text-secondary pull-right">{{item.count}}</span></a>
+</div>

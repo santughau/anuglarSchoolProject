@@ -1,0 +1,113 @@
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">View Student Fees</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-muted mb-5">VIEW ALL STUDENTS FEE</h1>
+        <hr>
+        <form class="row g-3 mt-2 mb-5">
+
+            <div class="col-md-1">
+                <label for="forClass"
+                       class="form-label">For Class</label>
+                <select id="forClass"
+                        class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="1">Class 1 </option>
+                    <option value="2">Class 2 </option>
+                    <option value="3">Class 3 </option>
+                    <option value="4">Class 4 </option>
+                    <option value="5">Class 5 </option>
+                    <option value="6">Class 6 </option>
+                    <option value="7">Class 7 </option>
+                    <option value="8">Class 8 </option>
+                    <option value="9">Class 9 </option>
+                    <option value="10">Class 10 </option>
+                </select>
+            </div>
+
+            <div class="col-md-1">
+                <label for="forBatch"
+                       class="form-label">For Batch</label>
+                <select id="forBatch"
+                        class="form-select">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="forGender"
+                       class="form-label">Student Name</label>
+                <select id="forGender"
+                        class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+
+
+            <div class="col-7 d-flex justify-content-end mt-5">
+                <button type="submit"
+                        class="btn btn-danger ">Show All Fees</button>
+            </div>
+        </form>
+        <div id="table-responsive">
+            <table class="table table-bordered display"
+                   id="table2excel">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Batch</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Voucher No</th>
+                        <th scope="col">Date</th>
+
+                        <th scope="col"><i class="fa fa-pencil-square-o"
+                               aria-hidden="true"></i>
+                        </th>
+                        <th scope="col"><i class="fa fa-trash-o"
+                               aria-hidden="true"></i>
+                        </th>
+                        <th scope="col"><i class="fa fa-print"
+                               aria-hidden="true"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td>Class </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
+                                   aria-hidden="true"></i></a></td>
+                        <td><a class="btn btn-danger"><i class="fa fa-trash-o"
+                                   aria-hidden="true"></i></a></td>
+                        <td><a class="btn btn-success"><i class="fa fa-print"
+                                   aria-hidden="true"></i></a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <hr>
+        </div>
+        <button type="button"
+                class="btn btn-warning text-white offset-md-4"
+                id="but">Export to Excel</button>
+        <hr>
+
+    </div>
+</div>

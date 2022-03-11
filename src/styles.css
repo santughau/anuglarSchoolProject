@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+     font-family: 'Poppins', sans-serif; 
+}
+.box{
+    width: 100% !important;
+    height:auto !important;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    padding:50px !important;
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

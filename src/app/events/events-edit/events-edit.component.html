@@ -1,0 +1,73 @@
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Update Events</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-centerl text-muted">UPDATE EVENTS</h1>
+        <hr >
+
+        <form class="row g-3 mt-5">    
+             
+            <div class="col-md-3">
+                <label for="title"
+                       class="form-label lbl">Title</label>
+                <input type="text"
+                       class="form-control"
+                       id="title">
+            </div>
+            <div class="col-md-3">
+                <label for="message"
+                       class="form-label">Message</label>
+                <input type="text"
+                       class="form-control"
+                       id="message">
+            </div>
+
+            <div class="col-md-1">
+                <label for="forColour"
+                       class="form-label">Color</label>
+                <select id="forColour"
+                        class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="1">Class 1 </option>
+                                        <option value="2">Class 2 </option>
+                                        <option value="3">Class 3 </option>
+                                        <option value="4">Class 4 </option>
+                                        <option value="5">Class 5 </option>
+                                        <option value="6">Class 6 </option>
+                                        <option value="7">Class 7 </option>
+                                        <option value="8">Class 8 </option>
+                                        <option value="9">Class 9 </option>
+                                        <option value="10">Class 10 </option>
+                </select>
+            </div>
+
+
+
+            <div class="col-md-3">
+                <label for="forDate"
+                       class="form-label">Date</label>
+                       <input type="text"
+                       placeholder="Datepicker"
+                       class="form-control"
+                       bsDatepicker
+                       [bsConfig]="bsConfig"
+                       [dateTooltipTexts]="selectedDates"
+                       [daysDisabled]="[6,0]"
+                       [datesDisabled]="disabledDates">
+            </div>
+            
+
+
+            <div class="col-2 d-flex justify-content-center mt-5">
+                <button type="submit"
+                        class="btn btn-danger ">Update Events</button>
+            </div>
+        </form>
+        
+    </div>
+</div>

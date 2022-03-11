@@ -1,0 +1,53 @@
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Add Expences</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-centerl text-muted">ADD EXPENCES</h1>
+        <hr>
+
+        <form class="row g-3 mt-5">
+
+            <div class="col-md-3">
+                <label for="particular"
+                       class="form-label lbl">Particular</label>
+                <input type="text"
+                       class="form-control"
+                       id="particular">
+            </div>
+            <div class="col-md-3">
+                <label for="amount"
+                       class="form-label">Amount</label>
+                <input type="text"
+                       class="form-control"
+                       id="amount">
+            </div>
+
+
+
+            <div class="col-md-3">
+                <label for="forDate"
+                       class="form-label">Date</label>
+                <input type="text"
+                       placeholder="Datepicker"
+                       class="form-control"
+                       bsDatepicker
+                       [bsConfig]="bsConfig"
+                       [dateTooltipTexts]="selectedDates"
+                       [daysDisabled]="[6,0]"
+                       [datesDisabled]="disabledDates">
+            </div>
+
+
+            <div class="col-2 d-flex justify-content-center mt-5">
+                <button type="submit"
+                        class="btn btn-danger ">Add Expences</button>
+            </div>
+        </form>
+
+    </div>
+</div>

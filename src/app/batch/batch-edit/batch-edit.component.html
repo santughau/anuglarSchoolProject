@@ -1,0 +1,82 @@
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Update Batches</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-centerl text-muted">UPDATE BATCHES</h1>
+        <hr>
+        <form class="row g-3 mt-5">
+            <div class="col-md-1">
+                <label for="student"
+                       class="form-label lbl">Batch Name</label>
+                <input type="text"
+                       class="form-control"
+                       id="student">
+            </div>
+
+
+            <div class="col-md-1">
+                <label for="forClass"
+                       class="form-label">For Class</label>
+                <select id="forClass"
+                        class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="1">Class 1 </option>
+                    <option value="2">Class 2 </option>
+                    <option value="3">Class 3 </option>
+                    <option value="4">Class 4 </option>
+                    <option value="5">Class 5 </option>
+                    <option value="6">Class 6 </option>
+                    <option value="7">Class 7 </option>
+                    <option value="8">Class 8 </option>
+                    <option value="9">Class 9 </option>
+                    <option value="10">Class 10 </option>
+                </select>
+            </div>
+
+            <div class="col-md-1">
+                <label for="forMobile"
+                       class="form-label">Batch Dutration</label>
+                <input type="text"
+                       class="form-control"
+                       id="forMobile">
+            </div>
+
+            <div class="col-1">
+                <label for="forEmail"
+                       class="form-label">Batch Fee</label>
+                <input type="email"
+                       class="form-control"
+                       id="forEmail">
+            </div>
+
+
+            <div class="col-md-3">
+                <label for="forDate"
+                       class="form-label">Batch Starts From</label>
+                <input type="text"
+                       placeholder="Datepicker"
+                       class="form-control"
+                       bsDatepicker
+                       [bsConfig]="bsConfig"
+                       [dateTooltipTexts]="selectedDates"
+                       [daysDisabled]="[6,0]"
+                       [datesDisabled]="disabledDates">
+            </div>
+
+
+
+            <div class="col-3 d-flex justify-content-center mt-5">
+                <button type="submit"
+                        class="btn btn-danger ">Update Batch</button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

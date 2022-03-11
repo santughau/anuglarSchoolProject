@@ -1,0 +1,65 @@
+<div class="row box">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active"
+          aria-current="page">View Student</li>
+    </ol>
+  </nav>
+  <div class="col-md-12 ">
+    <h1 class="text-muted mb-5">VIEW ALL STUDENTS</h1>
+    <hr>
+
+    <div id="table-responsive">
+      <table class="table table-bordered display"
+             id="table2excel">
+        <thead class="table-dark text-center">
+          <tr>
+            <th scope="col">Sr No</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Class</th>
+            <th scope="col">Batch</th>
+            <th scope="col">Image</th>
+            <th scope="col"><i class="fa fa-eye"
+                 aria-hidden="true"></i>
+            </th>
+            <th scope="col"><i class="fa fa-pencil-square-o"
+                 aria-hidden="true"></i>
+            </th>
+            <th scope="col"><i class="fa fa-trash-o"
+                 aria-hidden="true"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td>Class </td>
+            <td></td>
+            <td><img src="../images/student/"
+                   class="img-fluid"
+                   width="100px"></td>
+            <td><a href="studentDetails.php?id="
+                 class="btn btn-primary"><i class="fa fa-eye"
+                   aria-hidden="true"></i></a></td>
+            <td><a href="editStudent.php?id="
+                 class="btn btn-warning"><i class="fa fa-pencil-square-o"
+                   aria-hidden="true"></i></a></td>
+            <td><a href="student.php?del="
+                 class="btn btn-danger"><i class="fa fa-trash-o"
+                   aria-hidden="true"></i></a></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <hr>
+    </div>
+    <button type="button"
+            class="btn btn-warning text-white offset-md-4"
+            id="but">Export to Excel</button>
+    <hr>
+
+  </div>
+</div>
