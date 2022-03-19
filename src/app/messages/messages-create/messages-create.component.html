@@ -1,1 +1,78 @@
-<p>messages-create works!</p>
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Create Messages</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-muted mb-5">CREATE MESSAGES</h1>
+        <form class="row g-3 mt-5"
+              [formGroup]="addForm"
+              (ngSubmit)="addPost()">
+
+            <div class="col-md-12">
+                <label for="student"
+                       class="form-label lbl">Write Message Here.....</label>
+                <editor [formControlName]="'body'"
+                        apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
+                        [init]="tinyObject"></editor>
+            </div>
+
+
+            <div class="col-md-2">
+                <label for="forMedium"
+                       class="form-label">Please Select</label>
+                <select class="form-select" name="bulk-options" id="forMedium" class="form-control" >
+                    <option value="">Please Select</option>
+                    <option value="sendMsg">Send Message</option>
+                </select>
+            </div>
+
+            <div class="col-1 d-flex justify-content-center mt-5">
+                <button type="submit" (click)="apply()"
+                        class="btn btn-danger ">Apply</button>
+            </div>
+        </form>
+
+
+    </div>
+    
+</div>
+
+
+<div class="row box">
+   
+    <div class="col-md-12 ">
+        <h1 class="text-muted mb-5">Select Students</h1>
+        <table class="table table-bordered " id="table2excel">
+            <thead class="thead-dark">
+                <tr>
+                    <th><input [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)" type="checkbox" id="selectallboxes"></th>
+                    <th scope="col">Sr No</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Batch</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+          
+                <tr *ngFor="let p of products; let i=index;">
+                    <td ><input type="checkbox"  value="{{p.id}}" [(ngModel)]="products[i].isSelected" ></td>
+                    <th scope="row">{{p.id}}</th>
+                    <td><a  class=""></a></td>
+                    <td>Class </td>
+                    <td></td>
+                    <td><img src="" class="img-fluid" width="100px"></td>
+                </tr>
+
+               
+            </tbody>
+        </table>
+
+
+    </div>
+    
+</div>

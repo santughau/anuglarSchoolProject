@@ -1,0 +1,24 @@
+@media only screen and (max-width: 600px) {
+    #one {
+      margin-top:10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #two {
+        margin-top:10px;
+        display: flex;
+        justify-content: center;
+      }
+      #three {
+        margin-top:10px;
+        display: flex;
+        justify-content: center;
+      }
+
+      #four {
+        margin-top:10px;
+        display: flex;
+        justify-content: center;
+      }
+  }

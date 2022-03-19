@@ -4,7 +4,8 @@ import { MessagesRoutingModule } from './messages-routing.module';
 import { MessagesEditComponent } from './messages-edit/messages-edit.component';
 import { MessagesCreateComponent } from './messages-create/messages-create.component';
 import { MessagesListComponent } from './messages-list/messages-list.component';
-
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,8 +13,8 @@ import { MessagesListComponent } from './messages-list/messages-list.component';
     MessagesCreateComponent,
     MessagesEditComponent,],
   imports: [
-    CommonModule,
-    MessagesRoutingModule
+    CommonModule,FormsModule,ReactiveFormsModule,
+    MessagesRoutingModule,EditorModule
   ]
 })
 export class MessagesModule { }

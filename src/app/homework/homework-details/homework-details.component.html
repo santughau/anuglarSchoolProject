@@ -1,0 +1,179 @@
+<div class="row box">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Details Homework</li>
+        </ol>
+    </nav>
+    <div id="one"
+         class="col-md-2 ">
+        <div class="btn-toolbar"
+             role="toolbar"
+             aria-label="Toolbar with button groups">
+            <div class="btn-toolbar"
+                 role="toolbar"
+                 aria-label="Toolbar with button groups">
+                <div class="btn-group me-2"
+                     role="group"
+                     aria-label="First group">
+                    <button type="button"
+                            (click)="zoomOut()"
+                            class="btn btn-primary">-</button>
+                </div>
+                <div class="btn-group me-2"
+                     role="group"
+                     aria-label="Second group">
+                    <button type="button"
+                            (click)="zoomIn()"
+                            class="btn btn-danger">+</button>
+                </div>
+                <div class="btn-group"
+                     role="group"
+                     aria-label="Third group">
+                    <button type="button"
+                            (click)="hundred()"
+                            class="btn btn-success">100%</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="two"
+         class="col-md-3 ">
+        <div class="btn-toolbar"
+             role="toolbar"
+             aria-label="Toolbar with button groups">
+
+            <div class="btn-group me-2"
+                 role="group"
+                 aria-label="First group">
+                <button type="button"
+                        (click)="first()"
+                        class="btn btn-dark">First</button>
+            </div>
+
+
+            <div class="btn-group me-2"
+                 role="group"
+                 aria-label="First group">
+                <button type="button"
+                        (click)="pageOut()"
+                        class="btn btn-primary">Prev</button>
+            </div>
+            <div class="btn-group me-2"
+                 role="group"
+                 aria-label="Second group">
+                <button type="button"
+                        (click)="pageIn()"
+                        class="btn btn-danger">Next</button>
+            </div>
+            <div class="btn-group me-2"
+                 role="group"
+                 aria-label="First group">
+                <button type="button"
+                        (click)="last()"
+                        class="btn btn-dark">Last</button>
+            </div>
+            <div class="mt-2">
+                Page No {{pageVariable}}/{{totalPages}}
+            </div>
+        </div>
+    </div>
+
+    <div id="three"
+         class="col-md-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="inputPassword6"
+                       class="col-form-label">Search</label>
+            </div>
+            <div class="col-auto">
+                <input #queryInp
+                       type="text"
+                       id="inputPassword6"
+                       class="form-control"
+                       aria-describedby="passwordHelpInline"
+                       [value]="pdfQuery"
+                       (keyup)="searchQueryChanged(queryInp.value)">
+            </div>
+        </div>
+
+
+
+
+        <!--     Search:
+        <input #queryInp class="form-control"
+               id="pdfQueryInput"
+               type="text"
+               placeholder="Search..."
+               [value]="pdfQuery"
+               (keyup)="searchQueryChanged(queryInp.value)"> -->
+    </div>
+
+    <div id="four"
+         class="col-md-4">
+        <progressbar class="progress-striped active"
+                     [animate]="true"
+                     [max]="max"
+                     [value]="dynamic">
+            <span class="text-nowrap">{{dynamic}} / {{max}}</span>
+        </progressbar>
+
+    </div>
+
+    <div class="col-md-12 mt-5">
+        <hr>
+        <h1 class="text-muted text-centerng mb-5">CHAPTER NAME GOES HERE</h1>
+        <hr>
+        <pdf-viewer [src]="pdfSrc "
+                    [render-text]="true"
+                    [original-size]="false"
+                    [show-borders]="true"
+                    [fit-to-page]="true"
+                    [render-text]="true"
+                    [zoom]="zoom"
+                    [show-all]="false"
+                    [(page)]="pageVariable"
+                    (page-rendered)="pageRendered($event)"
+                    (after-load-complete)="callBackFn($event)"
+                    (on-progress)="onProgress($event)"
+                    style="width: 100%; height: 100vh">
+        </pdf-viewer>
+    </div>
+</div>
+
+
+
+<ng-template #template1>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left text-danger">Attentation Please</h4>
+        <button type="button"
+                class="btn-close close pull-right"
+                aria-label="Close"
+                (click)="modalRef?.hide()">
+            <span aria-hidden="true"
+                  class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        This is last page of Document.
+    </div>
+</ng-template>
+
+<ng-template #template2>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left text-danger">Attentation Please</h4>
+        <button type="button"
+                class="btn-close close pull-right"
+                aria-label="Close"
+                (click)="modalRef?.hide()">
+            <span aria-hidden="true"
+                  class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        This is First page of Document.
+    </div>
+</ng-template>

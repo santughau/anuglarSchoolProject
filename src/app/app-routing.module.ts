@@ -54,6 +54,32 @@ const routes: Routes = [
     loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
 
+  {
+    path: 'extra',
+    loadChildren: () => import('./extra/extra.module').then(m => m.ExtraModule)
+  },
+
+  {
+    path: 'class',
+    loadChildren: () => import('./classTitle/class-title.module').then(m => m.ClassTitleModule)
+  },
+
+
+  {
+    path: 'subject',
+    loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule)
+  },
+
+  {
+    path: 'homework',
+    loadChildren: () => import('./homework/homework.module').then(m => m.HomeworkModule)
+  },
+
+  {
+    path: 'chapter',
+    loadChildren: () => import('./chapter/chapter.module').then(m => m.ChapterModule)
+  },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 

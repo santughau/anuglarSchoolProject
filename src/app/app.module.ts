@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { StudentModule } from './student/student.module';
@@ -19,7 +19,12 @@ import { PageNotFoundComponent } from './common/page-not-found/page-not-found.co
 import { IndexPageComponent } from './common/index-page/index-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EventsModule } from './events/events.module';
-
+import { ExtraModule } from './extra/extra.module';
+import { ClassTitleModule } from './classTitle/class-title.module';
+import { SubjectModule } from './subject/subject.module';
+import { ChapterModule } from './chapter/chapter.module';
+import { HomeworkModule } from './homework/homework.module';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,14 @@ import { EventsModule } from './events/events.module';
     MessagesModule,
     BrowserAnimationsModule,
     EventsModule,
+    ExtraModule,
+    ClassTitleModule,
+    SubjectModule,
+    ChapterModule,
+    HomeworkModule,PdfViewerModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   
   providers: [],

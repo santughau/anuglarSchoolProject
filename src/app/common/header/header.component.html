@@ -69,7 +69,7 @@
                  [routerLink]="['/batch/batchCreate']">Create Batch</a></li>
           </ul>
 
-          
+
         </li>
 
         <li class="nav-item dropdown">
@@ -88,9 +88,9 @@
                  [routerLink]="['/fee/feeCreate']">Add Fees</a></li>
           </ul>
 
-          
+
         </li>
-      
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white"
@@ -108,7 +108,7 @@
                  [routerLink]="['/expences/expencesCreate']">Create Expences</a></li>
           </ul>
 
-          
+
         </li>
 
         <li class="nav-item dropdown">
@@ -127,7 +127,7 @@
                  [routerLink]="['/exam/examCreate']">Create Exam</a></li>
           </ul>
 
-          
+
         </li>
 
         <li class="nav-item dropdown">
@@ -146,7 +146,7 @@
                  [routerLink]="['/messages/messagesCreate']">Create Messages</a></li>
           </ul>
 
-          
+
         </li>
 
         <li class="nav-item dropdown">
@@ -165,8 +165,58 @@
                  [routerLink]="['/events/eventsCreate']">Create Events</a></li>
           </ul>
 
-          
+
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white"
+             id="navbarDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            Masters Module
+          </a>
+          <ul class="dropdown-menu"
+              aria-labelledby="navbarDropdown">
+
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/extra/registration']">Registration</a></li>
+
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/extra/complain']">Complaine</a></li>
+
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/extra/profile']">Profile</a></li>
+
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/class']">Classes</a></li>
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/subject']">Subjects</a></li>
+
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/chapter']">Chapter</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white"
+             id="navbarDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            Homework
+          </a>
+          <ul class="dropdown-menu"
+              aria-labelledby="navbarDropdown">
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/homework']">View Homework</a></li>
+            <li (click)="hideShow()"><a class="dropdown-item"
+                 [routerLink]="['/homework/homeworkCreate']">Create Homework</a></li>
+          </ul>
+
+
+        </li>
+
       </ul>
     </div>
   </div>
