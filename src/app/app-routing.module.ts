@@ -76,6 +76,21 @@ const routes: Routes = [
   },
 
   {
+    path: 'termexam',
+    loadChildren: () => import('./termExam/termexam.module').then(m => m.TermexamModule)
+  },
+
+  {
+    path: 'quiz',
+    loadChildren: () => import('./quiz/quiz.module').then(m => m.QuizModule)
+  },
+
+  {
+    path: 'video',
+    loadChildren: () => import('./video/video.module').then(m => m.VideoModule)
+  },
+
+  {
     path: 'chapter',
     loadChildren: () => import('./chapter/chapter.module').then(m => m.ChapterModule)
   },

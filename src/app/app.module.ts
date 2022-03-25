@@ -25,6 +25,9 @@ import { SubjectModule } from './subject/subject.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { HomeworkModule } from './homework/homework.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { TermexamModule } from './termExam/termexam.module';
+import { VideoModule } from './video/video.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ClassTitleModule,
     SubjectModule,
     ChapterModule,
-    HomeworkModule,PdfViewerModule
+    HomeworkModule,PdfViewerModule, TermexamModule, VideoModule, QuizModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
