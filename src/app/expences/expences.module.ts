@@ -5,6 +5,7 @@ import { ExpencesCreateComponent } from './expences-create/expences-create.compo
 import { ExpencesEditComponent } from './expences-edit/expences-edit.component';
 import { ExpencesRoutingModule } from './expences-routing.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
+import { ExpencesService } from './expences.service';
 
 
 
@@ -15,7 +16,8 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
   imports: [
     CommonModule,
     ExpencesRoutingModule,NgxBootstrapModule,
-  ]
+  ],
+  providers: [ExpencesService],
 })
 export class ExpencesModule { 
   constructor() {

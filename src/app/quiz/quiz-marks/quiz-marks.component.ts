@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Quiz } from '../quiz.model';
 @Component({
   selector: 'app-quiz-marks',
   templateUrl: './quiz-marks.component.html',

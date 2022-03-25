@@ -5,7 +5,7 @@ import { VideoListComponent } from './video-list/video-list.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
 
 const routes: Routes = [
-  { path: '', component: VideoListComponent },
+  { path: 'videoList', component: VideoListComponent },
   { path: 'videoCreate', component: VideoCreateComponent },
   
   { path: 'videoEdit/:id', component: VideoEditComponent },

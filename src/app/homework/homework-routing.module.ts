@@ -6,7 +6,7 @@ import { HomeworkEditComponent } from './homework-edit/homework-edit.component';
 import { HomeworkListComponent } from './homework-list/homework-list.component';
 
 const routes: Routes = [
-  { path: '', component: HomeworkListComponent },
+  { path: 'homeworkList', component: HomeworkListComponent },
   { path: 'homeworkCreate', component: HomeworkCreateComponent },
   { path: 'homeworkDetails/:id', component: HomeworkDetailsComponent },
   { path: 'homeworkEdit/:id', component: HomeworkEditComponent },

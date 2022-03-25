@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Quiz } from '../quiz.model';
 
 @Component({
   selector: 'app-quiz-add-question',

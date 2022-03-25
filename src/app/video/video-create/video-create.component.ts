@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Video } from '../video.model';
 
 @Component({
   selector: 'app-video-create',

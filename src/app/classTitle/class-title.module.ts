@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClassTitleRoutingModule } from './class-title-routing.module';
 import { ClassTitleComponent } from './class-title/class-title.component';
 import { ClassTitleEditComponent } from './class-title-edit/class-title-edit.component';
+import { ClassTitleService } from './class-title.service';
 
 
 
@@ -11,6 +12,7 @@ import { ClassTitleEditComponent } from './class-title-edit/class-title-edit.com
   imports: [
     CommonModule,
     ClassTitleRoutingModule
-  ]
+  ],
+  providers: [ClassTitleService],
 })
 export class ClassTitleModule { }

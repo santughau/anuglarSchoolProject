@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Expences } from '../expences.model';
 @Component({
   selector: 'app-expences-list',
   templateUrl: './expences-list.component.html',

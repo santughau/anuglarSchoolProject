@@ -4,7 +4,7 @@ import { ChapterEditComponent } from './chapter-edit/chapter-edit.component';
 import { ChapterListComponent } from './chapter-list/chapter-list.component';
 
 const routes: Routes = [
-  { path: '', component: ChapterListComponent },
+  { path: 'chapterList', component: ChapterListComponent },
   { path: 'chapterEdit/:id', component: ChapterEditComponent }
 ];
 

@@ -6,7 +6,7 @@ import { ExamEditComponent } from './exam-edit/exam-edit.component';
 import { ExamListComponent } from './exam-list/exam-list.component';
 
 const routes: Routes = [
-  { path: '', component: ExamListComponent },
+  { path: 'examList', component: ExamListComponent },
   { path: 'examCreate', component: ExamCreateComponent },
   { path: 'examEdit/:id', component: ExamEditComponent },
   { path: 'examDownload/:id', component: ExamDownloadCsvComponent }

@@ -7,6 +7,7 @@ import { HomeworkCreateComponent } from './homework-create/homework-create.compo
 import { HomeworkEditComponent } from './homework-edit/homework-edit.component';
 import { HomeworkListComponent } from './homework-list/homework-list.component';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
+import { HomeworkService } from './homework.service';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
   imports: [
     CommonModule,
     HomeworkRoutingModule,PdfViewerModule,NgxBootstrapModule
-  ]
+  ],
+  providers: [HomeworkService],
   
 
 })

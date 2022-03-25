@@ -15,8 +15,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
-import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
+
 import { IndexPageComponent } from './common/index-page/index-page.component';
+import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EventsModule } from './events/events.module';
 import { ExtraModule } from './extra/extra.module';
@@ -35,8 +36,9 @@ import { QuizModule } from './quiz/quiz.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    PageNotFoundComponent,
     IndexPageComponent,
+    PageNotFoundComponent,
+   
    
   ],
   imports: [

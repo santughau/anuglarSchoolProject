@@ -10,6 +10,7 @@ import { QuizAddQuestionComponent } from './quiz-add-question/quiz-add-question.
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
+import { QuizService } from './quiz.service';
 
 
 
@@ -25,6 +26,7 @@ import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
   imports: [
     CommonModule,FormsModule,
     QuizRoutingModule,NgxBootstrapModule,ReactiveFormsModule,EditorModule
-  ]
+  ],
+  providers: [QuizService],
 })
 export class QuizModule { }

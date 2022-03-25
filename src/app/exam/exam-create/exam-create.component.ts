@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
+import { Exam } from '../exam.model';
+
 @Component({
   selector: 'app-exam-create',
   templateUrl: './exam-create.component.html',

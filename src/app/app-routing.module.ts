@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
-import { HeaderComponent } from './common/header/header.component';
 import { IndexPageComponent } from './common/index-page/index-page.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 
@@ -8,18 +7,18 @@ import { PageNotFoundComponent } from './common/page-not-found/page-not-found.co
 
 
 const routes: Routes = [
-
+  {path: '', pathMatch: 'full', component: IndexPageComponent}, 
   { path: 'indexpage', component: IndexPageComponent },
-  { path: '', redirectTo: '/page', pathMatch: 'full' },
-
-  {
-    path: 'student',
-    loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
-  },
+  
 
   {
     path: 'gallery',
     loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule)
+  },
+
+  {
+    path: 'student',
+    loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
   },
 
   {
@@ -32,7 +31,7 @@ const routes: Routes = [
     loadChildren: () => import('./fee/fee.module').then(m => m.FeeModule)
   },
 
-  
+
 
   {
     path: 'expences',
@@ -94,12 +93,12 @@ const routes: Routes = [
     path: 'chapter',
     loadChildren: () => import('./chapter/chapter.module').then(m => m.ChapterModule)
   },
-
+ 
   { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules})],
 
 
   exports: [RouterModule]

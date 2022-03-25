@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Homework } from '../homework.model';
 
 @Component({
   selector: 'app-homework-create',

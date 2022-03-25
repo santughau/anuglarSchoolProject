@@ -5,7 +5,7 @@ import { GalleryEditComponent } from './gallery-edit/gallery-edit.component';
 import { GalleryListComponent } from './gallery-list/gallery-list.component';
 
 const routes: Routes = [
-  { path: '', component: GalleryListComponent },
+  { path: 'galleryList', component: GalleryListComponent },
   { path: 'galleryCreate', component: GalleryCreateComponent },
   { path: 'galleryEdit/:id', component: GalleryEditComponent }
 ];

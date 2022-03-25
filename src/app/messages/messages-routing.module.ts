@@ -5,7 +5,7 @@ import { MessagesEditComponent } from './messages-edit/messages-edit.component';
 import { MessagesListComponent } from './messages-list/messages-list.component';
 
 const routes: Routes = [
-  { path: '', component: MessagesListComponent },
+  { path: 'messageList', component: MessagesListComponent },
   { path: 'messagesCreate', component: MessagesCreateComponent },
   { path: 'messagesEdit/:id', component: MessagesEditComponent }
 ];

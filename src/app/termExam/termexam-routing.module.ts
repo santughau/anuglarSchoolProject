@@ -6,7 +6,7 @@ import { TermexamEditComponent } from './termexam-edit/termexam-edit.component';
 import { TermexamListComponent } from './termexam-list/termexam-list.component';
 
 const routes: Routes = [
-  { path: '', component: TermexamListComponent },
+  { path: 'termExamList', component: TermexamListComponent },
   { path: 'termexamCreate', component: TermexamCreateComponent },
   { path: 'termexamDetails/:id', component: TermexamDetailsComponent },
   { path: 'termexamEdit/:id', component: TermexamEditComponent, },

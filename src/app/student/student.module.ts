@@ -11,6 +11,7 @@ import { PresentyComponent } from './presenty/presenty.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { StudentService } from './student.service';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -24,7 +25,8 @@ FullCalendarModule.registerPlugins([
   declarations: [StudentListComponent, StudentCreateComponent, StudentEditComponent, StudentDetailsComponent, PresentyComponent],
   imports: [
     CommonModule,StudentRoutingModule,NgxBootstrapModule,FullCalendarModule
-  ]
+  ],
+  providers: [StudentService],
 })
 export class StudentModule { 
   

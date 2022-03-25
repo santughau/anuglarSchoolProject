@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Termexam } from '../termexam.model';
 @Component({
   selector: 'app-termexam-edit',
   templateUrl: './termexam-edit.component.html',

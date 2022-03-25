@@ -1,6 +1,7 @@
 import { Component, OnInit ,ViewChild, TemplateRef } from '@angular/core';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Homework } from '../homework.model';
 @Component({
   selector: 'app-homework-details',
   templateUrl: './homework-details.component.html',

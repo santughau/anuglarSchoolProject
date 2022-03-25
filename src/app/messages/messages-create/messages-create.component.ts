@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Messages } from '../messages.model';
+
 @Component({
   selector: 'app-messages-create',
   templateUrl: './messages-create.component.html',

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClassList } from '../classList.model';
 
 @Component({
   selector: 'app-class-title',

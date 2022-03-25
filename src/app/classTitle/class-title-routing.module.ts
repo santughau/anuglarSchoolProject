@@ -4,7 +4,7 @@ import { ClassTitleEditComponent } from './class-title-edit/class-title-edit.com
 import { ClassTitleComponent } from './class-title/class-title.component';
 
 const routes: Routes = [
-  { path: '', component: ClassTitleComponent },
+  { path: 'classList', component: ClassTitleComponent },
   
   { path: 'classEdit/:id', component: ClassTitleEditComponent }
 ];

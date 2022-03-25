@@ -5,6 +5,7 @@ import { VideoCreateComponent } from './video-create/video-create.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { VideoService } from './video.service';
 
 
 
@@ -13,6 +14,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
   imports: [
     CommonModule,
     VideoRoutingModule,YouTubePlayerModule
-  ]
+  ],
+  providers: [VideoService],
 })
 export class VideoModule { }

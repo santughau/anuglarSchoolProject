@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Batch } from '../batch.model';
+import { BatchService } from '../batch.service';
 @Component({
   selector: 'app-batch-details',
   templateUrl: './batch-details.component.html',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BatchDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service : BatchService) { }
 
   ngOnInit(): void {
   }

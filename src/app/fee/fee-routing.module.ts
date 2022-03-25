@@ -5,7 +5,7 @@ import { FeeEditComponent } from './fee-edit/fee-edit.component';
 import { FeeListComponent } from './fee-list/fee-list.component';
 
 const routes: Routes = [
-  { path: '', component: FeeListComponent },
+  { path: 'feeList', component: FeeListComponent },
   { path: 'feeCreate', component: FeeCreateComponent },
   { path: 'feeEdit/:id', component: FeeEditComponent }
 ];

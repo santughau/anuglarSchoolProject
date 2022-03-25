@@ -8,7 +8,7 @@ import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
 
 const routes: Routes = [
-  { path: '', component: QuizListComponent },
+  { path: 'quizList', component: QuizListComponent },
   { path: 'quizCreate', component: QuizCreateComponent },
   { path: 'quizEdit/:id', component: QuizEditComponent },
   { path: 'quizDetails/:id', component: QuizDetailsComponent },

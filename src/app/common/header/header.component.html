@@ -30,7 +30,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/student']">View Student</a></li>
+                 [routerLink]="['/student/students']">View Student</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/student/studentCreate']">Create Student</a></li>
           </ul>
@@ -47,7 +47,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/gallery']">View Gallery</a></li>
+                 [routerLink]="['/gallery/galleryList']">View Gallery</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/gallery/galleryCreate']">Create Gallery</a></li>
           </ul>
@@ -64,7 +64,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/batch']">View Batches</a></li>
+                 [routerLink]="['/batch/batchList']">View Batches</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/batch/batchCreate']">Create Batch</a></li>
           </ul>
@@ -83,7 +83,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/fee']">View Fess</a></li>
+                 [routerLink]="['/fee/feeList']">View Fess</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/fee/feeCreate']">Add Fees</a></li>
           </ul>
@@ -103,7 +103,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/expences']">View Expences</a></li>
+                 [routerLink]="['/expences/expencesList']">View Expences</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/expences/expencesCreate']">Create Expences</a></li>
           </ul>
@@ -122,7 +122,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/exam']">View Exam</a></li>
+                 [routerLink]="['/exam/examList']">View Exam</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/exam/examCreate']">Create Exam</a></li>
           </ul>
@@ -141,7 +141,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/messages']">View Messages</a></li>
+                 [routerLink]="['/messages/messageList']">View Messages</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/messages/messagesCreate']">Create Messages</a></li>
           </ul>
@@ -160,7 +160,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/events']">View Events</a></li>
+                 [routerLink]="['/events/eventList']">View Events</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/events/eventsCreate']">Create Events</a></li>
           </ul>
@@ -189,12 +189,12 @@
                  [routerLink]="['/extra/profile']">Profile</a></li>
 
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/class']">Classes</a></li>
+                 [routerLink]="['/class/classList']">Classes</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/subject']">Subjects</a></li>
+                 [routerLink]="['/subject/subjectList']">Subjects</a></li>
 
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/chapter']">Chapter</a></li>
+                 [routerLink]="['/chapter/chapterList']">Chapter</a></li>
           </ul>
         </li>
 
@@ -209,7 +209,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/homework']">View Homework</a></li>
+                 [routerLink]="['/homework/homeworkList']">View Homework</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/homework/homeworkCreate']">Create Homework</a></li>
           </ul>
@@ -228,7 +228,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/termexam']">View TermExam</a></li>
+                 [routerLink]="['/termexam/termExamList']">View TermExam</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/termexam/termexamCreate']">Create TermExam</a></li>
           </ul>
@@ -247,7 +247,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/video']">View Video</a></li>
+                 [routerLink]="['/video/videoList']">View Video</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/video/videoCreate']">Create Video</a></li>
           </ul>
@@ -267,7 +267,7 @@
           <ul class="dropdown-menu"
               aria-labelledby="navbarDropdown">
             <li (click)="hideShow()"><a class="dropdown-item"
-                 [routerLink]="['/quiz']">View Quiz</a></li>
+                 [routerLink]="['/quiz/quizList']">View Quiz</a></li>
             <li (click)="hideShow()"><a class="dropdown-item"
                  [routerLink]="['/quiz/quizCreate']">Create Quiz</a></li>
           </ul>

@@ -4,7 +4,7 @@ import { SubjectEditComponent } from './subject-edit/subject-edit.component';
 import { SubjectListComponent } from './subject-list/subject-list.component';
 
 const routes: Routes = [
-  { path: '', component: SubjectListComponent },
+  { path: 'subjectList', component: SubjectListComponent },
   { path: 'subjectEdit/:id', component: SubjectEditComponent }
 ];
 

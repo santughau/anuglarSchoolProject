@@ -5,7 +5,7 @@ import { ExpencesEditComponent } from './expences-edit/expences-edit.component';
 import { ExpencesListComponent } from './expences-list/expences-list.component';
 
 const routes: Routes = [
-  { path: '', component: ExpencesListComponent },
+  { path: 'expencesList', component: ExpencesListComponent },
   { path: 'expencesCreate', component: ExpencesCreateComponent },
   { path: 'expencesEdit/:id', component: ExpencesEditComponent }
 ];

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
+import { Batch } from '../batch.model';
+import { BatchService } from '../batch.service';
 
 @Component({
   selector: 'app-batch-create',
@@ -19,7 +21,7 @@ export class BatchCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor() { }
+  constructor(private service : BatchService) { }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});

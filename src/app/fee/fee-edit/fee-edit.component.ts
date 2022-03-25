@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
+import { Fee } from '../fee.model';
 @Component({
   selector: 'app-fee-edit',
   templateUrl: './fee-edit.component.html',

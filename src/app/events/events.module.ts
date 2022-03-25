@@ -10,6 +10,7 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { EventsListComponent } from './events-list/events-list.component';
 import { EventsEditComponent } from './events-edit/events-edit.component';
 import { EventsCreateComponent } from './events-create/events-create.component';
+import { EventsService } from './events.service';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -23,6 +24,7 @@ FullCalendarModule.registerPlugins([
   imports: [
     CommonModule,
     EventsRoutingModule,NgxBootstrapModule,FullCalendarModule
-  ]
+  ],
+  providers: [EventsService],
 })
 export class EventsModule { }

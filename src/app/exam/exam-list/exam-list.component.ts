@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Exam } from '../exam.model';
 @Component({
   selector: 'app-exam-list',
   templateUrl: './exam-list.component.html',

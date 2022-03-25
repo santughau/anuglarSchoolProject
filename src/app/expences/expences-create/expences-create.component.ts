@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
+import { Expences } from '../expences.model';
 
 @Component({
   selector: 'app-expences-create',

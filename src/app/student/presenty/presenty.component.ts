@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Student } from '../student.model';
+
 @Component({
   selector: 'app-presenty',
   templateUrl: './presenty.component.html',

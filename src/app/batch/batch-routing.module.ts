@@ -6,7 +6,7 @@ import { BatchEditComponent } from './batch-edit/batch-edit.component';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
 
 const routes: Routes = [
-  { path: '', component: BatchListComponent },
+  { path: 'batchList', component: BatchListComponent },
   { path: 'batchCreate', component: BatchCreateComponent },
   { path: 'batchEdit/:id', component: BatchEditComponent },
   { path: 'batchDetails/:id', component: BatchDetailsComponent }

@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-
+import { Video } from '../video.model';
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',

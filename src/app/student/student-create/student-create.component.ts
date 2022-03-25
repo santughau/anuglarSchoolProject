@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
-
+import { Student } from '../student.model';
 @Component({
   selector: 'app-student-create',
   templateUrl: './student-create.component.html',

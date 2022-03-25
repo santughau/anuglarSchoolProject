@@ -6,6 +6,7 @@ import { MessagesCreateComponent } from './messages-create/messages-create.compo
 import { MessagesListComponent } from './messages-list/messages-list.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesService } from './messages.service';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,FormsModule,ReactiveFormsModule,
     MessagesRoutingModule,EditorModule
-  ]
+  ],
+  providers: [MessagesService],
 })
 export class MessagesModule { }

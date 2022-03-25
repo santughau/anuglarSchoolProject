@@ -4,6 +4,7 @@ import { ExtraRoutingModule } from './extra-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
 import { ComplainComponent } from './complain/complain.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ExtraService } from './extra.service';
 
 
 
@@ -12,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     CommonModule,
     ExtraRoutingModule
-  ]
+  ],
+  providers: [ExtraService],
 })
 export class ExtraModule { }

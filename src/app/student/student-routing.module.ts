@@ -7,7 +7,7 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentListComponent } from './student-list/student-list.component';
 
 const routes: Routes = [
-  { path: '', component: StudentListComponent },
+  { path: 'students', component: StudentListComponent },
   { path: 'studentCreate', component: StudentCreateComponent },
   { path: 'studentEdit/:id', component: StudentEditComponent },
   { path: 'studentDetails/:id', component: StudentDetailsComponent },

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SubjectModel } from '../subject.model';
 
 @Component({
   selector: 'app-subject-edit',

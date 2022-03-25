@@ -6,6 +6,7 @@ import { ExamCreateComponent } from './exam-create/exam-create.component';
 import { ExamEditComponent } from './exam-edit/exam-edit.component';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { ExamDownloadCsvComponent } from './exam-download-csv/exam-download-csv.component';
+import { ExamService } from './exam.service';
 
 
 
@@ -18,7 +19,8 @@ import { ExamDownloadCsvComponent } from './exam-download-csv/exam-download-csv.
   ],
   imports: [
     CommonModule,
-    ExamRoutingModule,NgxBootstrapModule
-  ]
+    ExamRoutingModule, NgxBootstrapModule
+  ],
+  providers: [ExamService],
 })
 export class ExamModule { }
