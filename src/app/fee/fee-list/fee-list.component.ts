@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Fee } from '../fee.model';
+import { FeeService } from '../fee.service';
 @Component({
   selector: 'app-fee-list',
   templateUrl: './fee-list.component.html',
@@ -7,7 +9,7 @@ import { Fee } from '../fee.model';
 })
 export class FeeListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :FeeService) { }
 
   ngOnInit(): void {
   }

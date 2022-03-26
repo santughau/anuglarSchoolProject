@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Video } from '../video.model';
+import { VideoService } from '../video.service';
 @Component({
   selector: 'app-video-edit',
   templateUrl: './video-edit.component.html',
@@ -7,7 +9,7 @@ import { Video } from '../video.model';
 })
 export class VideoEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :VideoService) { }
 
   ngOnInit(): void {
   }

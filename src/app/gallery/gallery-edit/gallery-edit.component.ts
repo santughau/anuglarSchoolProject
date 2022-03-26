@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Gallery } from '../gallery.model';
+import { GalleryService } from '../gallery.service';
 @Component({
   selector: 'app-gallery-edit',
   templateUrl: './gallery-edit.component.html',
@@ -7,7 +9,7 @@ import { Gallery } from '../gallery.model';
 })
 export class GalleryEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :GalleryService) { }
 
   ngOnInit(): void {
   }

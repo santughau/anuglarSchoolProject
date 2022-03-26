@@ -9,7 +9,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ChapterListComponent, ChapterEditComponent],
+  declarations: [],
   imports: [
     RouterModule.forChild(routes)
   ]

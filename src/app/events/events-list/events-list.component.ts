@@ -1,7 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EventList } from '../event.model';
+import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-events-list',
@@ -34,7 +36,7 @@ export class EventsListComponent implements OnInit {
     events: this.totlaevents,
     eventClick: this.handleDateClick.bind(this), 
   };
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,private router : Router, private service :EventsService) { }
 
   ngOnInit(): void {
     this.events.forEach((e: { [x: string]: string; }) => {

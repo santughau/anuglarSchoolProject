@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Exam } from '../exam.model';
+import { ExamService } from '../exam.service';
 
 @Component({
   selector: 'app-exam-create',
@@ -21,7 +23,7 @@ export class ExamCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor() {
+  constructor(private router : Router, private service :ExamService) {
 
 
   }

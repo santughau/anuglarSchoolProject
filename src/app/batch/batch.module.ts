@@ -21,8 +21,5 @@ import { BatchService } from './batch.service';
   providers: [BatchService],
 })
 export class BatchModule {
-  constructor() {
-    console.log("batch");
-    
-  }
+  
  }

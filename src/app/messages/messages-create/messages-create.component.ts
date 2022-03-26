@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Messages } from '../messages.model';
+import { MessagesService } from '../messages.service';
 
 @Component({
   selector: 'app-messages-create',
@@ -38,7 +40,7 @@ export class MessagesCreateComponent implements OnInit {
   checkedPro: any[] = [];
   addForm: FormGroup
   body = new FormControl('');
-  constructor() {
+  constructor(private router : Router, private service :MessagesService) {
     this.addForm = new FormGroup({
       body: this.body
     })

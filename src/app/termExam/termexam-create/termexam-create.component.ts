@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TermExamService } from '../term-exam.service';
 import { Termexam } from '../termexam.model';
 
 @Component({
@@ -8,7 +10,7 @@ import { Termexam } from '../termexam.model';
 })
 export class TermexamCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :TermExamService) { }
 
   ngOnInit(): void {
   }

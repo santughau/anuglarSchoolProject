@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Quiz } from '../quiz.model';
+import { QuizService } from '../quiz.service';
 
 @Component({
   selector: 'app-quiz-add-question',
@@ -35,7 +37,7 @@ export class QuizAddQuestionComponent implements OnInit {
   optionB = new FormControl('');
   optionC = new FormControl('');
   optionD = new FormControl('');
-  constructor() {
+  constructor(private router : Router, private service :QuizService) {
     this.addForm = new FormGroup({
       ans: this.ans,
       question: this.question,

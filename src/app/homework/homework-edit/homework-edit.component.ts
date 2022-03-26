@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Homework } from '../homework.model';
+import { HomeworkService } from '../homework.service';
 @Component({
   selector: 'app-homework-edit',
   templateUrl: './homework-edit.component.html',
@@ -7,7 +9,7 @@ import { Homework } from '../homework.model';
 })
 export class HomeworkEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :HomeworkService) { }
 
   ngOnInit(): void {
   }

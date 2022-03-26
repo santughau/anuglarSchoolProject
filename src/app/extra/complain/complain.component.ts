@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Complaint } from '../complaints.model';
+import { ExtraService } from '../extra.service';
 
 @Component({
   selector: 'app-complain',
@@ -8,7 +10,7 @@ import { Complaint } from '../complaints.model';
 })
 export class ComplainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ExtraService) { }
 
   ngOnInit(): void {
   }

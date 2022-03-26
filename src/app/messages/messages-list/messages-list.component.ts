@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Messages } from '../messages.model';
+import { MessagesService } from '../messages.service';
 @Component({
   selector: 'app-messages-list',
   templateUrl: './messages-list.component.html',
@@ -7,7 +9,7 @@ import { Messages } from '../messages.model';
 })
 export class MessagesListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :MessagesService) { }
 
   ngOnInit(): void {
   }

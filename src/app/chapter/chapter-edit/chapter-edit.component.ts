@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chapter } from '../chapter.model';
+import { ChapterService } from '../chapter.service';
 
 @Component({
   selector: 'app-chapter-edit',
@@ -8,7 +10,7 @@ import { Chapter } from '../chapter.model';
 })
 export class ChapterEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ChapterService) { }
 
   ngOnInit(): void {
   }

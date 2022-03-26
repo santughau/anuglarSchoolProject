@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Expences } from '../expences.model';
+import { ExpencesService } from '../expences.service';
 @Component({
   selector: 'app-expences-list',
   templateUrl: './expences-list.component.html',
@@ -7,7 +9,7 @@ import { Expences } from '../expences.model';
 })
 export class ExpencesListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ExpencesService) { }
 
   ngOnInit(): void {
   }

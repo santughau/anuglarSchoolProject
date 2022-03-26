@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Homework } from '../homework.model';
+import { HomeworkService } from '../homework.service';
 
 @Component({
   selector: 'app-homework-create',
@@ -8,7 +10,7 @@ import { Homework } from '../homework.model';
 })
 export class HomeworkCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :HomeworkService) { }
 
   ngOnInit(): void {
   }

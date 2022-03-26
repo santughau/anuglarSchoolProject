@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Expences } from '../expences.model';
+import { ExpencesService } from '../expences.service';
 
 @Component({
   selector: 'app-expences-create',
@@ -20,7 +22,7 @@ export class ExpencesCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor() { }
+  constructor(private router : Router, private service :ExpencesService) { }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});

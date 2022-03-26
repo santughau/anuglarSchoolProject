@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SubjectModel } from '../subject.model';
+import { SubjectService } from '../subject.service';
 @Component({
   selector: 'app-subject-list',
   templateUrl: './subject-list.component.html',
@@ -7,7 +9,7 @@ import { SubjectModel } from '../subject.model';
 })
 export class SubjectListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :SubjectService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit ,ViewChild, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { TermExamService } from '../term-exam.service';
 import { Termexam } from '../termexam.model';
 
 @Component({
@@ -23,7 +25,7 @@ export class TermexamDetailsComponent implements OnInit {
   total = 0;
   @ViewChild('template1') private template1:any
   @ViewChild('template2') private template2:any
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,private router : Router, private service :TermExamService) { }
 
   ngOnInit(): void {
   }

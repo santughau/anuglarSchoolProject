@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ClassTitleService } from '../class-title.service';
 import { ClassList } from '../classList.model';
 @Component({
   selector: 'app-class-title-edit',
@@ -7,7 +9,7 @@ import { ClassList } from '../classList.model';
 })
 export class ClassTitleEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ClassTitleService) { }
 
   ngOnInit(): void {
   }

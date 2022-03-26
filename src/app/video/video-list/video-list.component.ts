@@ -1,5 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
 import { Video } from '../video.model';
+import { VideoService } from '../video.service';
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
@@ -11,7 +13,7 @@ export class VideoListComponent implements OnInit,AfterViewInit, OnDestroy {
   @ViewChild('demoYouTubePlayer') demoYouTubePlayer!: ElementRef<HTMLDivElement>;
   videoWidth: number | undefined;
   videoHeight: number | undefined;
-  constructor(private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private _changeDetectorRef: ChangeDetectorRef,private router : Router, private service :VideoService) { }
 
   ngOnInit(): void {
     if (!this.apiLoaded) {      

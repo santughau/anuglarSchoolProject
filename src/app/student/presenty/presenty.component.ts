@@ -1,7 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Student } from '../student.model';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-presenty',
@@ -36,7 +38,7 @@ export class PresentyComponent implements OnInit {
     eventClick: this.handleDateClick.bind(this), 
   };
   
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,private router : Router, private service :StudentService) { }
 
   ngOnInit(): void {
     this.events.forEach((e: { [x: string]: string; }) => {

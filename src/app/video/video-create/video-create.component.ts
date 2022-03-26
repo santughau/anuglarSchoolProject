@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Video } from '../video.model';
+import { VideoService } from '../video.service';
 
 @Component({
   selector: 'app-video-create',
@@ -8,7 +10,7 @@ import { Video } from '../video.model';
 })
 export class VideoCreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :VideoService) { }
 
   ngOnInit(): void {
   }

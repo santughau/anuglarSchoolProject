@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ExtraService } from '../extra.service';
 import { Registration } from '../registrtation.model';
 
 @Component({
@@ -8,7 +10,7 @@ import { Registration } from '../registrtation.model';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ExtraService) { }
 
   ngOnInit(): void {
   }

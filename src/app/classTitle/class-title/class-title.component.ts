@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ClassTitleService } from '../class-title.service';
 import { ClassList } from '../classList.model';
 
 @Component({
@@ -8,7 +10,7 @@ import { ClassList } from '../classList.model';
 })
 export class ClassTitleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, private service :ClassTitleService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Student } from '../student.model';
+import { StudentService } from '../student.service';
 @Component({
   selector: 'app-student-create',
   templateUrl: './student-create.component.html',
@@ -22,7 +24,7 @@ export class StudentCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor() {
+  constructor(private router : Router, private service :StudentService) {
 
 
   }
