@@ -11,6 +11,12 @@ import { ExpencesService } from '../expences.service';
   styleUrls: ['./expences-edit.component.css']
 })
 export class ExpencesEditComponent implements OnInit {
+  expences: Expences = {
+    expencesId: '',
+    expencesParticular: '',
+    expencesAmt: '',
+    expencesDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()

@@ -1,6 +1,6 @@
 export class Chapter {
-    chapterId?: number;
-    chapterClassId?: number;
+    chapterId?: number | string;
+    chapterClassId?: number| string;
     chapterClass: string;
     chapterSubject: string;
     chapterSubjectId: string;

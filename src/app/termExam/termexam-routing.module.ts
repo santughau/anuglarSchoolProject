@@ -16,6 +16,6 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forChild(routes)
-  ]
+  ],
 })
 export class TermexamRoutingModule { }

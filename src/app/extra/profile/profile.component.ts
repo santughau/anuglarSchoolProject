@@ -9,8 +9,23 @@ import { Profile } from '../profile.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private router : Router, private service :ExtraService) { }
+  profile: Profile = {
+    profileId: '',
+    profileInstituteName: '',
+    profileAddressOne: '',
+    profileAddressTwo: '',
+    profileTaluka: '',
+    profileDistrict: '',
+    profileMobile: '',
+    profileEmail: '',
+    profileBankName: '',
+    profileAccNo: '',
+    profileIfsc: '',
+    profileSlogan: '',
+    profileWebsite: '',
+    profileLogo: ''
+  }
+  constructor(private router: Router, private service: ExtraService) { }
 
   ngOnInit(): void {
   }

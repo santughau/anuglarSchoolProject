@@ -9,7 +9,15 @@ import { FeeService } from '../fee.service';
   styleUrls: ['./fee-edit.component.css']
 })
 export class FeeEditComponent implements OnInit {
-
+  fee: Fee = {
+    feeId: '',
+    feeClass: '',
+    feeBatch: '',
+    feeStudentName: '',
+    feeFeeAmt: '',
+    feeVoucherNo: '',
+    feeDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()

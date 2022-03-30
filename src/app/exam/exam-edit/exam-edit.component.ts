@@ -9,7 +9,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-edit.component.css']
 })
 export class ExamEditComponent implements OnInit {
-
+  exam: Exam = {
+    examId: '',
+    examClass: '',
+    examBatch: '',
+    examSubject: '',
+    examTotalMarks: '',
+    exam: '',
+    feeDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()

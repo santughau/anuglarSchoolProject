@@ -9,8 +9,13 @@ import { SubjectService } from '../subject.service';
   styleUrls: ['./subject-edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
-
-  constructor(private router : Router, private service :SubjectService) { }
+  subjectModel: SubjectModel = {
+    subjectId: '',
+    subjectClassId: '',
+    subjectClass: '',
+    subjectName: '',
+  }
+  constructor(private router: Router, private service: SubjectService) { }
 
   ngOnInit(): void {
   }

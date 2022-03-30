@@ -8,8 +8,15 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-edit.component.css']
 })
 export class HomeworkEditComponent implements OnInit {
-
-  constructor(private router : Router, private service :HomeworkService) { }
+  homework: Homework = {
+    homeworkId: '',
+    homeworkClass: '',
+    homeworkBatch: '',
+    homeworkChapter: '',
+    homeworkName: '',
+    homeworkFile: '',
+  }
+  constructor(private router: Router, private service: HomeworkService) { }
 
   ngOnInit(): void {
   }

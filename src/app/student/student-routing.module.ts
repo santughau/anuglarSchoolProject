@@ -17,9 +17,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [
-    RouterModule.forChild(routes)
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class StudentRoutingModule { }
+export class StudentRoutingModule {
+  constructor() {
+    console.log("st Ro L");
+
+  }
+}

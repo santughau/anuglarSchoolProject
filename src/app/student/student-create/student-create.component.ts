@@ -11,7 +11,26 @@ import { StudentService } from '../student.service';
 
 
 export class StudentCreateComponent implements OnInit {
-
+  student: Student = {
+    studentId: '',
+    studentAddress: '',
+    studentClass: '',
+    studentBatch: '',
+    studentMedium: '',
+    studentGender: '',
+    studentMobile: '',
+    studentEmail: '',
+    studentSchool: '',
+    studentFee: '',
+    studentPassword: '',
+    studentMac: '',
+    studentDob: '',
+    studentSubject: '',
+    studentCompExam: '',
+    studentImage: '',
+    studentStatus: true,
+    studentCreated: '',
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()

@@ -1,5 +1,5 @@
 export class Gallery {
-    galleryId?: number;
+    galleryId?: number | string;
     galleryImage: string;
     galleryTitle: string;
 }

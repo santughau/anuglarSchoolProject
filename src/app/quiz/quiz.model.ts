@@ -1,5 +1,5 @@
 export class Quiz {
-    quizId?: number;
+    quizId?: number | string;
     quizClass: string;
     quizSubject: string;
     quizChapter: string;

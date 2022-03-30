@@ -15,9 +15,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
-
-import { IndexPageComponent } from './common/index-page/index-page.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
+import { IndexPageComponent } from './common/index-page/index-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EventsModule } from './events/events.module';
 import { ExtraModule } from './extra/extra.module';
@@ -26,9 +25,8 @@ import { SubjectModule } from './subject/subject.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { HomeworkModule } from './homework/homework.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { TermexamModule } from './termExam/termexam.module';
-import { VideoModule } from './video/video.module';
-import { QuizModule } from './quiz/quiz.module';
+import { StudentService } from './student/student.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,9 +34,8 @@ import { QuizModule } from './quiz/quiz.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    IndexPageComponent,
     PageNotFoundComponent,
-   
+    IndexPageComponent,
    
   ],
   imports: [
@@ -57,13 +54,13 @@ import { QuizModule } from './quiz/quiz.module';
     ClassTitleModule,
     SubjectModule,
     ChapterModule,
-    HomeworkModule,PdfViewerModule, TermexamModule, VideoModule, QuizModule,
+    HomeworkModule,PdfViewerModule,HttpClientModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   
-  providers: [],
+  providers: [StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,8 +8,15 @@ import { ChapterService } from '../chapter.service';
   styleUrls: ['./chapter-list.component.css']
 })
 export class ChapterListComponent implements OnInit {
-
-  constructor(private router : Router, private service :ChapterService) { }
+  chapter: Chapter = {
+    chapterId: '',
+    chapterClassId: '',
+    chapterClass: '',
+    chapterSubject: '',
+    chapterSubjectId: '',
+    chapterName: ''
+  }
+  constructor(private router: Router, private service: ChapterService) { }
 
   ngOnInit(): void {
   }

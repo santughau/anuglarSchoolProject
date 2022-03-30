@@ -1,5 +1,5 @@
 export class Batch {
-    batchId?: number;
+    batchId?: number | string;
     batchName: string;
     batchClass: string;
     batchDuration: string;

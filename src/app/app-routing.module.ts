@@ -4,22 +4,21 @@ import { IndexPageComponent } from './common/index-page/index-page.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 
 
-
-
-const routes: Routes = [
-  {path: '', pathMatch: 'full', component: IndexPageComponent}, 
-  { path: 'indexpage', component: IndexPageComponent },
+const routes: Routes = [  
+   { path: '',redirectTo:'/indexpage',pathMatch: 'full',  }, 
+  { path: 'indexpage', component: IndexPageComponent }, 
   
-
-  {
-    path: 'gallery',
-    loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule)
-  },
-
   {
     path: 'student',
     loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
   },
+
+   {
+    path: 'gallery',
+    loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule)
+  }, 
+
+  
 
   {
     path: 'batch',
@@ -93,12 +92,12 @@ const routes: Routes = [
     path: 'chapter',
     loadChildren: () => import('./chapter/chapter.module').then(m => m.ChapterModule)
   },
- 
+  
   { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules})],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
 
 
   exports: [RouterModule]

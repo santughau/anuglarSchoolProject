@@ -11,6 +11,26 @@ import { StudentService } from '../student.service';
   styleUrls: ['./presenty.component.css']
 })
 export class PresentyComponent implements OnInit {
+  student: Student = {
+    studentId: '',
+    studentAddress: '',
+    studentClass: '',
+    studentBatch: '',
+    studentMedium: '',
+    studentGender: '',
+    studentMobile: '',
+    studentEmail: '',
+    studentSchool: '',
+    studentFee: '',
+    studentPassword: '',
+    studentMac: '',
+    studentDob: '',
+    studentSubject: '',
+    studentCompExam: '',
+    studentImage: '',
+    studentStatus: true,
+    studentCreated: '',
+  }
   modalRef?: BsModalRef;
   start: any;
   title: any;
@@ -25,20 +45,20 @@ export class PresentyComponent implements OnInit {
 
   ];
   eventadd: any = [
-    { title: 'Absent For Physics', date: '2022-03-03',msg:'Hello' }
+    { title: 'Absent For Physics', date: '2022-03-03', msg: 'Hello' }
   ];
   totlaevents: any = this.events.concat(this.eventadd);
   config = {
     animated: true
   };
-   
+
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     events: this.totlaevents,
-    eventClick: this.handleDateClick.bind(this), 
+    eventClick: this.handleDateClick.bind(this),
   };
-  
-  constructor(private modalService: BsModalService,private router : Router, private service :StudentService) { }
+
+  constructor(private modalService: BsModalService, private router: Router, private service: StudentService) { }
 
   ngOnInit(): void {
     this.events.forEach((e: { [x: string]: string; }) => {

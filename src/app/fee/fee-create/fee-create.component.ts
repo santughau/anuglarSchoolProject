@@ -10,6 +10,15 @@ import { FeeService } from '../fee.service';
   styleUrls: ['./fee-create.component.css']
 })
 export class FeeCreateComponent implements OnInit {
+  fee: Fee = {
+    feeId: '',
+    feeClass: '',
+    feeBatch: '',
+    feeStudentName: '',
+    feeFeeAmt: '',
+    feeVoucherNo: '',
+    feeDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()
@@ -22,10 +31,10 @@ export class FeeCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router : Router, private service :FeeService) { }
+  constructor(private router: Router, private service: FeeService) { }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 }

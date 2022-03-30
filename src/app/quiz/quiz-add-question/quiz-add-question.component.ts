@@ -10,7 +10,14 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz-add-question.component.css']
 })
 export class QuizAddQuestionComponent implements OnInit {
-
+  quiz: Quiz = {
+    quizId: '',
+    quizClass: '',
+    quizSubject: '',
+    quizChapter: '',
+    quizTitle: '',
+    quizLink: ''
+  }
   tinyObject = {
     height: 150,
     menubar: true,
@@ -29,7 +36,7 @@ export class QuizAddQuestionComponent implements OnInit {
       bullist numlist outdent indent | removeformat | help styleselect '
   }
 
- 
+
   addForm: FormGroup
   question = new FormControl('');
   ans = new FormControl('');
@@ -37,7 +44,7 @@ export class QuizAddQuestionComponent implements OnInit {
   optionB = new FormControl('');
   optionC = new FormControl('');
   optionD = new FormControl('');
-  constructor(private router : Router, private service :QuizService) {
+  constructor(private router: Router, private service: QuizService) {
     this.addForm = new FormGroup({
       ans: this.ans,
       question: this.question,
@@ -54,5 +61,5 @@ export class QuizAddQuestionComponent implements OnInit {
   addPost() {
     console.log(this.addForm.value);
   }
-  
+
 }

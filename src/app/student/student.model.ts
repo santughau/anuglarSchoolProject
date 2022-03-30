@@ -1,5 +1,5 @@
 export class Student {
-    studentId?: number;
+    studentId?: number | string;
     studentAddress: string;
     studentClass: string;
     studentBatch: string;

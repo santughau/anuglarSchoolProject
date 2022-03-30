@@ -9,6 +9,15 @@ import { BatchService } from '../batch.service';
   styleUrls: ['./batch-edit.component.css']
 })
 export class BatchEditComponent implements OnInit {
+  batch: Batch = {
+    batchId: '',
+    batchName: '',
+    batchClass: '',
+    batchDuration: '',
+    batchFee: '',
+    batchStartsFrom: '',
+    batchTime: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()
@@ -21,10 +30,10 @@ export class BatchEditComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private service : BatchService,private router : Router) { }
+  constructor(private service: BatchService, private router: Router) { }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 }

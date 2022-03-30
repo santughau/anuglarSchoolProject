@@ -1,5 +1,5 @@
 export class Profile {
-    profileId?: number;
+    profileId?: number | string;
     profileInstituteName: string;
     profileAddressOne: string;
     profileAddressTwo: string;

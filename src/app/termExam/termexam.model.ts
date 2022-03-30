@@ -1,5 +1,5 @@
 export class Termexam {
-    termexamId?: number;
+    termexamId?: number | string;
     termexamClass: string;
     termexamSubject: string;
     termexamExam: string;

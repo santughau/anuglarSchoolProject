@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -10,7 +10,14 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-details.component.css']
 })
 export class HomeworkDetailsComponent implements OnInit {
-  
+  homework: Homework = {
+    homeworkId: '',
+    homeworkClass: '',
+    homeworkBatch: '',
+    homeworkChapter: '',
+    homeworkName: '',
+    homeworkFile: '',
+  }
   modalRef?: BsModalRef;
   pdfSrc = "https://matfuvit.github.io/UVIT/predavanja/literatura/TutorialsPoint%20JavaScript.pdf";
   zoom = 1;
@@ -22,9 +29,9 @@ export class HomeworkDetailsComponent implements OnInit {
   dynamic = 0;
   loaded = 0;
   total = 0;
-  @ViewChild('template1') private template1:any
-  @ViewChild('template2') private template2:any
-  constructor(private modalService: BsModalService,private router : Router, private service :HomeworkService) { }
+  @ViewChild('template1') private template1: any
+  @ViewChild('template2') private template2: any
+  constructor(private modalService: BsModalService, private router: Router, private service: HomeworkService) { }
 
   ngOnInit(): void {
   }
@@ -44,16 +51,16 @@ export class HomeworkDetailsComponent implements OnInit {
     }
   }
 
-  callBackFn(event:any) {
+  callBackFn(event: any) {
     console.log('callBackFn', event._transport._params.url);
     console.log('callBackFn', event);
     // Setting total number of pages
     this.totalPages = event._pdfInfo.numPages
   }
-  
+
   zoomOut() {
     if (this.zoom > 0.05)
-    this.zoom -= 0.05;
+      this.zoom -= 0.05;
   }
 
   zoomIn() {
@@ -64,9 +71,9 @@ export class HomeworkDetailsComponent implements OnInit {
     this.zoom = 1;
   }
 
-  pageRendered(event:any) {
+  pageRendered(event: any) {
     console.log('pageRendered', event.pageNumber);
-    
+
   }
 
   pageIn() {
@@ -76,12 +83,12 @@ export class HomeworkDetailsComponent implements OnInit {
     } else {
       this.pageVariable = this.pageVariable + 1
     }
-    
+
   }
 
   pageOut() {
     if (this.pageVariable == 1) {
-      
+
       this.modalRef = this.modalService.show(this.template2);
       this.pageVariable = 1;
     } else {
@@ -98,14 +105,14 @@ export class HomeworkDetailsComponent implements OnInit {
   }
 
 
-  onProgress(event:any) {
+  onProgress(event: any) {
     console.log('onProgress', event);
     this.loaded = event.loaded;
     this.total = event.total;
     this.dynamic = (100 * this.loaded) / this.total;
-    
+
   }
 
-  
+
 
 }

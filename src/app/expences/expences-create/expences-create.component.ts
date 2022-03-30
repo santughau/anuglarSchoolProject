@@ -10,6 +10,12 @@ import { ExpencesService } from '../expences.service';
   styleUrls: ['./expences-create.component.css']
 })
 export class ExpencesCreateComponent implements OnInit {
+  expences: Expences = {
+    expencesId: '',
+    expencesParticular: '',
+    expencesAmt: '',
+    expencesDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()
@@ -22,10 +28,10 @@ export class ExpencesCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router : Router, private service :ExpencesService) { }
+  constructor(private router: Router, private service: ExpencesService) { }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 }

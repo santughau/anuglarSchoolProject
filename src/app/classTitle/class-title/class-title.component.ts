@@ -9,8 +9,11 @@ import { ClassList } from '../classList.model';
   styleUrls: ['./class-title.component.css']
 })
 export class ClassTitleComponent implements OnInit {
-
-  constructor(private router : Router, private service :ClassTitleService) { }
+  classList : ClassList = {
+    classId: '',
+    className: ''
+  }
+  constructor(private router: Router, private service: ClassTitleService) { }
 
   ngOnInit(): void {
   }

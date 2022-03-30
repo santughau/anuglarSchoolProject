@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -11,7 +11,14 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-details.component.css']
 })
 export class TermexamDetailsComponent implements OnInit {
-
+  termexam: Termexam = {
+    termexamId: '',
+    termexamClass: '',
+    termexamSubject: '',
+    termexamExam: '',
+    termexamName: '',
+    termexamFile: ''
+  }
   modalRef?: BsModalRef;
   pdfSrc = "https://matfuvit.github.io/UVIT/predavanja/literatura/TutorialsPoint%20JavaScript.pdf";
   zoom = 1;
@@ -23,9 +30,9 @@ export class TermexamDetailsComponent implements OnInit {
   dynamic = 0;
   loaded = 0;
   total = 0;
-  @ViewChild('template1') private template1:any
-  @ViewChild('template2') private template2:any
-  constructor(private modalService: BsModalService,private router : Router, private service :TermExamService) { }
+  @ViewChild('template1') private template1: any
+  @ViewChild('template2') private template2: any
+  constructor(private modalService: BsModalService, private router: Router, private service: TermExamService) { }
 
   ngOnInit(): void {
   }
@@ -45,16 +52,16 @@ export class TermexamDetailsComponent implements OnInit {
     }
   }
 
-  callBackFn(event:any) {
+  callBackFn(event: any) {
     console.log('callBackFn', event._transport._params.url);
     console.log('callBackFn', event);
     // Setting total number of pages
     this.totalPages = event._pdfInfo.numPages
   }
-  
+
   zoomOut() {
     if (this.zoom > 0.05)
-    this.zoom -= 0.05;
+      this.zoom -= 0.05;
   }
 
   zoomIn() {
@@ -65,9 +72,9 @@ export class TermexamDetailsComponent implements OnInit {
     this.zoom = 1;
   }
 
-  pageRendered(event:any) {
+  pageRendered(event: any) {
     console.log('pageRendered', event.pageNumber);
-    
+
   }
 
   pageIn() {
@@ -77,12 +84,12 @@ export class TermexamDetailsComponent implements OnInit {
     } else {
       this.pageVariable = this.pageVariable + 1
     }
-    
+
   }
 
   pageOut() {
     if (this.pageVariable == 1) {
-      
+
       this.modalRef = this.modalService.show(this.template2);
       this.pageVariable = 1;
     } else {
@@ -100,11 +107,11 @@ export class TermexamDetailsComponent implements OnInit {
   }
 
 
-  onProgress(event:any) {
+  onProgress(event: any) {
     console.log('onProgress', event);
     this.loaded = event.loaded;
     this.total = event.total;
     this.dynamic = (100 * this.loaded) / this.total;
-    
+
   }
 }

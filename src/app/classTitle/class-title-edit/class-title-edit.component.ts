@@ -8,7 +8,10 @@ import { ClassList } from '../classList.model';
   styleUrls: ['./class-title-edit.component.css']
 })
 export class ClassTitleEditComponent implements OnInit {
-
+  classList : ClassList = {
+    classId: '',
+    className: ''
+  }
   constructor(private router : Router, private service :ClassTitleService) { }
 
   ngOnInit(): void {

@@ -9,7 +9,14 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-create.component.css']
 })
 export class HomeworkCreateComponent implements OnInit {
-
+  homework : Homework ={
+    homeworkId: '',
+    homeworkClass: '',
+    homeworkBatch: '',
+    homeworkChapter: '',
+    homeworkName: '',
+    homeworkFile: '',
+}
   constructor(private router : Router, private service :HomeworkService) { }
 
   ngOnInit(): void {

@@ -9,6 +9,13 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-edit.component.css']
 })
 export class EventsEditComponent implements OnInit {
+  eventList : EventList = {
+    eventId: '',
+    eventTitle: '',
+    eventMessage: '',
+    eventcolor: '',
+    eventDate: '',
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()

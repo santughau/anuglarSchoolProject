@@ -29,5 +29,8 @@ FullCalendarModule.registerPlugins([
   providers: [StudentService],
 })
 export class StudentModule { 
-  
+  constructor() {
+    console.log("st");
+    
+  }
 }

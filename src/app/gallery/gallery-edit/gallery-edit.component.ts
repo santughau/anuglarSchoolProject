@@ -8,8 +8,12 @@ import { GalleryService } from '../gallery.service';
   styleUrls: ['./gallery-edit.component.css']
 })
 export class GalleryEditComponent implements OnInit {
-
-  constructor(private router : Router, private service :GalleryService) { }
+  gallery: Gallery = {
+    galleryId: '',
+    galleryImage: '',
+    galleryTitle: ''
+  }
+  constructor(private router: Router, private service: GalleryService) { }
 
   ngOnInit(): void {
   }

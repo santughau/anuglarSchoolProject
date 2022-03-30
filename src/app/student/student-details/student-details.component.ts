@@ -8,7 +8,26 @@ import { StudentService } from '../student.service';
   styleUrls: ['./student-details.component.css']
 })
 export class StudentDetailsComponent implements OnInit {
-
+  student: Student = {
+    studentId: '',
+    studentAddress: '',
+    studentClass: '',
+    studentBatch: '',
+    studentMedium: '',
+    studentGender: '',
+    studentMobile: '',
+    studentEmail: '',
+    studentSchool: '',
+    studentFee: '',
+    studentPassword: '',
+    studentMac: '',
+    studentDob: '',
+    studentSubject: '',
+    studentCompExam: '',
+    studentImage: '',
+    studentStatus: true,
+    studentCreated: '',
+  }
   constructor(private router : Router, private service :StudentService) { }
 
   ngOnInit(): void {

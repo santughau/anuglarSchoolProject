@@ -8,7 +8,14 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz-create.component.css']
 })
 export class QuizCreateComponent implements OnInit {
-
+  quiz: Quiz = {
+    quizId: '',
+    quizClass: '',
+    quizSubject: '',
+    quizChapter: '',
+    quizTitle: '',
+    quizLink: ''
+  }
   constructor(private router : Router, private service :QuizService) { }
 
   ngOnInit(): void {

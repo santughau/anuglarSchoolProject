@@ -10,7 +10,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-create.component.css']
 })
 export class ExamCreateComponent implements OnInit {
-
+  exam: Exam = {
+    examId: '',
+    examClass: '',
+    examBatch: '',
+    examSubject: '',
+    examTotalMarks: '',
+    exam: '',
+    feeDate: ''
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()
@@ -23,13 +31,13 @@ export class ExamCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router : Router, private service :ExamService) {
+  constructor(private router: Router, private service: ExamService) {
 
 
   }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 }

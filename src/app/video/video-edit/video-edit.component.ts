@@ -8,8 +8,15 @@ import { VideoService } from '../video.service';
   styleUrls: ['./video-edit.component.css']
 })
 export class VideoEditComponent implements OnInit {
-
-  constructor(private router : Router, private service :VideoService) { }
+  video: Video = {
+    videoId: '',
+    videoClass: '',
+    videoSubject: '',
+    videoChapter: '',
+    videoTitle: '',
+    videoLink: ''
+  }
+  constructor(private router: Router, private service: VideoService) { }
 
   ngOnInit(): void {
   }

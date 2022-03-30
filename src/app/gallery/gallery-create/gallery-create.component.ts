@@ -9,8 +9,12 @@ import { GalleryService } from '../gallery.service';
   styleUrls: ['./gallery-create.component.css']
 })
 export class GalleryCreateComponent implements OnInit {
-
-  constructor(private router : Router, private service :GalleryService) { }
+  gallery: Gallery = {
+    galleryId: '',
+    galleryImage: '',
+    galleryTitle: ''
+  }
+  constructor(private router: Router, private service: GalleryService) { }
 
   ngOnInit(): void {
   }

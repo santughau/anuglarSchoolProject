@@ -1,5 +1,5 @@
 export class Messages {
-    messageId?: number;
+    messageId?: number | string;
     messageStudentName: string;
     messageClass: string;
     messageBatch: string;

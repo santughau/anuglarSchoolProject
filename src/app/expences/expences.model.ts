@@ -1,5 +1,5 @@
 export class Expences {
-    expencesId?: number;
+    expencesId?: number | string;
     expencesParticular: string;
     expencesAmt: string;
     expencesDate: string;

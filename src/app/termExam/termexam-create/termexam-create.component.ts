@@ -9,8 +9,15 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-create.component.css']
 })
 export class TermexamCreateComponent implements OnInit {
-
-  constructor(private router : Router, private service :TermExamService) { }
+  termexam: Termexam = {
+    termexamId: '',
+    termexamClass: '',
+    termexamSubject: '',
+    termexamExam: '',
+    termexamName: '',
+    termexamFile: ''
+  }
+  constructor(private router: Router, private service: TermExamService) { }
 
   ngOnInit(): void {
   }

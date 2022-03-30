@@ -8,7 +8,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-download-csv.component.css']
 })
 export class ExamDownloadCsvComponent implements OnInit {
-
+  exam: Exam = {
+    examId: '',
+    examClass: '',
+    examBatch: '',
+    examSubject: '',
+    examTotalMarks: '',
+    exam: '',
+    feeDate: ''
+  }
   constructor(private router : Router, private service :ExamService) { }
 
   ngOnInit(): void {

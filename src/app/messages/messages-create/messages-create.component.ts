@@ -10,6 +10,14 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./messages-create.component.css']
 })
 export class MessagesCreateComponent implements OnInit {
+  messages: Messages = {
+    messageId: '',
+    messageStudentName: '',
+    messageClass: '',
+    messageBatch: '',
+    messageImage: '',
+    messageText: ''
+  }
   tinyObject = {
     height: 150,
     menubar: true,
@@ -40,7 +48,7 @@ export class MessagesCreateComponent implements OnInit {
   checkedPro: any[] = [];
   addForm: FormGroup
   body = new FormControl('');
-  constructor(private router : Router, private service :MessagesService) {
+  constructor(private router: Router, private service: MessagesService) {
     this.addForm = new FormGroup({
       body: this.body
     })

@@ -9,7 +9,14 @@ import { ChapterService } from '../chapter.service';
   styleUrls: ['./chapter-edit.component.css']
 })
 export class ChapterEditComponent implements OnInit {
-
+  chapter: Chapter = {
+    chapterId: '',
+    chapterClassId: '',
+    chapterClass: '',
+    chapterSubject: '',
+    chapterSubjectId: '',
+    chapterName: ''
+  }
   constructor(private router : Router, private service :ChapterService) { }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 export class Homework {
-    homeworkId?: number;
+    homeworkId?: number | string;
     homeworkClass: string;
     homeworkBatch: string;
     homeworkChapter: string;

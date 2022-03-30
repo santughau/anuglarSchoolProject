@@ -11,6 +11,13 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-create.component.css']
 })
 export class EventsCreateComponent implements OnInit {
+  eventList : EventList = {
+    eventId: '',
+    eventTitle: '',
+    eventMessage: '',
+    eventcolor: '',
+    eventDate: '',
+  }
   bsConfig?: Partial<BsDatepickerConfig>;
 
   today = new Date()
@@ -24,11 +31,11 @@ export class EventsCreateComponent implements OnInit {
     new Date('2022-03-09')
   ];
 
-  
-  constructor(private router : Router, private service :EventsService) { }
+
+  constructor(private router: Router, private service: EventsService) { }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 }

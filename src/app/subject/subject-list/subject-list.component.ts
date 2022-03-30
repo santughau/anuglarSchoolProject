@@ -8,7 +8,12 @@ import { SubjectService } from '../subject.service';
   styleUrls: ['./subject-list.component.css']
 })
 export class SubjectListComponent implements OnInit {
-
+  subjectModel: SubjectModel = {
+    subjectId: '',
+    subjectClassId: '',
+    subjectClass: '',
+    subjectName: '',
+  }
   constructor(private router : Router, private service :SubjectService) { }
 
   ngOnInit(): void {

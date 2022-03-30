@@ -1,5 +1,5 @@
 export class Exam {
-    examId?: number;
+    examId?: number | string;
     examClass: string;
     examBatch: string;
     examSubject: string;

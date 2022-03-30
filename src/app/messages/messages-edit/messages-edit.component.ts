@@ -8,7 +8,14 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./messages-edit.component.css']
 })
 export class MessagesEditComponent implements OnInit {
-
+  messages: Messages = {
+    messageId: '',
+    messageStudentName: '',
+    messageClass: '',
+    messageBatch: '',
+    messageImage: '',
+    messageText: ''
+  }
   constructor(private router : Router, private service :MessagesService) { }
 
   ngOnInit(): void {
