@@ -10,11 +10,13 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./messages-create.component.css']
 })
 export class MessagesCreateComponent implements OnInit {
+  spinner: boolean = true;
   messages: Messages = {
     messageId: '',
+    messageStudentId: '',
     messageStudentName: '',
-    messageClass: '',
-    messageBatch: '',
+    messageClassId: '',
+    messageBatchId: '',
     messageImage: '',
     messageText: ''
   }

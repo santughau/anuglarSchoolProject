@@ -9,6 +9,7 @@ import { Profile } from '../profile.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  spinner: boolean = true;
   profile: Profile = {
     profileId: '',
     profileInstituteName: '',

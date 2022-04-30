@@ -9,11 +9,12 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-create.component.css']
 })
 export class HomeworkCreateComponent implements OnInit {
+  spinner: boolean = true;
   homework : Homework ={
     homeworkId: '',
-    homeworkClass: '',
-    homeworkBatch: '',
-    homeworkChapter: '',
+    homeworkClassId: '',
+    homeworkSubjectId: '',
+    homeworkChapterId: '',
     homeworkName: '',
     homeworkFile: '',
 }

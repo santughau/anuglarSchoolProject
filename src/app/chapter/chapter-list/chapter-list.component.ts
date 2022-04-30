@@ -8,6 +8,7 @@ import { ChapterService } from '../chapter.service';
   styleUrls: ['./chapter-list.component.css']
 })
 export class ChapterListComponent implements OnInit {
+  spinner: boolean = true;
   chapter: Chapter = {
     chapterId: '',
     chapterClassId: '',

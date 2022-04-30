@@ -1,8 +1,8 @@
 export class Video {
     videoId?: number | string;
-    videoClass: string;
-    videoSubject: string;
-    videoChapter: string;
+    videoClassId: string;
+    videoSubjectId: string;
+    videoChapterId: string;
     videoTitle: string;
     videoLink: string;
 }

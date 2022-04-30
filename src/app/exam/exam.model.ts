@@ -4,6 +4,6 @@ export class Exam {
     examBatch: string;
     examSubject: string;
     examTotalMarks: string;
-    exam: string;
-    feeDate: string;
+    examName: string;
+    examDate: string;
 }

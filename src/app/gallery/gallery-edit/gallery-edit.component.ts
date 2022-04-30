@@ -8,6 +8,7 @@ import { GalleryService } from '../gallery.service';
   styleUrls: ['./gallery-edit.component.css']
 })
 export class GalleryEditComponent implements OnInit {
+  spinner: boolean = true;
   gallery: Gallery = {
     galleryId: '',
     galleryImage: '',

@@ -9,14 +9,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-edit.component.css']
 })
 export class ExamEditComponent implements OnInit {
+  spinner: boolean = true;
   exam: Exam = {
     examId: '',
     examClass: '',
     examBatch: '',
     examSubject: '',
     examTotalMarks: '',
-    exam: '',
-    feeDate: ''
+    examName: '',
+    examDate: ''
   }
   bsConfig?: Partial<BsDatepickerConfig>;
 

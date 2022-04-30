@@ -9,7 +9,7 @@ import { Registration } from '../registrtation.model';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :ExtraService) { }
 
   ngOnInit(): void {

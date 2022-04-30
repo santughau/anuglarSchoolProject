@@ -1,4 +1,5 @@
 <div class="row box">
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -9,22 +10,42 @@
     <div class="col-md-12 ">
         <h1 class="text-centerl text-muted">ADD BATCHES</h1>
         <hr>
-        <form class="row g-3 mt-5">
+        <form class="row g-3 mt-5 needs-validation"
+              #batchForm="ngForm"
+              novalidate>
             <div class="col-md-1">
-                <label for="student"
+                <label for="batchName"
+                       [ngClass]="{ 'text-danger': batchName.touched && batchName.invalid , 'text-success': batchName.touched && batchName.valid  }"
                        class="form-label lbl">Batch Name</label>
                 <input type="text"
-                       class="form-control"
-                       id="student">
+                       class="form-control "
+                       id="batchName"
+                       name="batchName"
+                       [(ngModel)]="batch.batchName"
+                       #batchName="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': batchName.touched && batchName.invalid , 'is-valid': batchName.touched && batchName.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Batch Name
+                </div>
             </div>
 
 
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="batchClass" [ngClass]="{ 'text-danger': batchClass.touched && batchClass.invalid , 'text-success': batchClass.touched && batchClass.valid  }"
                        class="form-label">For Class</label>
                 <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
+                        class="form-select"
+                        id="batchClass"
+                        name="batchClass"
+                        [(ngModel)]="batch.batchClass"
+                        #batchClass="ngModel"
+                        required
+                        [ngClass]="{ 'is-invalid': batchClass.touched && batchClass.invalid , 'is-valid': batchClass.touched && batchClass.valid  }">
+                    <option value="">Choose...</option>
                     <option value="1">Class 1 </option>
                     <option value="2">Class 2 </option>
                     <option value="3">Class 3 </option>
@@ -46,7 +67,7 @@
                        id="forMobile">
             </div>
 
-            <div class="col-1">
+            <div class="col-md-1">
                 <label for="forEmail"
                        class="form-label">Batch Fee</label>
                 <input type="email"
@@ -67,7 +88,7 @@
                        [daysDisabled]="[6,0]"
                        [datesDisabled]="disabledDates">
             </div>
-            
+
             <div class="col-md-1">
                 <label for="forMobile"
                        class="form-label">Batch Time</label>
@@ -78,8 +99,10 @@
 
 
 
-            <div class="col-3 d-flex justify-content-center mt-5">
+            <div class="col-md-3  mt-5">
                 <button type="submit"
+                        (click)="saveBatch()"
+                        [disabled]="batchForm.invalid"
                         class="btn btn-danger ">Add Batch</button>
             </div>
 

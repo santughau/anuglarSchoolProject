@@ -8,11 +8,11 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-edit.component.css']
 })
 export class TermexamEditComponent implements OnInit {
+  spinner: boolean = true;
   termexam: Termexam = {
     termexamId: '',
-    termexamClass: '',
-    termexamSubject: '',
-    termexamExam: '',
+    termexamClassId: '',
+    termexamSubjectId: '',
     termexamName: '',
     termexamFile: ''
   }

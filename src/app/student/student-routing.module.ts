@@ -21,8 +21,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class StudentRoutingModule {
-  constructor() {
-    console.log("st Ro L");
-
-  }
 }

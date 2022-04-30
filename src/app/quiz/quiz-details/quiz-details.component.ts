@@ -8,11 +8,12 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz-details.component.css']
 })
 export class QuizDetailsComponent implements OnInit {
+  spinner: boolean = true;
   quiz: Quiz = {
     quizId: '',
-    quizClass: '',
-    quizSubject: '',
-    quizChapter: '',
+    quizClassId: '',
+    quizSubjectId: '',
+    quizChapterId: '',
     quizTitle: '',
     quizLink: ''
   }

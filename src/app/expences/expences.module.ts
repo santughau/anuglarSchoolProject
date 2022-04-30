@@ -19,9 +19,5 @@ import { ExpencesService } from './expences.service';
   ],
   providers: [ExpencesService],
 })
-export class ExpencesModule { 
-  constructor() {
-    console.log("Expen");
-    
-  }
+export class ExpencesModule {
 }

@@ -1,8 +1,9 @@
 export class Messages {
     messageId?: number | string;
-    messageStudentName: string;
-    messageClass: string;
-    messageBatch: string;
-    messageImage: string;
+    messageStudentId: number |string;
+    messageStudentName?: string;
+    messageClassId: string;
+    messageBatchId: string;
+    messageImage?: string;
     messageText: string;
 }

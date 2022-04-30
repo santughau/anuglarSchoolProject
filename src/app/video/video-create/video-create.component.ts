@@ -9,11 +9,12 @@ import { VideoService } from '../video.service';
   styleUrls: ['./video-create.component.css']
 })
 export class VideoCreateComponent implements OnInit {
+  spinner: boolean = true;
   video: Video = {
     videoId: '',
-    videoClass: '',
-    videoSubject: '',
-    videoChapter: '',
+    videoClassId: '',
+    videoSubjectId: '',
+    videoChapterId: '',
     videoTitle: '',
     videoLink: ''
   }

@@ -9,10 +9,12 @@ import { FeeService } from '../fee.service';
   styleUrls: ['./fee-edit.component.css']
 })
 export class FeeEditComponent implements OnInit {
+  spinner: boolean = true;
   fee: Fee = {
     feeId: '',
     feeClass: '',
     feeBatch: '',
+    feeStudentId: '',
     feeStudentName: '',
     feeFeeAmt: '',
     feeVoucherNo: '',

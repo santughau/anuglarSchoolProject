@@ -8,7 +8,7 @@ import { BatchService } from '../batch.service';
   styleUrls: ['./batch-details.component.css']
 })
 export class BatchDetailsComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private service : BatchService, private router : Router) { }
 
   ngOnInit(): void {

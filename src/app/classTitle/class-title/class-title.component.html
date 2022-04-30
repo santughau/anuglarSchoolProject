@@ -1,4 +1,5 @@
 <div class="row box">
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -7,62 +8,51 @@
         </ol>
     </nav>
     <div class="col-md-12 ">
+        <ngx-spinner type="timer">
+            <p style="font-size: 20px; color: white">Loading...</p>
+        </ngx-spinner>
         <h1 class="text-muted mb-5">VIEW ALL CLASSES</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
+        <form class="row g-3 mt-2 mb-5 needs-validation"
+              #classForm="ngForm"
+              (ngSubmit)="saveClass(classForm)"
+              novalidate>
 
             <div class="col-md-3">
-                <label for="student"
+                <label for="className"
+                       [ngClass]="{ 'text-danger': className.touched && className.invalid , 'text-success': className.touched && className.valid  }"
                        class="form-label lbl">Class Name</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="className"
+                       name="className"
+                       [(ngModel)]="classList.className"
+                       #className="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': className.touched && className.invalid , 'is-valid': className.touched && className.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Class Name
+                </div>
             </div>
 
 
-            <div class="col-7  mt-5">
+            <div class="col-md-4  mt-5">
                 <button type="submit"
+                        [disabled]="classForm.invalid"
                         class="btn btn-danger ">Add Class Name</button>
             </div>
+
+            <div class="col-md-4  mt-5">
+                <a   [routerLink]="['/class/classList']" 
+                        class="btn btn-primary ">Go to Class List</a>
+            </div>
         </form>
-        <div id="table-responsive">
-            <table class="table table-bordered display"
-                   id="table2excel">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th scope="col">Sr No</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Class Name</th>
+       
+     
 
-                        <th scope="col"><i class="fa fa-pencil-square-o"
-                               aria-hidden="true"></i>
-                        </th>
-                        <th scope="col"><i class="fa fa-trash-o"
-                               aria-hidden="true"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td>Class </td>
-                        <td class="text-center"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
-                                   aria-hidden="true"></i></a></td>
-                        <td class="text-center"><a class="btn btn-danger"><i class="fa fa-trash-o"
-                                   aria-hidden="true"></i></a></td>
-                       
-                    </tr>
-
-                </tbody>
-            </table>
-            <hr>
-        </div>
-        <button type="button"
-                class="btn btn-warning text-white offset-md-4"
-                id="but">Export to Excel</button>
-        <hr>
 
     </div>
 </div>

@@ -9,6 +9,7 @@ import { BatchService } from '../batch.service';
   styleUrls: ['./batch-edit.component.css']
 })
 export class BatchEditComponent implements OnInit {
+  spinner: boolean = true;
   batch: Batch = {
     batchId: '',
     batchName: '',

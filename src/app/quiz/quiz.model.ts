@@ -1,8 +1,8 @@
 export class Quiz {
     quizId?: number | string;
-    quizClass: string;
-    quizSubject: string;
-    quizChapter: string;
+    quizClassId: string;
+    quizSubjectId: string;
+    quizChapterId: string;
     quizTitle: string;
     quizLink: string;
 }

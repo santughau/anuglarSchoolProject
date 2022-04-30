@@ -8,7 +8,7 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-list.component.css']
 })
 export class HomeworkListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :HomeworkService) { }
 
   ngOnInit(): void {

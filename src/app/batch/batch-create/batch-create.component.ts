@@ -10,7 +10,7 @@ import { BatchService } from '../batch.service';
   styleUrls: ['./batch-create.component.css']
 })
 export class BatchCreateComponent implements OnInit {
-
+  spinner: boolean = true;
   batch: Batch = {
     batchId: '',
     batchName: '',
@@ -39,5 +39,8 @@ export class BatchCreateComponent implements OnInit {
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
-
+  saveBatch() {
+    console.log(this.batch);
+    
+  }
 }

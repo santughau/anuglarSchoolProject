@@ -1,9 +1,10 @@
 export class Complaint {
     complaintId?: number;
     complaintDate: string;
-    complaintStudentName: string;
-    complaintImage: string;
-    complaintClass: string;
-    complaintbatch: string;
+    complaintStudentId: number | string;
+    complaintStudentName?: string;
+    complaintStudentImage?: string;
+    complaintClass?: string;
+    complaintbatch?: string;
     complaintMessages: string;
 }

@@ -9,6 +9,7 @@ import { ChapterService } from '../chapter.service';
   styleUrls: ['./chapter-edit.component.css']
 })
 export class ChapterEditComponent implements OnInit {
+  spinner: boolean = true;
   chapter: Chapter = {
     chapterId: '',
     chapterClassId: '',

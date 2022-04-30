@@ -15,9 +15,12 @@ import { SortableModule } from 'ngx-bootstrap/sortable';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { RouterModule } from '@angular/router';
 
-
-const boot: any = [TooltipModule.forRoot(), AccordionModule.forRoot(), AlertModule.forRoot(), ButtonsModule.forRoot(), CarouselModule.forRoot(), BsDatepickerModule.forRoot(), BsDropdownModule.forRoot(), ModalModule.forRoot(), PaginationModule.forRoot(), PopoverModule.forRoot(), ProgressbarModule.forRoot(), RatingModule.forRoot(), SortableModule.forRoot(), TabsModule.forRoot(), TimepickerModule.forRoot(), TypeaheadModule.forRoot(),]
+const boot: any = [TooltipModule.forRoot(), AccordionModule.forRoot(), AlertModule.forRoot(), ButtonsModule.forRoot(), CarouselModule.forRoot(), BsDatepickerModule.forRoot(), BsDropdownModule.forRoot(), ModalModule.forRoot(), PaginationModule.forRoot(), PopoverModule.forRoot(), ProgressbarModule.forRoot(), RatingModule.forRoot(), SortableModule.forRoot(), TabsModule.forRoot(), TimepickerModule.forRoot(), TypeaheadModule.forRoot(),NgxSpinnerModule, ToastrModule.forRoot(),NgxPaginationModule,RouterModule]
 
 
 

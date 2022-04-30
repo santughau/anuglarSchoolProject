@@ -11,6 +11,7 @@ import { StudentService } from '../student.service';
 
 
 export class StudentCreateComponent implements OnInit {
+  spinner: boolean = true;
   student: Student = {
     studentId: '',
     studentAddress: '',

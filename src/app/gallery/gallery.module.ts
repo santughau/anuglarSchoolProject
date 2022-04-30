@@ -18,8 +18,4 @@ import { GalleryService } from './gallery.service';
   providers: [GalleryService],
 })
 export class GalleryModule {
-  constructor() {
-    console.log('GalleryRoutingModule');
-    
-  }
  }

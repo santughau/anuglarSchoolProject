@@ -8,11 +8,12 @@ import { VideoService } from '../video.service';
   styleUrls: ['./video-edit.component.css']
 })
 export class VideoEditComponent implements OnInit {
+  spinner: boolean = true;
   video: Video = {
     videoId: '',
-    videoClass: '',
-    videoSubject: '',
-    videoChapter: '',
+    videoClassId: '',
+    videoSubjectId: '',
+    videoChapterId: '',
     videoTitle: '',
     videoLink: ''
   }

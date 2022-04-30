@@ -11,6 +11,7 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
+  spinner: boolean = true;
   modalRef?: BsModalRef;
   start: any;
   title: any;
@@ -22,7 +23,6 @@ export class EventsListComponent implements OnInit {
     { title: 'Present', date: '2022-03-01', color: '#0000FF' },
     { title: 'Absent', date: '2022-03-02', color: '#0000FF' },
     { title: 'Present', date: '2022-03-03', color: '#FF0000' },
-
   ];
   eventadd: any = [
     { title: 'Absent For Physics', date: '2022-03-03',msg:'Hello' }

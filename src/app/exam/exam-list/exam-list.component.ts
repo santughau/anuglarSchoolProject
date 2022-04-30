@@ -8,7 +8,7 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-list.component.css']
 })
 export class ExamListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :ExamService) { }
 
   ngOnInit(): void {

@@ -9,6 +9,7 @@ import { SubjectService } from '../subject.service';
   styleUrls: ['./subject-edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
+  spinner: boolean = true;
   subjectModel: SubjectModel = {
     subjectId: '',
     subjectClassId: '',

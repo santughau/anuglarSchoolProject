@@ -8,7 +8,7 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-list.component.css']
 })
 export class TermexamListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :TermExamService) { }
 
   ngOnInit(): void {

@@ -8,14 +8,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-download-csv.component.css']
 })
 export class ExamDownloadCsvComponent implements OnInit {
+  spinner: boolean = true;
   exam: Exam = {
     examId: '',
     examClass: '',
     examBatch: '',
     examSubject: '',
     examTotalMarks: '',
-    exam: '',
-    feeDate: ''
+    examName: '',
+    examDate: ''
   }
   constructor(private router : Router, private service :ExamService) { }
 

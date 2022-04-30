@@ -8,7 +8,7 @@ import { FeeService } from '../fee.service';
   styleUrls: ['./fee-list.component.css']
 })
 export class FeeListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :FeeService) { }
 
   ngOnInit(): void {

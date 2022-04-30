@@ -9,7 +9,7 @@ import { ExtraService } from '../extra.service';
   styleUrls: ['./complain.component.css']
 })
 export class ComplainComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :ExtraService) { }
 
   ngOnInit(): void {

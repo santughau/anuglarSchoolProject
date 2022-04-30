@@ -10,6 +10,7 @@ import { StudentService } from '../student.service';
   styleUrls: ['./student-edit.component.css']
 })
 export class StudentEditComponent implements OnInit {
+  spinner: boolean = true;
   student: Student = {
     studentId: '',
     studentAddress: '',

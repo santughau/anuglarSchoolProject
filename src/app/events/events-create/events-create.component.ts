@@ -11,6 +11,7 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-create.component.css']
 })
 export class EventsCreateComponent implements OnInit {
+  spinner: boolean = true;
   eventList : EventList = {
     eventId: '',
     eventTitle: '',

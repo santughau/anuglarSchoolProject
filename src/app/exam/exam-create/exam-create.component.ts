@@ -10,14 +10,15 @@ import { ExamService } from '../exam.service';
   styleUrls: ['./exam-create.component.css']
 })
 export class ExamCreateComponent implements OnInit {
+  spinner: boolean = true;
   exam: Exam = {
     examId: '',
     examClass: '',
     examBatch: '',
     examSubject: '',
     examTotalMarks: '',
-    exam: '',
-    feeDate: ''
+    examName: '',
+    examDate: ''
   }
   bsConfig?: Partial<BsDatepickerConfig>;
 

@@ -10,14 +10,15 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-details.component.css']
 })
 export class HomeworkDetailsComponent implements OnInit {
-  homework: Homework = {
+  spinner: boolean = true;
+  homework : Homework ={
     homeworkId: '',
-    homeworkClass: '',
-    homeworkBatch: '',
-    homeworkChapter: '',
+    homeworkClassId: '',
+    homeworkSubjectId: '',
+    homeworkChapterId: '',
     homeworkName: '',
     homeworkFile: '',
-  }
+}
   modalRef?: BsModalRef;
   pdfSrc = "https://matfuvit.github.io/UVIT/predavanja/literatura/TutorialsPoint%20JavaScript.pdf";
   zoom = 1;

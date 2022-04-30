@@ -8,6 +8,7 @@ import { StudentService } from '../student.service';
   styleUrls: ['./student-details.component.css']
 })
 export class StudentDetailsComponent implements OnInit {
+  spinner: boolean = true;
   student: Student = {
     studentId: '',
     studentAddress: '',

@@ -9,6 +9,7 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-edit.component.css']
 })
 export class EventsEditComponent implements OnInit {
+  spinner: boolean = true;
   eventList : EventList = {
     eventId: '',
     eventTitle: '',

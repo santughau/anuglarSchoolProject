@@ -8,11 +8,13 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./messages-edit.component.css']
 })
 export class MessagesEditComponent implements OnInit {
+  spinner: boolean = true;
   messages: Messages = {
     messageId: '',
+    messageStudentId: '',
     messageStudentName: '',
-    messageClass: '',
-    messageBatch: '',
+    messageClassId: '',
+    messageBatchId: '',
     messageImage: '',
     messageText: ''
   }

@@ -8,14 +8,15 @@ import { HomeworkService } from '../homework.service';
   styleUrls: ['./homework-edit.component.css']
 })
 export class HomeworkEditComponent implements OnInit {
-  homework: Homework = {
+  spinner: boolean = true;
+  homework : Homework ={
     homeworkId: '',
-    homeworkClass: '',
-    homeworkBatch: '',
-    homeworkChapter: '',
+    homeworkClassId: '',
+    homeworkSubjectId: '',
+    homeworkChapterId: '',
     homeworkName: '',
     homeworkFile: '',
-  }
+}
   constructor(private router: Router, private service: HomeworkService) { }
 
   ngOnInit(): void {

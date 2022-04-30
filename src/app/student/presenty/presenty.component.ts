@@ -11,6 +11,7 @@ import { StudentService } from '../student.service';
   styleUrls: ['./presenty.component.css']
 })
 export class PresentyComponent implements OnInit {
+  spinner: boolean = true;
   student: Student = {
     studentId: '',
     studentAddress: '',

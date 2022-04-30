@@ -8,7 +8,7 @@ import { GalleryService } from '../gallery.service';
   styleUrls: ['./gallery-list.component.css']
 })
 export class GalleryListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :GalleryService) { }
 
   ngOnInit(): void {

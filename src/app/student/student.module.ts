@@ -24,13 +24,9 @@ FullCalendarModule.registerPlugins([
 @NgModule({
   declarations: [StudentListComponent, StudentCreateComponent, StudentEditComponent, StudentDetailsComponent, PresentyComponent],
   imports: [
-    CommonModule,StudentRoutingModule,NgxBootstrapModule,FullCalendarModule
+    CommonModule,StudentRoutingModule,NgxBootstrapModule,FullCalendarModule,
   ],
   providers: [StudentService],
 })
 export class StudentModule { 
-  constructor() {
-    console.log("st");
-    
-  }
 }

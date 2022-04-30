@@ -1,8 +1,7 @@
 export class Termexam {
     termexamId?: number | string;
-    termexamClass: string;
-    termexamSubject: string;
-    termexamExam: string;
+    termexamClassId: number |string;
+    termexamSubjectId: number |string;
     termexamName: string;
     termexamFile: string;
 }

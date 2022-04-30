@@ -7,7 +7,8 @@ import { VideoService } from '../video.service';
   templateUrl: './video-list.component.html',
   styleUrls: ['./video-list.component.css']
 })
-export class VideoListComponent implements OnInit,AfterViewInit, OnDestroy {
+export class VideoListComponent implements OnInit, AfterViewInit, OnDestroy {
+  spinner: boolean = true;
   apiLoaded = false;
   width = '100%';
   @ViewChild('demoYouTubePlayer') demoYouTubePlayer!: ElementRef<HTMLDivElement>;

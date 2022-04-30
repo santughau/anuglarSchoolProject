@@ -8,7 +8,7 @@ import { ExpencesService } from '../expences.service';
   styleUrls: ['./expences-list.component.css']
 })
 export class ExpencesListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :ExpencesService) { }
 
   ngOnInit(): void {

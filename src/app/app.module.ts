@@ -10,7 +10,6 @@ import { ExamModule } from './exam/exam.module';
 import { MessagesModule } from './messages/messages.module';
 
 
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
@@ -26,7 +25,10 @@ import { ChapterModule } from './chapter/chapter.module';
 import { HomeworkModule } from './homework/homework.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { StudentService } from './student/student.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ClassTitleService } from './classTitle/class-title.service';
+import { HeaderInterceptor } from './header.interceptor';
+import { ExcelServiceService } from './shared/services/excel-service.service';
 
 @NgModule({
   declarations: [
@@ -54,13 +56,17 @@ import { HttpClientModule } from '@angular/common/http';
     ClassTitleModule,
     SubjectModule,
     ChapterModule,
-    HomeworkModule,PdfViewerModule,HttpClientModule
+    HomeworkModule,PdfViewerModule,HttpClientModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   
-  providers: [StudentService],
+  providers: [StudentService ,ExcelServiceService, {  
+    provide: HTTP_INTERCEPTORS,  
+    useClass: HeaderInterceptor,  
+    multi: true  
+  }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

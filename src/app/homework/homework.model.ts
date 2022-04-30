@@ -1,8 +1,8 @@
 export class Homework {
     homeworkId?: number | string;
-    homeworkClass: string;
-    homeworkBatch: string;
-    homeworkChapter: string;
+    homeworkClassId: string;
+    homeworkSubjectId: string;
+    homeworkChapterId: string;
     homeworkName: string;
     homeworkFile: string;
 }

@@ -8,7 +8,7 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./quiz-marks.component.css']
 })
 export class QuizMarksComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :QuizService) { }
 
   ngOnInit(): void {

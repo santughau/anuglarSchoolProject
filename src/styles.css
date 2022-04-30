@@ -1,21 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
-*{
-     font-family: 'Poppins', sans-serif; 
-}
-.box{
-
-    height:auto !important;
-   /*  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important; */
-    padding:50px !important;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; 
-   
-   
+* {
+  font-family: 'Poppins', sans-serif;
 }
 
-.img{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.box {
+
+  height: auto !important;
+  /*  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important; */
+  padding: 50px !important;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; 
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px 8px; */
+
+
 }
 
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.lds-dual-ring {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+
+}
 

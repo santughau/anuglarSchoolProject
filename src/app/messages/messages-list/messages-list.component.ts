@@ -8,7 +8,7 @@ import { MessagesService } from '../messages.service';
   styleUrls: ['./messages-list.component.css']
 })
 export class MessagesListComponent implements OnInit {
-
+  spinner: boolean = true;
   constructor(private router : Router, private service :MessagesService) { }
 
   ngOnInit(): void {

@@ -8,6 +8,7 @@ import { SubjectService } from '../subject.service';
   styleUrls: ['./subject-list.component.css']
 })
 export class SubjectListComponent implements OnInit {
+  spinner: boolean = true;
   subjectModel: SubjectModel = {
     subjectId: '',
     subjectClassId: '',

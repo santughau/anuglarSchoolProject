@@ -9,11 +9,11 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-create.component.css']
 })
 export class TermexamCreateComponent implements OnInit {
+  spinner: boolean = true;
   termexam: Termexam = {
     termexamId: '',
-    termexamClass: '',
-    termexamSubject: '',
-    termexamExam: '',
+    termexamClassId: '',
+    termexamSubjectId: '',
     termexamName: '',
     termexamFile: ''
   }

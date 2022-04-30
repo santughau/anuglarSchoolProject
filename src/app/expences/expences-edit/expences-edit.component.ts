@@ -11,6 +11,7 @@ import { ExpencesService } from '../expences.service';
   styleUrls: ['./expences-edit.component.css']
 })
 export class ExpencesEditComponent implements OnInit {
+  spinner: boolean = true;
   expences: Expences = {
     expencesId: '',
     expencesParticular: '',
