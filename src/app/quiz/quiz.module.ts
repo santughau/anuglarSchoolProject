@@ -11,6 +11,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
 import { QuizService } from './quiz.service';
+import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 
 
 
@@ -25,7 +26,7 @@ import { QuizService } from './quiz.service';
   ],
   imports: [
     CommonModule,FormsModule,
-    QuizRoutingModule,NgxBootstrapModule,ReactiveFormsModule,EditorModule
+    QuizRoutingModule,SharedModulesModule,ReactiveFormsModule,EditorModule
   ],
   providers: [QuizService],
 })

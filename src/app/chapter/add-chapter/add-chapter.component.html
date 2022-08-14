@@ -10,8 +10,7 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">VIEW ALL CHAPTERS</h1>
         <hr>
-       
-        <form class="row g-3 mt-2 mb-5">
+        <form class="row g-3 mt-2 mb-5" #chapterForm="ngForm" (ngSubmit)="saveChapter(chapterForm)">
             <div class="col-md-2">
                 <label for="classId"
                        [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
@@ -46,7 +45,6 @@
                         name="subjectId"
                         class="form-select subjectId"
                         [(ngModel)]="subjectModel.subjectId"
-                        (change)="loadChapters($event)"
                         #subjectId="ngModel"
                         appSelectValidator="select"
                         [ngClass]="{ 'is-invalid': subjectId.touched && subjectId.errors?.['defaultSelected'] , 'is-valid': subjectId.touched && subjectId.valid  }">
@@ -63,54 +61,61 @@
                     Please provide a Subject Name
                 </div>
             </div>
-        </form><hr>
-        <div id="table-responsive">
-            <table class="table table-bordered display"
-                   id="table2excel">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th scope="col">Sr No</th>
-                        <th scope="col">Class_ID</th>
-                        <th scope="col">Class Name</th>
-                        <th scope="col">Subject_ID</th>
-                        <th scope="col">Subject Name</th>
-                        <th scope="col">Chapter Id</th>
-                        <th scope="col">Chapter Name</th>
-                        
 
-                        <th scope="col"><i class="fa fa-pencil-square-o"
-                               aria-hidden="true"></i>
-                        </th>
-                        <th scope="col"><i class="fa fa-trash-o"
-                               aria-hidden="true"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Class </td>
-                        <td class="text-center"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
-                                   aria-hidden="true"></i></a></td>
-                        <td class="text-center"><a class="btn btn-danger"><i class="fa fa-trash-o"
-                                   aria-hidden="true"></i></a></td>
+            <div class="col-md-1">
+                <label for="chapterTopicId"
+                       [ngClass]="{ 'text-danger': chapterTopicId.touched && chapterTopicId.invalid , 'text-success': chapterTopicId.touched && chapterTopicId.valid  }"
+                       class="form-label lbl">Chapter No</label>
+                <input type="number"
+                       class="form-control"
+                       id="chapterTopicId"
+                       name="chapterTopicId"                       
+                       [(ngModel)]="chapterModel.chapterTopicId"
+                       #chapterTopicId="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': chapterTopicId.touched && chapterTopicId.invalid , 'is-valid': chapterTopicId.touched && chapterTopicId.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Chapter No.
+                </div>
+            </div>
 
-                    </tr>
+            <div class="col-md-3">
+                <label for="chapterName"
+                       [ngClass]="{ 'text-danger': chapterName.touched && chapterName.invalid , 'text-success': chapterName.touched && chapterName.valid  }"
+                       class="form-label lbl">Chapter Name</label>
+                <input type="text"
+                       class="form-control"
+                       id="chapterName"
+                       name="chapterName"                       
+                       [(ngModel)]="chapterModel.chapterName"
+                       #chapterName="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': chapterName.touched && chapterName.invalid , 'is-valid': chapterName.touched && chapterName.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Chapter Name
+                </div>
+            </div>
 
-                </tbody>
-            </table>
-            <hr>
-        </div>
-        <button type="button"
-                class="btn btn-warning text-white offset-md-4"
-                id="but">Export to Excel</button>
-        <hr>
+
+            <div class="col-2  mt-5">
+                <button type="submit"
+                [disabled]="chapterForm.invalid"
+                class="btn btn-danger " >Add Class Name</button>
+            </div>
+
+            <div class="col-md-2  mt-5">
+                <a class="btn btn-success"
+                   [routerLink]="['/chapter/chapterList']">View Subject List</a>
+            </div>
+        </form>
+       
 
     </div>
 </div>

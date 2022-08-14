@@ -13,7 +13,7 @@
         </ngx-spinner>
         <h1 class="text-muted mb-5">VIEW ALL CLASSES</h1>
         <hr>
-      
+
         <div id="table-responsive">
             <table datatable
                    [dtOptions]="dtOptions"
@@ -46,9 +46,26 @@
                             class="text-center"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
                                    aria-hidden="true"></i></a></td>
 
-                        <td (click)="deleteClass(data.classId)"
+                        <td (click)="openModal(template)"
                             class="text-center"><a class="btn btn-danger"><i class="fa fa-trash-o"
                                    aria-hidden="true"></i></a></td>
+
+                        <ng-template #template>
+                            <div class="modal-header bg-danger text-white">
+                                <h4 class="modal-title pull-left text-center">Delete</h4>
+                                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                                  <span aria-hidden="true" class="visually-hidden">&times;</span>
+                                </button>
+                              </div>
+                            <div class=" modal-body text-center">
+                                <p>Do you want to confirm delete <span class="text-danger text-bold">Class
+                                        {{data.className}} </span> ?</p>
+                                <button class="mybtn btn btn-danger "
+                                        (click)="confirm(data.classId)">Yes</button>
+                                <button class="btn btn-primary ml-5"
+                                        (click)="decline()">No</button>
+                            </div>
+                        </ng-template>
 
                     </tr>
 

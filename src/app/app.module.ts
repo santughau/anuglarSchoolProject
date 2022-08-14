@@ -29,6 +29,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClassTitleService } from './classTitle/class-title.service';
 import { HeaderInterceptor } from './header.interceptor';
 import { ExcelServiceService } from './shared/services/excel-service.service';
+import { SelectRequiredValidatorDirective } from './shared/directive/select-required-validator.directive';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,6 @@ import { ExcelServiceService } from './shared/services/excel-service.service';
     SidebarComponent,
     PageNotFoundComponent,
     IndexPageComponent,
-   
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,7 @@ import { ExcelServiceService } from './shared/services/excel-service.service';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
+  
   
   providers: [StudentService ,ExcelServiceService, {  
     provide: HTTP_INTERCEPTORS,  

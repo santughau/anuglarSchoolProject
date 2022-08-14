@@ -5,4 +5,5 @@ export class Chapter {
     chapterSubject: string;
     chapterSubjectId: string;
     chapterName: string;
+    chapterTopicId?: string;
 }

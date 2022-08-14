@@ -23,7 +23,7 @@ export class ClassTitleEditComponent implements OnInit {
     this.spinner.show();
     this.service.getSingleClass(id).subscribe((data) => {
       //console.log(data);
-      this.classList = data.document
+      this.classList = data
       console.log(this.classList);
       this.spinner.hide();
     })
@@ -35,14 +35,21 @@ export class ClassTitleEditComponent implements OnInit {
       this.spinner.hide(); 
       this.router.navigate(['/class/classList'])
     })
-
     this.toastr.success('Class Updated Successfully!', 'Weldone!', {
       timeOut: 3000,
       progressBar: true,
       progressAnimation: 'decreasing',
-      closeButton: true,
-     
-    });
-  
+      closeButton: true,     
+    });  
+  }
+
+
+  update(clasForm:any) {
+    console.log(clasForm);
+    this.service.createClass(this.classList).subscribe((res) => {
+      console.log(res);
+      
+    })
+    
   }
 }

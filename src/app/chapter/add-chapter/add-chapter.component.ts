@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -6,13 +6,13 @@ import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../chapter.model';
 import { ChapterService } from '../chapter.service';
+
 @Component({
-  selector: 'app-chapter-list',
-  templateUrl: './chapter-list.component.html',
-  styleUrls: ['./chapter-list.component.css']
+  selector: 'app-add-chapter',
+  templateUrl: './add-chapter.component.html',
+  styleUrls: ['./add-chapter.component.css']
 })
-export class ChapterListComponent implements OnInit {
-  
+export class AddChapterComponent implements OnInit {
   allClassList: any[] = [];
   subjects: any[] = [];
   classList: ClassList = {
@@ -62,15 +62,28 @@ export class ChapterListComponent implements OnInit {
     
   }
 
-  loadChapters(ev:any) {
-    console.log(ev);
-    const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
-    //  this.subjects = data.document;
-      console.log(this.subjects);
+  saveChapter(chapterForm:any) {
+    const data = {
+      'chapterTopicId':this.chapterModel.chapterTopicId,
+      'chapterClassId':this.classList.classId,
+      'chapterSubjectId':this.subjectModel.subjectId,
+      'chapterName':this.chapterModel.chapterName,
+    }
+    console.log(data);
+    this.spinner.show();   
+    
+    chapterForm.form.reset();
+    this.service.createChapter(data).subscribe((res) => {
       this.spinner.hide();
-    })
+      this.router.navigate(['/chapter/chapterList'])
+    });
+    this.toastr.success('Chapter Created Successfully!', 'Weldone!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      closeButton: true,     
+    });
+    
   }
 
 }

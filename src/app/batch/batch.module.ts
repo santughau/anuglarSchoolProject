@@ -8,6 +8,7 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
 import { BatchService } from './batch.service';
 import { FormsModule } from '@angular/forms';
+import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 
 
 
@@ -17,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     BatchEditComponent,
     BatchDetailsComponent,],
   imports: [
-    CommonModule,BatchRoutingModule,NgxBootstrapModule,FormsModule
+    CommonModule,BatchRoutingModule,FormsModule,SharedModulesModule
   ],
   providers: [BatchService],
 })

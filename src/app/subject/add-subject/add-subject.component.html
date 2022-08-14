@@ -3,20 +3,24 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active"
-                aria-current="page">Edit Subjects</li>
+                aria-current="page">Add Subjects</li>
         </ol>
     </nav>
     <div class="col-md-12 ">
-        <h1 class="text-muted mb-5">EDIT ALL Subjects</h1>
+        <ngx-spinner type="timer">
+            <p style="font-size: 20px; color: white">Loading...</p>
+        </ngx-spinner>
+        <h1 class="text-muted mb-5">Add Subjects</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5" #subjectForm="ngForm" needs-validation
-        novalidate>
+        <form class="row g-3 mt-2 mb-5 needs-validation"
+              #subjectForm="ngForm"
+              (ngSubmit)="saveSubject(subjectForm)"
+              novalidate>
             <div class="col-md-2">
                 <label for="className"
                        [ngClass]="{ 'text-danger': className.touched && className.invalid , 'text-success': className.touched && className.valid  }"
                        class="form-label">For Class</label>
                 <select id="className"
-                        
                         name="className"
                         class="form-select"
                         [(ngModel)]="subjectModel.subjectClassId"
@@ -24,7 +28,7 @@
                         appSelectValidator="select"
                         [ngClass]="{ 'is-invalid': className.touched && className.errors?.['defaultSelected'] , 'is-valid': className.touched && className.valid  }">
                     <option value="select">Choose Class</option>
-                    <option *ngFor="let data of classesList ; let i = index"
+                    <option *ngFor="let data of record ; let i = index"
                             [value]="data.classId">Class {{data.className}} </option>
                 </select>
                 <div class="valid-feedback"
@@ -39,21 +43,38 @@
 
 
             <div class="col-md-3">
-                <label for="student"
+                <label for="forSubject"
+                       [ngClass]="{ 'text-danger': subjectName.touched && subjectName.invalid , 'text-success': subjectName.touched && subjectName.valid  }"
                        class="form-label lbl">Subject Name</label>
                 <input type="text"
                        class="form-control"
+                       id="forSubject"
                        name="subjectName"
                        [(ngModel)]="subjectModel.subjectName"
-                       [value]="subjectModel.subjectName">
+                       #subjectName="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': subjectName.touched && subjectName.invalid , 'is-valid': subjectName.touched && subjectName.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Subject Name
+                </div>
             </div>
 
+                <div class="col-md-2  mt-5">
+                    <button type="submit"
+                            [disabled]="subjectForm.invalid"
+                            class="btn btn-danger ">Add Subject Name</button>
+                </div>
 
-            <div class="col-2  mt-5">
-                <button type="submit"
-                        class="btn btn-danger " (click)="updateSubject()">Update Subject Name</button>
-            </div>
+                <div class="col-md-2  mt-5">
+                    <a class="btn btn-success"
+                       [routerLink]="['/subject/subjectList']">View Subject List</a>
+                </div>
+            
         </form>
         <hr>
+
     </div>
 </div>

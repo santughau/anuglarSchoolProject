@@ -9,70 +9,51 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">VIEW ALL Subjects</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
-            <div class="col-md-1">
-                <label for="forClass"
+        <form #subjectForm="ngForm"
+              class="row g-3 mt-2 mb-5"
+              needs-validation
+              novalidate>
+            <div class="col-md-2">
+                <label for="className"
+                       [ngClass]="{ 'text-danger': className.touched && className.invalid , 'text-success': className.touched && className.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
+                <select id="className"
+                        (change)="showSubject()"
+                        name="className"
+                        class="form-select"
+                        [(ngModel)]="subjectModel.subjectClassId"
+                        #className="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': className.touched && className.errors?.['defaultSelected'] , 'is-valid': className.touched && className.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of record ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="className.touched && className.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="className.touched && className.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
-
-            <div class="col-md-3">
-                <label for="student"
-                       class="form-label lbl">Subject Name</label>
-                <input type="text"
-                       class="form-control"
-                       id="student">
-            </div>
-
-
-            <div class="col-2  mt-5">
+            <!--    <div class="col-2  mt-5">
                 <button type="submit"
-                        class="btn btn-danger ">Add Subject Name</button>
-            </div>
+                        [disabled]="subjectForm.invalid"
+                        class="btn btn-success "
+                        (click)=showSubject()>Show Subject Name</button>
+            </div> -->
         </form>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
-            <div class="col-md-1">
-                <label for="forClass"
-                       class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
-                </select>
-            </div>
-
-            <div class="col-2  mt-5">
-                <button type="submit"
-                        class="btn btn-success ">Show Subject Name</button>
-            </div>
-        </form><hr>
-        <div id="table-responsive">
-            <table class="table table-bordered display"
-                   id="table2excel">
+        <div id="table-responsive" class="table-responsive"
+             *ngIf="showTable">
+            <table class="row-border hover table table-bordered  table-striped"
+                   id="table2excel"
+                   datatable
+                   [dtOptions]="dtOptions"
+                   [dtTrigger]="dtTrigger">
                 <thead class="table-dark text-center">
                     <tr>
                         <th scope="col">Sr No</th>
@@ -80,7 +61,7 @@
                         <th scope="col">Class Name</th>
                         <th scope="col">Subject_ID</th>
                         <th scope="col">Subject Name</th>
-                        
+
 
                         <th scope="col"><i class="fa fa-pencil-square-o"
                                aria-hidden="true"></i>
@@ -92,27 +73,57 @@
                 </thead>
                 <tbody>
 
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Class </td>
-                        <td class="text-center"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
-                                   aria-hidden="true"></i></a></td>
-                        <td class="text-center"><a class="btn btn-danger"><i class="fa fa-trash-o"
-                                   aria-hidden="true"></i></a></td>
+                    <tr *ngFor="let subject of subjects; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{subject.subjectClassId}}</td>
+                        <td>{{subject.subjectClass}}</td>
+                        <td>{{subject.subjectId}}</td>
+                        <td>{{subject.subjectName}} </td>
+                        <td class="text-center"><button type="button"
+                                    class="btn btn-warning"
+                                    (click)="editSubject(subject.subjectId)"><i class="fa fa-pencil-square-o text-white"
+                                   aria-hidden="true"></i></button></td>
+                        <td class="text-center"><button type="button"
+                                    class="btn btn-danger"
+                                    (click)="openModal(template)"><i class="fa fa-trash-o"
+                                   aria-hidden="true"></i></button></td>
+
+                        <ng-template #template>
+                            <div class="modal-header bg-danger text-white">
+                                <h4 class="modal-title pull-left text-center">Delete</h4>
+                                <button type="button"
+                                        class="btn-close close pull-right"
+                                        aria-label="Close"
+                                        (click)="modalRef?.hide()">
+                                    <span aria-hidden="true"
+                                          class="visually-hidden">&times;</span>
+                                </button>
+                            </div>
+                            <div class=" modal-body text-center">
+                                <p>Do you want to confirm delete <span class="text-danger text-bold">Class
+                                        {{subject.subjectName}} </span> ?</p>
+                                <button class="mybtn btn btn-danger "
+                                        (click)="confirm(subject.subjectId)">Yes</button>
+                                <button class="btn btn-primary ml-5"
+                                        (click)="decline()">No</button>
+                            </div>
+                        </ng-template>
 
                     </tr>
 
                 </tbody>
             </table>
             <hr>
-        </div>
-        <button type="button"
-                class="btn btn-warning text-white offset-md-4"
-                id="but">Export to Excel</button>
-        <hr>
 
+            <button type="button"
+                    (click)="exportAsXLSX()"
+                    class="btn btn-warning text-white offset-md-4"
+                    id="but">Export to Excel</button>
+            <hr>
+        </div>
+        <div class="text-center text-danger"
+             *ngIf="!showTable">
+            <p>Please Select Class Or this Class has no Subjects</p>
+        </div>
     </div>
 </div>

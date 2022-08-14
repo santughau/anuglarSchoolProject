@@ -8,6 +8,7 @@ import { TermexamListComponent } from './termexam-list/termexam-list.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { TermExamService } from './term-exam.service';
+import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 
 
 
@@ -15,7 +16,7 @@ import { TermExamService } from './term-exam.service';
   declarations: [TermexamCreateComponent,TermexamDetailsComponent,TermexamEditComponent,TermexamListComponent],
   imports: [
     CommonModule,
-    TermexamRoutingModule,PdfViewerModule,NgxBootstrapModule
+    TermexamRoutingModule,PdfViewerModule,SharedModulesModule
   ],
   providers: [TermExamService],
 })

@@ -28,22 +28,15 @@ export class ClassTitleComponent implements OnInit {
     }
     classForm.form.reset();
     this.service.createClass(data).subscribe((res) => {
-      this.spinner.hide(); 
+      this.spinner.hide();
       this.router.navigate(['/class/classList'])
-    })
+    });
     this.toastr.success('Class Created Successfully!', 'Weldone!', {
       timeOut: 3000,
       progressBar: true,
       progressAnimation: 'decreasing',
-      closeButton: true,
-     
+      closeButton: true,     
     });
 
   }
-
-  
-
-
-
-  
 }

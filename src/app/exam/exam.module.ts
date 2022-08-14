@@ -7,6 +7,7 @@ import { ExamEditComponent } from './exam-edit/exam-edit.component';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { ExamDownloadCsvComponent } from './exam-download-csv/exam-download-csv.component';
 import { ExamService } from './exam.service';
+import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 
 
 
@@ -19,7 +20,7 @@ import { ExamService } from './exam.service';
   ],
   imports: [
     CommonModule,
-    ExamRoutingModule, NgxBootstrapModule
+    ExamRoutingModule, SharedModulesModule
   ],
   providers: [ExamService],
 })
