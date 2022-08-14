@@ -70,6 +70,8 @@ export class ChapterListComponent implements OnInit {
     //  this.subjects = data.document;
       console.log(this.subjects);
       this.spinner.hide();
+      console.log(this.subjects);
+      
     })
   }
 
