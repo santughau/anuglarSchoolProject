@@ -10,52 +10,104 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">EDIT ALL CHAPTERS</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
-            <div class="col-md-1">
-                <label for="forClass"
+        <form class="row g-3 mt-2 mb-5" #chapterForm="ngForm" >
+            <div class="col-md-2">
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadSubjects($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
             <div class="col-md-2">
-                <label for="forClass"
-                       class="form-label">SUBJECT</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
+                <label for="subjectId"
+                       [ngClass]="{ 'text-danger': subjectId.touched && subjectId.invalid , 'text-success': subjectId.touched && subjectId.valid  }"
+                       class="form-label">For Subjecet</label>
+                <select id="subjectId"
+                        name="subjectId"
+                        class="form-select subjectId"
+                        [(ngModel)]="subjectModel.subjectId"
+                        #subjectId="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': subjectId.touched && subjectId.errors?.['defaultSelected'] , 'is-valid': subjectId.touched && subjectId.valid  }">
+                    <option value="select">Choose Subject</option>
+                    <option *ngFor="let data of subjects ; let i = index"
+                            [value]="data.subjectId">{{data.subjectName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="subjectId.touched && subjectId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="subjectId.touched && subjectId.invalid">
+                    Please provide a Subject Name
+                </div>
             </div>
 
 
+            <div class="col-md-1">
+                <label for="chapterTopicId"
+                       [ngClass]="{ 'text-danger': chapterTopicId.touched && chapterTopicId.invalid , 'text-success': chapterTopicId.touched && chapterTopicId.valid  }"
+                       class="form-label lbl">Chapter No</label>
+                <input type="number"
+                       class="form-control"
+                       id="chapterTopicId"
+                       name="chapterTopicId"                       
+                       [(ngModel)]="chapterModel.chapterTopicId"
+                       #chapterTopicId="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': chapterTopicId.touched && chapterTopicId.invalid , 'is-valid': chapterTopicId.touched && chapterTopicId.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Chapter No.
+                </div>
+            </div>
+
             <div class="col-md-3">
-                <label for="student"
+                <label for="chapterName"
+                       [ngClass]="{ 'text-danger': chapterName.touched && chapterName.invalid , 'text-success': chapterName.touched && chapterName.valid  }"
                        class="form-label lbl">Chapter Name</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="chapterName"
+                       name="chapterName"                       
+                       [(ngModel)]="chapterModel.chapterName"
+                       #chapterName="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': chapterName.touched && chapterName.invalid , 'is-valid': chapterName.touched && chapterName.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Chapter Name
+                </div>
             </div>
+
 
 
             <div class="col-2  mt-5">
                 <button type="submit"
-                        class="btn btn-danger ">Edit Chapter Name</button>
+                        class="btn btn-danger " (click)="updateChapter()" [disabled]="chapterForm.invalid">Edit Chapter Name</button>
             
             </div>
         </form>

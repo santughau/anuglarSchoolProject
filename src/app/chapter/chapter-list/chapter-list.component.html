@@ -64,19 +64,16 @@
                 </div>
             </div>
         </form><hr>
-        <div id="table-responsive">
+        <div id="table-responsive" *ngIf="showTable">
             <table class="table table-bordered display"
                    id="table2excel">
                 <thead class="table-dark text-center">
                     <tr>
                         <th scope="col">Sr No</th>
-                        <th scope="col">Class_ID</th>
                         <th scope="col">Class Name</th>
-                        <th scope="col">Subject_ID</th>
                         <th scope="col">Subject Name</th>
                         <th scope="col">Chapter Id</th>
-                        <th scope="col">Chapter Name</th>
-                        
+                        <th scope="col">Chapter Name</th>                      
 
                         <th scope="col"><i class="fa fa-pencil-square-o"
                                aria-hidden="true"></i>
@@ -88,18 +85,37 @@
                 </thead>
                 <tbody>
 
-                    <tr>
+                    <tr *ngFor="let chapter of chapters">
                         <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Class </td>
-                        <td class="text-center"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
+                        <td>{{chapter.subjectClass}}</td>
+                        <td>{{chapter.subjectName}}</td>
+                        <td>{{chapter.chapterTopicId}}</td>
+                        <td>{{chapter.chapterName}}</td>
+                        <td class="text-center" (click)="editSubject(chapter.chapterId)"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
                                    aria-hidden="true"></i></a></td>
-                        <td class="text-center"><a class="btn btn-danger"><i class="fa fa-trash-o"
+                        <td class="text-center" (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
                                    aria-hidden="true"></i></a></td>
+
+                                   <ng-template #template>
+                                    <div class="modal-header bg-danger text-white">
+                                        <h4 class="modal-title pull-left text-center">Delete</h4>
+                                        <button type="button"
+                                                class="btn-close close pull-right"
+                                                aria-label="Close"
+                                                (click)="modalRef?.hide()">
+                                            <span aria-hidden="true"
+                                                  class="visually-hidden">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class=" modal-body text-center">
+                                        <p>Do you want to confirm delete <span class="text-danger text-bold">Chapter
+                                                {{chapter.chapterName}} </span> ?</p>
+                                        <button class="mybtn btn btn-danger "
+                                                (click)="confirm(chapter.chapterId)">Yes</button>
+                                        <button class="btn btn-primary ml-5"
+                                                (click)="decline()">No</button>
+                                    </div>
+                                </ng-template>
 
                     </tr>
 
@@ -114,3 +130,5 @@
 
     </div>
 </div>
+
+

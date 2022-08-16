@@ -37,8 +37,7 @@ export class SubjectService {
 
   updateSubject(data: any): Observable<any> {
     console.log("Id From Service " + JSON.stringify(data));
-    return this.http.post(this.url + 'subjectmodel/update.php', data)
-    
+    return this.http.post(this.url + 'subjectmodel/update.php', data);    
   }
 
   getSingleSubject(id: any): Observable<any> {
