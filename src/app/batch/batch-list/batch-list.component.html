@@ -11,14 +11,44 @@
 
         <h1 class="text-muted mb-5">VIEW ALL BATCHES</h1>
         <hr>
-        <div class="table-responsive">
+        <form class="row g-3 mt-2 mb-5">
+            <div class="col-md-2">
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+                       class="form-label">For Class</label>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadBaches($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
+                </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
+            </div>
+
+
+        </form>
+        <hr>
+        <div class="table-responsive"
+             *ngIf="showTable">
             <table class="table table-bordered  "
                    id="table2excel">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">Sr No</th>
                         <th scope="col">Course Name</th>
-                        <th scope="col">For Class</th>
                         <th scope="col">Duration</th>
                         <th scope="col">Course Fee</th>
                         <th scope="col">No Of Student</th>
@@ -37,37 +67,45 @@
                 </thead>
                 <tbody>
 
-                    <tr>
-                        <th scope="row">
-
+                    <tr *ngFor="let batch of allBatchList">
+                        <th>
                         </th>
-                        <td>
 
-                        </td>
-                        <td>
+                        <td>{{batch.batchName}} </td>
 
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
+                        <td>{{batch.batchDuration}} </td>
+                        <td>{{batch.batchFee}} </td>
+                        <td>10</td>
+                        <td>{{batch.batchStartsFrom}}</td>
+                        <td>{{batch.batchTime}} </td>
                         <td><a class="btn btn-primary"><i class="fa fa-eye"
                                    aria-hidden="true"></i></a></td>
-                        <td><a class="btn btn-warning"><i class="fa fa-pencil-square-o"
+                        <td (click)="editBatch(batch.batchId)"><a class="btn btn-warning"><i
+                                   class="fa fa-pencil-square-o"
                                    aria-hidden="true"></i></a></td>
-                        <td><a class="btn btn-danger"><i class="fa fa-trash-o"
+                        <td (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
                                    aria-hidden="true"></i></a></td>
+
+                        <ng-template #template>
+                            <div class="modal-header bg-danger text-white">
+                                <h4 class="modal-title pull-left text-center">Delete</h4>
+                                <button type="button"
+                                        class="btn-close close pull-right"
+                                        aria-label="Close"
+                                        (click)="modalRef?.hide()">
+                                    <span aria-hidden="true"
+                                          class="visually-hidden">&times;</span>
+                                </button>
+                            </div>
+                            <div class=" modal-body text-center">
+                                <p>Do you want to confirm delete <span class="text-danger text-bold">Chapter
+                                        {{batch.batchName}} </span> ?</p>
+                                <button class="mybtn btn btn-danger "
+                                        (click)="confirm(batch.batchId)">Yes</button>
+                                <button class="btn btn-primary ml-5"
+                                        (click)="decline()">No</button>
+                            </div>
+                        </ng-template>
                     </tr>
 
                 </tbody>

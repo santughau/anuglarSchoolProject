@@ -10,80 +10,144 @@
     <div class="col-md-12 ">
         <h1 class="text-centerl text-muted">UPDATE BATCHES</h1>
         <hr>
-        <form class="row g-3 mt-5">
-            <div class="col-md-1">
-                <label for="student"
-                       class="form-label lbl">Batch Name</label>
-                <input type="text"
-                       class="form-control"
-                       id="student">
-            </div>
+        <form class="row g-3 mt-5 needs-validation"
+        #batchForm="ngForm"
+        novalidate>
+      <div class="col-md-1">
+          <label for="batchName"
+                 [ngClass]="{ 'text-danger': batchName.touched && batchName.invalid , 'text-success': batchName.touched && batchName.valid  }"
+                 class="form-label lbl">Batch Name</label>
+          <input type="text"
+                 class="form-control "
+                 id="batchName"
+                 name="batchName"
+                 [(ngModel)]="batch.batchName"
+                 #batchName="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': batchName.touched && batchName.invalid , 'is-valid': batchName.touched && batchName.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Batch Name
+          </div>
+      </div>
 
 
-            <div class="col-md-1">
-                <label for="forClass"
-                       class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
-                </select>
-            </div>
+      <div class="col-md-1">
+          <label for="classId"
+                 [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+                 class="form-label">For Class</label>
+          <select id="classId"
+                  name="classId"
+                  class="form-select"
+                  [(ngModel)]="classList.classId"
+                  #classId="ngModel"
+                  appSelectValidator="select"
+                  [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+              <option value="select">Choose Class</option>
+              <option *ngFor="let data of allClassList ; let i = index"
+                      [value]="data.classId">Class {{data.className}} </option>
+          </select>
+          <div class="valid-feedback"
+               *ngIf="classId.touched && classId.valid">
+              Looks good!
+          </div>
+          <div class="invalid-feedback"
+               *ngIf="classId.touched && classId.invalid">
+              Please provide a Class Name
+          </div>
+      </div>
 
-            <div class="col-md-1">
-                <label for="forMobile"
-                       class="form-label">Batch Dutration</label>
-                <input type="text"
-                       class="form-control"
-                       id="forMobile">
-            </div>
+      <div class="col-md-1">
+          <label for="batchDuration"
+                 [ngClass]="{ 'text-danger': batchDuration.touched && batchDuration.invalid , 'text-success': batchDuration.touched && batchDuration.valid  }"
+                 class="form-label lbl">Batch Duration</label>
+          <input type="text"
+                 class="form-control "
+                 id="batchDuration"
+                 name="batchDuration"
+                 [(ngModel)]="batch.batchDuration"
+                 #batchDuration="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': batchDuration.touched && batchDuration.invalid , 'is-valid': batchDuration.touched && batchDuration.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Batch Duration
+          </div>
+      </div>
 
-            <div class="col-1">
-                <label for="forEmail"
-                       class="form-label">Batch Fee</label>
-                <input type="email"
-                       class="form-control"
-                       id="forEmail">
-            </div>
-
-
-            <div class="col-md-3">
-                <label for="forDate"
-                       class="form-label">Batch Starts From</label>
-                <input type="text"
-                       placeholder="Datepicker"
-                       class="form-control"
-                       bsDatepicker
-                       [bsConfig]="bsConfig"
-                       [dateTooltipTexts]="selectedDates"
-                       [daysDisabled]="[6,0]"
-                       [datesDisabled]="disabledDates">
-            </div>
-
-            <div class="col-md-1">
-                <label for="forMobile"
-                       class="form-label">Batch Time</label>
-                <input type="text"
-                       class="form-control"
-                       id="forMobile">
-            </div>
-
-            <div class="col-3 d-flex justify-content-center mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Update Batch</button>
-            </div>
+      <div class="col-md-1">
+          <label for="batchFee"
+                 [ngClass]="{ 'text-danger': batchFee.touched && batchFee.invalid , 'text-success': batchFee.touched && batchFee.valid  }"
+                 class="form-label lbl">Batch Fees</label>
+          <input type="text"
+                 class="form-control "
+                 id="batchFee"
+                 name="batchFee"
+                 [(ngModel)]="batch.batchFee"
+                 #batchFee="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': batchFee.touched && batchFee.invalid , 'is-valid': batchFee.touched && batchFee.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Batch Fees
+          </div>
+      </div>
 
 
-        </form>
+      <div class="col-md-3">
+          <label for="forDate"
+                 class="form-label">Batch Starts From</label>
+          <input type="text"
+                 placeholder="Datepicker"
+                 class="form-control"
+                 bsDatepicker
+                 [bsConfig]="bsConfig"
+                 [dateTooltipTexts]="selectedDates"
+                 [daysDisabled]="[6,0]"
+                 [datesDisabled]="disabledDates"
+                 name="batchStartsFrom"
+                 [(ngModel)]="batch.batchStartsFrom"
+                 #batchStartsFrom="ngModel" 
+                 required>
+      </div>
+
+      <div class="col-md-1">
+          <label for="batchTime"
+                 [ngClass]="{ 'text-danger': batchTime.touched && batchTime.invalid , 'text-success': batchTime.touched && batchTime.valid  }"
+                 class="form-label lbl">Batch Time</label>
+          <input type="text"
+                 class="form-control "
+                 id="batchTime"
+                 name="batchTime"
+                 [(ngModel)]="batch.batchTime"
+                 #batchTime="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': batchTime.touched && batchTime.invalid , 'is-valid': batchTime.touched && batchTime.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Batch Time
+          </div>
+      </div>
+
+
+
+      <div class="col-md-3  mt-5">
+          <button type="submit"
+                  (click)="updateBatch()"
+                  [disabled]="batchForm.invalid"
+                  class="btn btn-danger ">Update Batch</button>
+      </div>
+
+
+  </form>
 
     </div>
 </div>

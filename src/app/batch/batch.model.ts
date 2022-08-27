@@ -4,6 +4,6 @@ export class Batch {
     batchClass: number | string;
     batchDuration: string;
     batchFee: string;
-    batchStartsFrom: string;
+    batchStartsFrom: any;
     batchTime: string;
 }

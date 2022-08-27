@@ -7,6 +7,10 @@ import { Gallery } from './gallery.model';
   providedIn: 'root'
 })
 export class GalleryService {
-
+  url = "http://localhost/ranjana/";
   constructor(private http: HttpClient) { }
+
+  createGallery(data: any): Observable<any> {
+    return this.http.post(this.url + 'gallery/create.php', data,)
+  }
 }

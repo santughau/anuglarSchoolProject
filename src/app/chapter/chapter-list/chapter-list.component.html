@@ -116,7 +116,6 @@
                                                 (click)="decline()">No</button>
                                     </div>
                                 </ng-template>
-
                     </tr>
 
                 </tbody>
@@ -127,8 +126,11 @@
                 class="btn btn-warning text-white offset-md-4"
                 id="but">Export to Excel</button>
         <hr>
-
     </div>
+    <div class="text-center text-danger"
+             *ngIf="!showTable">
+            <p>Please Select Chapter Or this Class has no Chapters</p>
+        </div>
 </div>
 
 

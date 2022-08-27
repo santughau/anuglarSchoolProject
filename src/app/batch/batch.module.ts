@@ -18,7 +18,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     BatchEditComponent,
     BatchDetailsComponent,],
   imports: [
-    CommonModule,BatchRoutingModule,FormsModule,SharedModulesModule
+    CommonModule,BatchRoutingModule,FormsModule,SharedModulesModule,NgxBootstrapModule
   ],
   providers: [BatchService],
 })
