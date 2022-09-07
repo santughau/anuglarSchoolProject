@@ -2,4 +2,9 @@ button{
     margin-right:10px;
 }
 
-
+.my-pagination::ng-deep .page-item.active .page-link {
+    z-index: 1;
+    color: #FFFFFF;
+    background-color:red !important;
+    border-color: red !important
+}

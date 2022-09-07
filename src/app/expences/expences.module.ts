@@ -7,6 +7,7 @@ import { ExpencesRoutingModule } from './expences-routing.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { ExpencesService } from './expences.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     ExpencesEditComponent,],
   imports: [
     CommonModule,
-    ExpencesRoutingModule,SharedModulesModule,
+    ExpencesRoutingModule,SharedModulesModule,FormsModule,NgxBootstrapModule
   ],
   providers: [ExpencesService],
 })

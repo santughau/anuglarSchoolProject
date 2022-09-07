@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonServiceService } from '../common-service.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
-  constructor() { }
+  profile: any;
+  year = new Date().getFullYear()
+  constructor(private service : CommonServiceService,private spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.service.getProfile(1).subscribe((data) => {
+      this.profile = data.document;      
+      this.spinner.hide();
+    })
   }
 
 }

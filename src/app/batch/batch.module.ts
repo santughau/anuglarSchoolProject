@@ -16,7 +16,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
   declarations: [BatchListComponent,
     BatchCreateComponent,
     BatchEditComponent,
-    BatchDetailsComponent,],
+    BatchDetailsComponent],
   imports: [
     CommonModule,BatchRoutingModule,FormsModule,SharedModulesModule,NgxBootstrapModule
   ],

@@ -11,119 +11,306 @@
         <h1 class="text-centerl text-muted">UPDATE / EDIT PROFILE</h1>
         <hr >
 
-        <form class="row g-3 mt-5">    
+        <form class="row g-3 mt-5 needs-validation " #batchGallery="ngForm"
+        novalidate>    
+
              
             <div class="col-md-3">
-                <label for="student"
-                       class="form-label lbl">Institute Name</label>
+              <label for="profileInstituteName"
+              [ngClass]="{ 'text-danger': profileInstituteName.touched && profileInstituteName.invalid , 'text-success': profileInstituteName.touched && profileInstituteName.valid  }"
+              class="form-label lbl">Institute Name</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="profileInstituteName"
+                       name="profileInstituteName"
+                       [(ngModel)]="profile.profileInstituteName"
+                       #profileInstituteName="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileInstituteName.touched && profileInstituteName.invalid , 'is-valid': profileInstituteName.touched && profileInstituteName.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Institute Name
+                        </div>
             </div>
-            <div class="col-md-3">
-                <label for="address"
-                       class="form-label">Address 1</label>
+
+             <div class="col-md-3">
+              <label for="profileAddressOne"
+              [ngClass]="{ 'text-danger': profileAddressOne.touched && profileAddressOne.invalid , 'text-success': profileAddressOne.touched && profileAddressOne.valid  }"
+              class="form-label lbl">Address One</label>
                 <input type="text"
                        class="form-control"
-                       id="address">
+                       id="profileAddressOne"
+                       name="profileAddressOne"
+                       [(ngModel)]="profile.profileAddressOne"
+                       #profileAddressOne="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileAddressOne.touched && profileAddressOne.invalid , 'is-valid': profileAddressOne.touched && profileAddressOne.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Address Line One
+                        </div>
             </div>
 
             <div class="col-md-3">
-                <label for="address"
-                       class="form-label">Address 2</label>
+              <label for="profileAddressTwo"
+              [ngClass]="{ 'text-danger': profileAddressTwo.touched && profileAddressTwo.invalid , 'text-success': profileAddressTwo.touched && profileAddressTwo.valid  }"
+              class="form-label lbl">Address Two</label>
                 <input type="text"
                        class="form-control"
-                       id="address">
+                       id="profileAddressTwo"
+                       name="profileAddressTwo"
+                       [(ngModel)]="profile.profileAddressTwo"
+                       #profileAddressTwo="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileAddressTwo.touched && profileAddressTwo.invalid , 'is-valid': profileAddressTwo.touched && profileAddressTwo.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Address Line Two
+                        </div>
             </div>
 
             <div class="col-md-1">
-                <label for="address"
-                       class="form-label">Taluka</label>
+              <label for="profileTaluka"
+              [ngClass]="{ 'text-danger': profileTaluka.touched && profileTaluka.invalid , 'text-success': profileTaluka.touched && profileTaluka.valid  }"
+              class="form-label lbl">Taluka</label>
                 <input type="text"
                        class="form-control"
-                       id="address">
+                       id="profileTaluka"
+                       name="profileTaluka"
+                       [(ngModel)]="profile.profileTaluka"
+                       #profileTaluka="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileTaluka.touched && profileTaluka.invalid , 'is-valid': profileTaluka.touched && profileTaluka.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Taluka Name
+                        </div>
             </div>
 
             <div class="col-md-1">
-                <label for="address"
-                       class="form-label">District</label>
+              <label for="profileDistrict"
+              [ngClass]="{ 'text-danger': profileDistrict.touched && profileDistrict.invalid , 'text-success': profileDistrict.touched && profileDistrict.valid  }"
+              class="form-label lbl">District</label>
                 <input type="text"
                        class="form-control"
-                       id="address">
+                       id="profileDistrict"
+                       name="profileDistrict"
+                       [(ngModel)]="profile.profileDistrict"
+                       #profileDistrict="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileDistrict.touched && profileDistrict.invalid , 'is-valid': profileDistrict.touched && profileDistrict.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a District Name
+                        </div>
             </div>
 
 
             <div class="col-md-1">
-                <label for="forMobile"
-                       class="form-label">Mobile</label>
+              <label for="profileMobile"
+              [ngClass]="{ 'text-danger': profileMobile.touched && profileMobile.invalid , 'text-success': profileMobile.touched && profileMobile.valid  }"
+              class="form-label lbl">Mobile</label>
                 <input type="text"
                        class="form-control"
-                       id="forMobile">
+                       id="profileMobile"
+                       name="profileMobile"
+                       [(ngModel)]="profile.profileMobile"
+                       #profileMobile="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileMobile.touched && profileMobile.invalid , 'is-valid': profileMobile.touched && profileMobile.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Batch Name
+                        </div>
+            </div>
+
+            <div class="col-md-1">
+              <label for="profileEmail"
+              [ngClass]="{ 'text-danger': profileEmail.touched && profileEmail.invalid , 'text-success': profileEmail.touched && profileEmail.valid  }"
+              class="form-label lbl">Email</label>
+                <input type="text"
+                       class="form-control"
+                       id="profileEmail"
+                       name="profileEmail"
+                       [(ngModel)]="profile.profileEmail"
+                       #profileEmail="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileEmail.touched && profileEmail.invalid , 'is-valid': profileEmail.touched && profileEmail.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Email 
+                        </div>
+            </div>
+            
+            <div class="col-md-3">
+              <label for="profileEmail"
+              [ngClass]="{ 'text-danger': profileBankName.touched && profileBankName.invalid , 'text-success': profileBankName.touched && profileBankName.valid  }"
+              class="form-label lbl">Bank name</label>
+                <input type="text"
+                       class="form-control"
+                       id="profileBankName"
+                       name="profileBankName"
+                       [(ngModel)]="profile.profileBankName"
+                       #profileBankName="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileBankName.touched && profileBankName.invalid , 'is-valid': profileBankName.touched && profileBankName.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Bank name 
+                        </div>
+            </div>
+
+            <div class="col-md-1">
+              <label for="profileAccNo"
+              [ngClass]="{ 'text-danger': profileAccNo.touched && profileAccNo.invalid , 'text-success': profileAccNo.touched && profileAccNo.valid  }"
+              class="form-label lbl">Account No</label>
+                <input type="text"
+                       class="form-control"
+                       id="profileAccNo"
+                       name="profileAccNo"
+                       [(ngModel)]="profile.profileAccNo"
+                       #profileAccNo="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileAccNo.touched && profileAccNo.invalid , 'is-valid': profileAccNo.touched && profileAccNo.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Bank Acc. No. 
+                        </div>
+            </div>
+
+            <div class="col-md-1">
+              <label for="profileIfsc"
+              [ngClass]="{ 'text-danger': profileIfsc.touched && profileIfsc.invalid , 'text-success': profileIfsc.touched && profileIfsc.valid  }"
+              class="form-label lbl">IFSC Code</label>
+                <input type="text"
+                       class="form-control"
+                       id="profileIfsc"
+                       name="profileIfsc"
+                       [(ngModel)]="profile.profileIfsc"
+                       #profileIfsc="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileIfsc.touched && profileIfsc.invalid , 'is-valid': profileIfsc.touched && profileIfsc.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a IFSC Code 
+                        </div>
             </div>
 
             <div class="col-md-3">
-                <label for="forEmail"
-                       class="form-label">Email</label>
-                <input type="email"
-                       class="form-control"
-                       id="forEmail">
-            </div>
-            <div class="col-md-3">
-                <label for="forSchool"
-                       class="form-label">Bank Name</label>
+              <label for="profileSlogan"
+              [ngClass]="{ 'text-danger': profileSlogan.touched && profileSlogan.invalid , 'text-success': profileSlogan.touched && profileSlogan.valid  }"
+              class="form-label lbl">Slogan</label>
                 <input type="text"
                        class="form-control"
-                       id="forSchool">
+                       id="profileSlogan"
+                       name="profileSlogan"
+                       [(ngModel)]="profile.profileSlogan"
+                       #profileSlogan="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileSlogan.touched && profileSlogan.invalid , 'is-valid': profileSlogan.touched && profileSlogan.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Slogan 
+                        </div>
             </div>
+
             <div class="col-md-2">
-                <label for="forFee"
-                       class="form-label">Account Number</label>
+              <label for="profileWebsite"
+              [ngClass]="{ 'text-danger': profileWebsite.touched && profileWebsite.invalid , 'text-success': profileWebsite.touched && profileWebsite.valid  }"
+              class="form-label lbl">Website</label>
                 <input type="text"
                        class="form-control"
-                       id="forFee">
-            </div>
+                       id="profileWebsite"
+                       name="profileWebsite"
+                       [(ngModel)]="profile.profileWebsite"
+                       #profileWebsite="ngModel"
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileWebsite.touched && profileWebsite.invalid , 'is-valid': profileWebsite.touched && profileWebsite.valid  }" />
 
-            <div class="col-md-1">
-                <label for="forPassword"
-                       class="form-label">IFSC CODE</label>
-                <input type="text"
-                       class="form-control"
-                       id="forPassword">
-            </div>
-
-            <div class="col-md-3">
-                <label for="forMacId"
-                       class="form-label">Slogan</label>
-                <input type="text"
-                       class="form-control"
-                       id="forMacId">
-            </div>
-
-            <div class="col-md-3">
-                <label for="forMacId"
-                       class="form-label">Website</label>
-                <input type="text"
-                       class="form-control"
-                       id="forMacId">
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Website 
+                        </div>
             </div>
           
 
 
-            <div class="col-md-6">
-                <label for="forImage"
-                       class="form-label">LOGO</label>
-                <input type="file"
+            <div class="col-md-1">
+              <label for="profileLogo"
+              [ngClass]="{ 'text-danger': profileLogo.touched && profileLogo.invalid , 'text-success': profileLogo.touched && profileLogo.valid  }"
+              class="form-label lbl">Brand Name</label>
+                <input type="text"
                        class="form-control"
-                       id="forPassword">
+                       id="profileLogo"
+                       name="profileLogo"
+                       [(ngModel)]="profile.profileLogo"
+                       #profileLogo="ngModel" 
+                       [disabled]="disableBoolean"
+                       required
+                       [ngClass]="{ 'is-invalid': profileLogo.touched && profileLogo.invalid , 'is-valid': profileLogo.touched && profileLogo.valid  }" />
+
+                       <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please provide a Brand Name 
+                        </div>
             </div>
             
 
             <div class="col-12 d-flex justify-content-center mt-5">
                 <button type="submit"
-                        class="btn btn-danger ">Update Profile</button>
+                        class="btn btn-danger " (click)="updateData()" [disabled]="updateBoolean">Update Profile</button>
 
                         <button type="submit"
-                        class="btn btn-success ">Edit Profile</button>
+                        class="btn btn-success " (click)="editData()">{{editButtonText}}</button>
                         
             </div>
         </form>

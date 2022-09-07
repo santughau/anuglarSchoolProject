@@ -1,5 +1,6 @@
 import { Component, OnInit,Renderer2, ViewChild, ElementRef } from '@angular/core';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonServiceService } from '../common-service.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,9 +9,16 @@ import { Component, OnInit,Renderer2, ViewChild, ElementRef } from '@angular/cor
 export class HeaderComponent implements OnInit {
   isFavorite: boolean = false;
   @ViewChild('el') elRefs?: ElementRef;
-  constructor(private renderer: Renderer2, private elRef : ElementRef) { }
+  profile: any;
+  brandName: string = "Lax";
+  constructor(private renderer: Renderer2, private elRef : ElementRef,private service : CommonServiceService,private spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.service.getProfile(1).subscribe((data) => {
+      this.profile = data.document;      
+      this.spinner.hide();
+    })
   }
 
   hideShow() {

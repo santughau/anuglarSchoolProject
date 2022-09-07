@@ -11,208 +11,46 @@
         <h1 class="text-muted mb-5">VIEW ALL IMAGES</h1>
         <hr>
     </div>
-    <!--  <table class="table table-bordered ">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">Sr No</th>
-                    <th scope="col">Image Title</th>
-                    <th scope="col">Image</th>
-                    <th scope="col"><i class="fa fa-pencil-square-o"
-                           aria-hidden="true"></i>
-                    </th>
-                    <th scope="col"><i class="fa fa-trash-o"
-                           aria-hidden="true"></i>
-                    </th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                    <th scope="row">
-
-                    </th>
-                    <td>
-
-                    </td>
-                    <td><img src="../images/gallery/"
-                             class="img-fluid shadow-bold"
-                             width="100px;"></td>
-                    <td><a class="btn btn-warning text-white"><i class="fa fa-pencil-square-o"
-                               aria-hidden="true"></i></a></td>
-                    <td><a 
-                           class="btn btn-danger"><i class="fa fa-trash-o"
-                               aria-hidden="true"></i></a></td>
-                </tr>
-               
-            </tbody>
-        </table> -->
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
+    <div class="card col-md-2 mb-2" *ngFor="let data of gallery">
+        <img src="http://localhost/ranjana/gallery/images/{{ data.galleryImage }}.jpg"
              class="card-img-top "
              height="200px" width="100%">
         <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
+            <h5 class="card-title">{{ data.galleryTitle | truncate : 20}}</h5>
             <hr>
             <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
+                <button class="btn btn-primary " (click)="editGallery(data.galleryId)">Edit</button>
+                <button class="btn btn-danger " (click)="openModal(template)">Delete</button>
             </div>
         </div>
+
+        <ng-template #template>
+            <div class="modal-header bg-danger text-white">
+                <h4 class="modal-title pull-left text-center">Delete</h4>
+                <button type="button"
+                        class="btn-close close pull-right"
+                        aria-label="Close"
+                        (click)="modalRef?.hide()">
+                    <span aria-hidden="true"
+                          class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class=" modal-body text-center">
+                <p>Do you want to confirm delete <span class="text-danger text-bold">Chapter
+                        {{data.galleryTitle}} </span> ?</p>
+                <button class="mybtn btn btn-danger "
+                        (click)="confirm(data.galleryId)">Yes</button>
+                <button class="btn btn-primary ml-5"
+                        (click)="decline()">No</button>
+            </div>
+        </ng-template>
     </div>
 
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
-             class="card-img-top "
-             height="200px" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
+    <div class="row mt-5" *ngIf="gallery.length !== 0">
+        <div class="col-xs-12 col-12 d-flex justify-content-center">
+          <pagination [boundaryLinks]="showBoundaryLinks" [itemsPerPage]="6"  [totalItems]="total_rows" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"  class="my-pagination"></pagination>
         </div>
-    </div>
-
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
-             class="card-img-top "
-             height="200px" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
-             class="card-img-top "
-             height="200px" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
-             class="card-img-top "
-             height="200px" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/8.jpg"
-             class="card-img-top "
-             height="200px" width="100%">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="card col-md-2 mb-2">
-        <img src="../../../assets/student/5.jpg"
-             class="card-img-top"
-             height="200px">
-        <div class="card-body">
-            <h5 class="card-title">In Liberary hall at Apex Acadam</h5>
-            <hr>
-            <div class="img">
-                <button class="btn btn-primary ">Edit</button>
-                <button class="btn btn-danger ">Delete</button>
-            </div>
-        </div>
-    </div>
-
-    
-
-
-
+      </div>
+     
 </div>

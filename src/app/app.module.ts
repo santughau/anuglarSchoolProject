@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { StudentModule } from './student/student.module';
@@ -11,11 +11,6 @@ import { MessagesModule } from './messages/messages.module';
 
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './common/header/header.component';
-import { FooterComponent } from './common/footer/footer.component';
-import { SidebarComponent } from './common/sidebar/sidebar.component';
-import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
-import { IndexPageComponent } from './common/index-page/index-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EventsModule } from './events/events.module';
 import { ExtraModule } from './extra/extra.module';
@@ -24,22 +19,16 @@ import { SubjectModule } from './subject/subject.module';
 import { ChapterModule } from './chapter/chapter.module';
 import { HomeworkModule } from './homework/homework.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { StudentService } from './student/student.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ClassTitleService } from './classTitle/class-title.service';
 import { HeaderInterceptor } from './header.interceptor';
 import { ExcelServiceService } from './shared/services/excel-service.service';
-import { SelectRequiredValidatorDirective } from './shared/directive/select-required-validator.directive';
+import { CommonServiceModule } from './common/common-service.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    PageNotFoundComponent,
-    IndexPageComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -56,15 +45,13 @@ import { SelectRequiredValidatorDirective } from './shared/directive/select-requ
     ExtraModule,
     ClassTitleModule,
     SubjectModule,
-    ChapterModule,
+    ChapterModule,CommonServiceModule, 
     HomeworkModule,PdfViewerModule,HttpClientModule,
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+ 
   
   
-  providers: [StudentService ,ExcelServiceService, {  
+  providers: [ExcelServiceService, {  
     provide: HTTP_INTERCEPTORS,  
     useClass: HeaderInterceptor,  
     multi: true  

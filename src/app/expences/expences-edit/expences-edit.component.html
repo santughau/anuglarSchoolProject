@@ -11,44 +11,71 @@
         <h1 class="text-centerl text-muted">UPDATE EXPENCES</h1>
         <hr>
 
-        <form class="row g-3 mt-5">
+        <form class="row g-3 mt-5 needs-validation"
+        #expenseForm="ngForm"
+        novalidate>
 
-            <div class="col-md-3">
-                <label for="particular"
-                       class="form-label lbl">Particular</label>
-                <input type="text"
-                       class="form-control"
-                       id="particular">
-            </div>
-            <div class="col-md-3">
-                <label for="amount"
-                       class="form-label">Amount</label>
-                <input type="text"
-                       class="form-control"
-                       id="amount">
-            </div>
+      <div class="col-md-3">
+          <label for="expencesParticular"
+                 [ngClass]="{ 'text-danger': expencesParticular.touched && expencesParticular.invalid , 'text-success': expencesParticular.touched && expencesParticular.valid  }"
+                 class="form-label lbl">Particulars</label>
+          <input type="text"
+                 class="form-control "
+                 id="expencesParticular"
+                 name="expencesParticular"
+                 [(ngModel)]="expences.expencesParticular"
+                 #expencesParticular="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': expencesParticular.touched && expencesParticular.invalid , 'is-valid': expencesParticular.touched && expencesParticular.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Particulars
+          </div>
+      </div>
 
+      <div class="col-md-1">
+          <label for="expencesAmt"
+                 [ngClass]="{ 'text-danger': expencesAmt.touched && expencesAmt.invalid , 'text-success': expencesAmt.touched && expencesAmt.valid  }"
+                 class="form-label lbl">Amount</label>
+          <input type="text"
+                 class="form-control "
+                 id="expencesAmt"
+                 name="expencesAmt"
+                 [(ngModel)]="expences.expencesAmt"
+                 #expencesAmt="ngModel"
+                 required
+                 [ngClass]="{ 'is-invalid': expencesAmt.touched && expencesAmt.invalid , 'is-valid': expencesAmt.touched && expencesAmt.valid  }">
+          <div class="valid-feedback">
+              Looks good!
+          </div>
+          <div class="invalid-feedback">
+              Please provide a Amt
+          </div>
+      </div>
+      <div class="col-md-3">
+          <label for="forDate"
+                 class="form-label">Date</label>
+          <input type="text"
+                 placeholder="Datepicker"
+                 class="form-control"
+                 bsDatepicker
+                 [bsConfig]="bsConfig"
+                 [dateTooltipTexts]="selectedDates"
+                 [daysDisabled]="[6,0]"
+                 [datesDisabled]="disabledDates"
+                 name="batchStartsFrom"
+                 [(ngModel)]="expences.expencesDate"
+                 #batchStartsFrom="ngModel" 
+                 required>
+      </div>
 
-
-            <div class="col-md-3">
-                <label for="forDate"
-                       class="form-label">Date</label>
-                <input type="text"
-                       placeholder="Datepicker"
-                       class="form-control"
-                       bsDatepicker
-                       [bsConfig]="bsConfig"
-                       [dateTooltipTexts]="selectedDates"
-                       [daysDisabled]="[6,0]"
-                       [datesDisabled]="disabledDates">
-            </div>
-
-
-            <div class="col-2 d-flex justify-content-center mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Upadte Expences</button>
-            </div>
-        </form>
+      <div class="col-md-2 d-flex justify-content-center mt-5">
+          <button type="submit"  [disabled]="expenseForm.invalid"
+                  class="btn btn-success" (click)="updateExpense()">Update Expences</button>
+      </div>
+  </form>
 
     </div>
 </div>

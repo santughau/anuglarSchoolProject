@@ -5,8 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Gallery } from '../gallery.model';
 import { GalleryService } from '../gallery.service';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
-import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 
 
@@ -32,7 +30,7 @@ export class GalleryCreateComponent implements OnInit {
     galleryImage: '',
     galleryTitle: ''
   }
-  constructor(private router : Router, private service :GalleryService,private spinner: NgxSpinnerService, private toastr: ToastrService,private http: HttpClient) { }
+  constructor(private router : Router, private service :GalleryService,private spinner: NgxSpinnerService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -68,11 +66,31 @@ export class GalleryCreateComponent implements OnInit {
      formData.append('title', this.gallery.galleryTitle);
      console.log( formData);
      
-     const upload$ = this.http.post("http://localhost/ranjana/gallery/santu.php", formData);
+     /* const upload$ = this.http.post("http://localhost/ranjana/gallery/santu.php", formData);
      const ok = upload$.subscribe();
      if (ok) {
        this.router.navigate(['gallery/galleryList'])
-     }
+     } */
+
+
+     this.service.createGallery(formData).subscribe((res) => {
+       if (res.status == "success") {
+        this.toastr.success('Image Uploaded Successfully!', 'Weldone!', {
+          timeOut: 3000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          closeButton: true,     
+        });
+        this.router.navigate(['gallery/galleryList'])
+       } else {
+        this.toastr.error('Image does not  Uploaded Successfully!', 'Try Again!', {
+          timeOut: 3000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          closeButton: true,     
+        });
+      }
+     })
      
    }
  

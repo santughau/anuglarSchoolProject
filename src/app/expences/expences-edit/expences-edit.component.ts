@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Expences } from '../expences.model';
 import { ExpencesService } from '../expences.service';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-expences-edit',
@@ -11,7 +12,7 @@ import { ExpencesService } from '../expences.service';
   styleUrls: ['./expences-edit.component.css']
 })
 export class ExpencesEditComponent implements OnInit {
-  spinner: boolean = true;
+  expencesId: any;
   expences: Expences = {
     expencesId: '',
     expencesParticular: '',
@@ -30,10 +31,43 @@ export class ExpencesEditComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router : Router, private service :ExpencesService) { }
+  constructor(private router : Router, private service :ExpencesService,private _route: ActivatedRoute,private spinner: NgxSpinnerService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton:true,showClearButton: true,withTimepicker:true,initCurrentTime:true,customTodayClass:'today'});
+    this.spinner.show();
+    this.expencesId = this._route.snapshot.paramMap.get('id');
+    console.log("expencesId = " + this.expencesId);
+    this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
+
+    this.service.getSingleExpense(this.expencesId).subscribe((data) => {      
+      this.expences = data.document;
+      console.log(this.expences);
+      this.spinner.hide();
+    })
+  }
+
+  updateExpense(){
+    console.log(this.expences);
+    this.spinner.show();
+    this.service.updateExpense(this.expences).subscribe(res => {
+      if (res.status == 'success') {
+        this.toastr.success('Expense Updated Successfully!', 'Weldone!', {
+          timeOut: 3000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          closeButton: true,     
+        });
+        this.router.navigate(['/expences/expencesList'])
+      } else {
+        this.toastr.error('Expense Not  Updated Successfully!', 'Try Again!', {
+          timeOut: 3000,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          closeButton: true,     
+        });
+     }
+      
+    })
   }
 
 }
