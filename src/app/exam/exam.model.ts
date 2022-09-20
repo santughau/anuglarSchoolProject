@@ -3,7 +3,7 @@ export class Exam {
     examClass: string;
     examBatch: string;
     examSubject: string;
-    examTotalMarks: string;
+    examTotalMarks: string | number;
     examName: string;
-    examDate: string;
+    examDate: any;
 }

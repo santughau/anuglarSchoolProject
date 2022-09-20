@@ -11,62 +11,97 @@
         <h1 class="text-centerl text-muted">UPDATE EVENTS</h1>
         <hr >
 
-        <form class="row g-3 mt-5">    
+        <form class="row g-3 mt-5" #eventForm="ngForm">    
              
             <div class="col-md-3">
-                <label for="title"
+                <label for="eventTitle"
+                       [ngClass]="{ 'text-danger': eventTitle.touched && eventTitle.invalid , 'text-success': eventTitle.touched && eventTitle.valid  }"
                        class="form-label lbl">Title</label>
                 <input type="text"
                        class="form-control"
-                       id="title">
+                       id="eventTitle"
+                       name="eventTitle"
+                       [(ngModel)]="eventList.eventTitle"
+                       #eventTitle="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': eventTitle.touched && eventTitle.invalid , 'is-valid': eventTitle.touched && eventTitle.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide Title Here.
+                </div>
             </div>
             <div class="col-md-3">
-                <label for="message"
-                       class="form-label">Message</label>
+                <label for="eventMessage"
+                       [ngClass]="{ 'text-danger': eventMessage.touched && eventMessage.invalid , 'text-success': eventMessage.touched && eventMessage.valid  }"
+                       class="form-label lbl">Message</label>
                 <input type="text"
                        class="form-control"
-                       id="message">
+                       id="eventMessage"
+                       name="eventMessage"
+                       [(ngModel)]="eventList.eventMessage"
+                       #eventMessage="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': eventMessage.touched && eventMessage.invalid , 'is-valid': eventMessage.touched && eventMessage.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide Message Here.
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forColour"
-                       class="form-label">Color</label>
-                <select id="forColour"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                                        <option value="2">Class 2 </option>
-                                        <option value="3">Class 3 </option>
-                                        <option value="4">Class 4 </option>
-                                        <option value="5">Class 5 </option>
-                                        <option value="6">Class 6 </option>
-                                        <option value="7">Class 7 </option>
-                                        <option value="8">Class 8 </option>
-                                        <option value="9">Class 9 </option>
-                                        <option value="10">Class 10 </option>
+                <label for="eventcolor"
+                       [ngClass]="{ 'text-danger': eventcolor.touched && eventcolor.invalid , 'text-success': eventcolor.touched && eventcolor.valid  }"
+                       class="form-label">Colors</label>
+                <select id="eventcolor"
+                        name="eventcolor"
+                        class="form-select subjectId"
+                        [(ngModel)]="eventList.eventcolor"
+                        #eventcolor="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': eventcolor.touched && eventcolor.errors?.['defaultSelected'] , 'is-valid': eventcolor.touched && eventcolor.valid  }">
+                    <option value="select">Choose Subject</option>
+                    <option [ngStyle]="{'color': '#fff', 'background-color': data}" *ngFor="let data of colors ; let i = index"
+                            [value]="data">{{data}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="eventcolor.touched && eventcolor.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="eventcolor.touched && eventcolor.invalid">
+                    Please provide a Color Name
+                </div>
             </div>
 
 
 
-            <div class="col-md-3">
-                <label for="forDate"
+            <div class="col-md-2">
+                <label for="eventDate"
                        class="form-label">Date</label>
-                       <input type="text"
+                <input type="text"
                        placeholder="Datepicker"
                        class="form-control"
                        bsDatepicker
                        [bsConfig]="bsConfig"
                        [dateTooltipTexts]="selectedDates"
                        [daysDisabled]="[6,0]"
-                       [datesDisabled]="disabledDates">
+                       [datesDisabled]="disabledDates"
+                       name="eventDate"
+                       [(ngModel)]="eventList.eventDate"
+                       #eventDate="ngModel" 
+                       required>
+                       
             </div>
             
 
 
-            <div class="col-2 d-flex justify-content-center mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Update Events</button>
+            <div class="col-1 d-flex justify-content-center mt-5">
+                <button type="submit" (click)="updateEvent()" [disabled]="eventForm.invalid"
+                        class="btn btn-danger ">Add Events</button>
             </div>
         </form>
         

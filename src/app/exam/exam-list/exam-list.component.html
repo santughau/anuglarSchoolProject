@@ -1,78 +1,90 @@
 <div class="row box">
-  
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active"
-            aria-current="page">View Exam</li>
-      </ol>
-    </nav>
-    <div class="col-md-12 ">
-      <h1 class="text-muted mb-5">VIEW ALL EXAM</h1>
-      <hr>
-      <h2 class="text-center text-white bg-primary">Upload Excel File for Result</h2><hr>
-      <form class="mb-5">
-          <div class="form-group row">
-              <label class="col-sm-2 col-form-label text-dark">Upload Excel File </label>
-              <div class="col-sm-4">
-                <input type="file"
-                class="form-control"
-                id="forPassword">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active"
+          aria-current="page">View Exam</li>
+    </ol>
+  </nav>
+  <div class="col-md-12 ">
+    <h1 class="text-muted mb-5">VIEW ALL EXAM</h1>
+    <hr>
+    
+   
+    <div id="table-responsive">
+      <table class="table table-bordered display"
+             id="table2excel">
+        <thead class="table-dark text-center">
+          <tr>
+            <th scope="col">Sr No</th>
+            <th scope="col">Class Name</th>
+            <th scope="col">Batch Name</th>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Exam Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total Marks</th>
+            <th scope="col"><i class="fa fa-download"
+                 aria-hidden="true"></i>
+            </th>
+            <th scope="col"><i class="fa fa-pencil-square-o"
+                 aria-hidden="true"></i>
+            </th>
+            <th scope="col"><i class="fa fa-trash-o"
+                 aria-hidden="true"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let exam of allExamList">
+            <th scope="row"></th>
+            <td>{{exam.ClassName}}</td>
+            <td> {{exam.batchName}}</td>
+            <td>{{exam.subjectName}}</td>
+            <td>{{exam.examName}}</td>
+            <td>{{exam.examDate |date}}</td>
+            <td>{{exam.examTotalMarks}}</td>
+            <td><a class="btn btn-primary"><i class="fa fa-download"
+                   aria-hidden="true"></i></a></td>
+            <td class="text-center"
+                (click)="editExam(exam.examId)"><a class="btn btn-warning"><i class="fa fa-pencil-square-o"
+                   aria-hidden="true"></i></a></td>
+            <td (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
+                   aria-hidden="true"></i></a></td>
+
+
+            <ng-template #template>
+              <div class="modal-header bg-danger text-white">
+                <h4 class="modal-title pull-left text-center">Delete</h4>
+                <button type="button"
+                        class="btn-close close pull-right"
+                        aria-label="Close"
+                        (click)="modalRef?.hide()">
+                  <span aria-hidden="true"
+                        class="visually-hidden">&times;</span>
+                </button>
               </div>
-              <div class="col-sm-4">
-                   <button type="submit" class="btn btn-primary" name="upload">Upload Excel</button>
+              <div class=" modal-body text-center">
+                <p>Do you want to confirm delete <span class="text-danger text-bold">Exam 
+                    {{exam.examName}} </span> ?</p>
+                <button class="mybtn btn btn-danger "
+                        (click)="confirm(exam.examId)">Yes</button>
+                <button class="btn btn-primary ml-5"
+                        (click)="decline()">No</button>
               </div>
-          </div>
-      </form>
-      <div id="table-responsive">
-        <table class="table table-bordered display"
-               id="table2excel">
-          <thead class="table-dark text-center">
-            <tr>
-              <th scope="col">Sr No</th>
-              <th scope="col">Batch Name</th>
-              <th scope="col">Date</th>
-              <th scope="col">Subject</th>
-              <th scope="col">Total Marks</th>
-              <th scope="col"><i class="fa fa-download"
-                   aria-hidden="true"></i>
-              </th>
-              <th scope="col"><i class="fa fa-pencil-square-o"
-                   aria-hidden="true"></i>
-              </th>
-              <th scope="col"><i class="fa fa-trash-o"
-                   aria-hidden="true"></i>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-  
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td>Class </td>
-              <td></td>
-              <td></td>
-              <td><a href="studentDetails.php?id="
-                   class="btn btn-primary"><i class="fa fa-download"
-                     aria-hidden="true"></i></a></td>
-              <td><a href="editStudent.php?id="
-                   class="btn btn-warning"><i class="fa fa-pencil-square-o"
-                     aria-hidden="true"></i></a></td>
-              <td><a href="student.php?del="
-                   class="btn btn-danger"><i class="fa fa-trash-o"
-                     aria-hidden="true"></i></a></td>
-            </tr>
-  
-          </tbody>
-        </table>
-        <hr>
-      </div>
-      <button type="button"
-              class="btn btn-warning text-white offset-md-4"
-              id="but">Export to Excel</button>
+            </ng-template>
+          </tr>
+
+        </tbody>
+      </table>
       <hr>
-     
-      
     </div>
+    <button type="button" (click)="exportAsXLSX()"
+            class="btn btn-warning text-white offset-md-4"
+            id="but">Export to Excel</button>
+    <hr>
+
+
   </div>
+</div>

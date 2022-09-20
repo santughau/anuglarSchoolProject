@@ -8,6 +8,8 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { ExamDownloadCsvComponent } from './exam-download-csv/exam-download-csv.component';
 import { ExamService } from './exam.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { FormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -20,7 +22,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
   ],
   imports: [
     CommonModule,
-    ExamRoutingModule, SharedModulesModule
+    ExamRoutingModule, DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,SharedModulesModule
   ],
   providers: [ExamService],
 })

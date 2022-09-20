@@ -3,5 +3,5 @@ export class EventList {
     eventTitle: string;
     eventMessage: string;
     eventcolor: string;
-    eventDate: string;
+    eventDate: any;
 }

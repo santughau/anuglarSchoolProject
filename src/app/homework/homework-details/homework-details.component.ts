@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Homework } from '../homework.model';
 import { HomeworkService } from '../homework.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-homework-details',
   templateUrl: './homework-details.component.html',
   styleUrls: ['./homework-details.component.css']
 })
 export class HomeworkDetailsComponent implements OnInit {
-  spinner: boolean = true;
+  homeworkId: any;
   homework : Homework ={
     homeworkId: '',
     homeworkClassId: '',
@@ -32,9 +34,23 @@ export class HomeworkDetailsComponent implements OnInit {
   total = 0;
   @ViewChild('template1') private template1: any
   @ViewChild('template2') private template2: any
-  constructor(private modalService: BsModalService, private router: Router, private service: HomeworkService) { }
+  constructor(private spinner: NgxSpinnerService,private modalService: BsModalService, private router: Router, private service: HomeworkService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.homeworkId = this._route.snapshot.paramMap.get('id');
+    console.log(this.homeworkId);
+    this.getHomework();
+  }
+
+  getHomework() {
+    this.service.getSingleHomework(this.homeworkId).subscribe((data) => {
+      this.homework = data.document;
+      console.log(this.homework);
+      const pdfFile = this.homework.homeworkFile;
+      this.pdfSrc = 'http://localhost/ranjana/homework/files/' + pdfFile + '.pdf';
+
+    })
   }
 
   searchQueryChanged(newQuery: string) {
