@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TermExamService } from '../term-exam.service';
 import { Termexam } from '../termexam.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-termexam-details',
@@ -11,7 +13,7 @@ import { Termexam } from '../termexam.model';
   styleUrls: ['./termexam-details.component.css']
 })
 export class TermexamDetailsComponent implements OnInit {
-  spinner: boolean = true;
+  termExamId: any;
   termexam: Termexam = {
     termexamId: '',
     termexamClassId: '',
@@ -32,9 +34,23 @@ export class TermexamDetailsComponent implements OnInit {
   total = 0;
   @ViewChild('template1') private template1: any
   @ViewChild('template2') private template2: any
-  constructor(private modalService: BsModalService, private router: Router, private service: TermExamService) { }
+  constructor(private spinner: NgxSpinnerService,private modalService: BsModalService, private router: Router, private service: TermExamService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.termExamId = this._route.snapshot.paramMap.get('id');
+    console.log(this.termExamId);
+    this.gettermExam();
+  }
+
+  gettermExam() {
+    this.service.getSingleTermExam(this.termExamId).subscribe((data) => {
+      this.termexam = data.document;
+      console.log(this.termexam);
+      const pdfFile = this.termexam.termexamFile;
+      this.pdfSrc = 'http://localhost/ranjana/termexam/files/' + pdfFile + '.pdf';
+
+    })
   }
 
   searchQueryChanged(newQuery: string) {

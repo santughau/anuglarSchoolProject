@@ -18,7 +18,7 @@ import { DataTablesModule } from 'angular-datatables/src/angular-datatables.modu
   declarations: [HomeworkDetailsComponent,HomeworkCreateComponent,HomeworkEditComponent,HomeworkListComponent],
   imports: [
     CommonModule,
-    HomeworkRoutingModule,PdfViewerModule,SharedModulesModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,SharedModulesModule
+    HomeworkRoutingModule,PdfViewerModule,SharedModulesModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,
   ],
   providers: [HomeworkService],
   

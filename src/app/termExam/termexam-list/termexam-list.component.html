@@ -9,98 +9,131 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">VIEW ALL TERMEXAM</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
+        <form class="row g-3 mt-2 mb-5"
+              #termexam="ngForm">
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadSubjects($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="subjectId"
+                       [ngClass]="{ 'text-danger': subjectId.touched && subjectId.invalid , 'text-success': subjectId.touched && subjectId.valid  }"
+                       class="form-label">For Subjecet</label>
+                <select id="subjectId"
+                        name="subjectId"
+                        class="form-select subjectId"
+                        [(ngModel)]="subjectModel.subjectId"
+                        #subjectId="ngModel"
+                        appSelectValidator="select"
+                        (change)="changeExamOrder($event)"
+                        [ngClass]="{ 'is-invalid': subjectId.touched && subjectId.errors?.['defaultSelected'] , 'is-valid': subjectId.touched && subjectId.valid  }">
+                    <option value="select">Choose Subject</option>
+                    <option *ngFor="let data of subjects ; let i = index"
+                            [value]="data.subjectId">{{data.subjectName}} </option>
+                </select>
+                <div class="valid-feedback"
+                     *ngIf="subjectId.touched && subjectId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="subjectId.touched && subjectId.invalid">
+                    Please provide a Subject Name
+                </div>
             </div>
 
             <div class="col-md-2">
-                <label for="forClass"
-                       class="form-label">SUBJECT</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
+                <label for="examid"
+                       [ngClass]="{ 'text-danger': examid.touched && examid.invalid , 'text-success': examid.touched && examid.valid  }"
+                       class="form-label">Term Exam</label>
+                <select id="examid"
+                        name="examid"
+                        class="form-select subjectId"
+                        [(ngModel)]="exam.examid"
+                        #examid="ngModel"
+                        appSelectValidator="select"
+                        (change)="loadTermExam($event)"
+                        [ngClass]="{ 'is-invalid': examid.touched && examid.errors?.['defaultSelected'] , 'is-valid': examid.touched && examid.valid  }">
+                    <option value="select">Choose Term Exam</option>
+                    <option *ngFor="let data of examNames ; let i = index"
+                            [value]="data.examid">{{data.name}} </option>
                 </select>
-            </div>
-
-            <div class="col-md-2">
-                <label for="forClass"
-                       class="form-label">EXAM</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                </select>
+                <div class="valid-feedback"
+                     *ngIf="examid.touched && examid.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="examid.touched && examid.invalid">
+                    Please provide a Exam
+                </div>
             </div>
         </form>
     </div>
 </div>
 
 
-<div class="row box">
-    <div class="col-md-9 ">
-        <h1 class="text-muted mb-5">EXAM TITLE GOES HERE</h1>
-    </div>
-    <div class="col-md-3 ">
-
-        <div class="d-flex justify-content-end">
-            <a href="studentDetails.php?id="
-            class="btn btn-primary"><i class="fa fa-eye"
-                aria-hidden="true"></i></a>
- 
-         <a href="editStudent.php?id="
-            class="btn btn-warning"><i class="fa fa-pencil-square-o"
-                aria-hidden="true"></i></a>
- 
-         <a href="student.php?del="
-            class="btn btn-danger"><i class="fa fa-trash-o"
-                aria-hidden="true"></i></a>
+<div *ngIf="showTermExam">
+    <div class="row box" *ngFor="let exam of termExam">
+        <div class="col-md-9 ">
+            <h1 class="text-muted mb-5">{{exam.termexamName}}</h1>
         </div>
-        
-    </div>
-</div>
+        <div class="col-md-3 ">
 
-<div class="row box">
-    <div class="col-md-9 ">
-        <h1 class="text-muted mb-5">EXAM TITLE GOES HERE</h1>
-    </div>
-    <div class="col-md-3 ">
+            <div class="d-flex justify-content-end">
+                <a (click)="viewtermExam(exam.termexamId)"
+                   class="btn btn-primary"><i class="fa fa-eye"
+                       aria-hidden="true"></i></a>
 
-        <div class="d-flex justify-content-end">
-            <a href="studentDetails.php?id="
-            class="btn btn-primary"><i class="fa fa-eye"
-                aria-hidden="true"></i></a>
- 
-         <a href="editStudent.php?id="
-            class="btn btn-warning"><i class="fa fa-pencil-square-o"
-                aria-hidden="true"></i></a>
- 
-         <a href="student.php?del="
-            class="btn btn-danger"><i class="fa fa-trash-o"
-                aria-hidden="true"></i></a>
+                <a (click)="editTermexam(exam.termexamId)"
+                   class="btn btn-warning"><i class="fa fa-pencil-square-o"
+                       aria-hidden="true"></i></a>
+
+                <a (click)="openModal(template)"
+                   class="btn btn-danger"><i class="fa fa-trash-o"
+                       aria-hidden="true"></i></a>
+
+                       <ng-template #template>
+                        <div class="modal-header bg-danger text-white">
+                            <h4 class="modal-title pull-left text-center">Delete</h4>
+                            <button type="button"
+                                    class="btn-close close pull-right"
+                                    aria-label="Close"
+                                    (click)="modalRef?.hide()">
+                                <span aria-hidden="true"
+                                      class="visually-hidden">&times;</span>
+                            </button>
+                        </div>
+                        <div class=" modal-body text-center">
+                            <p>Do you want to confirm delete <span class="text-danger text-bold">Homework
+                                    {{exam.termexamName}} </span> ?</p>
+                            <button class="mybtn btn btn-danger "
+                                    (click)="confirm(exam.termexamId)">Yes</button>
+                            <button class="btn btn-primary ml-5"
+                                    (click)="decline()">No</button>
+                        </div>
+                    </ng-template>
+            </div>
+
         </div>
-        
     </div>
 </div>

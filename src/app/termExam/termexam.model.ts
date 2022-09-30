@@ -4,4 +4,5 @@ export class Termexam {
     termexamSubjectId: number |string;
     termexamName: string;
     termexamFile: string;
+    termexamExamId?: number |string; 
 }
