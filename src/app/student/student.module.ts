@@ -13,6 +13,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { StudentService } from './student.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { FormsModule } from '@angular/forms';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -23,9 +24,9 @@ FullCalendarModule.registerPlugins([
 
 
 @NgModule({
-  declarations: [StudentListComponent, StudentCreateComponent, StudentEditComponent, StudentDetailsComponent, PresentyComponent],
+  declarations: [StudentListComponent, StudentCreateComponent, StudentEditComponent, StudentDetailsComponent, PresentyComponent,],
   imports: [
-    CommonModule,StudentRoutingModule,SharedModulesModule,FullCalendarModule,
+    CommonModule,StudentRoutingModule,SharedModulesModule,FullCalendarModule,FormsModule,NgxBootstrapModule
   ],
   providers: [StudentService],
 })

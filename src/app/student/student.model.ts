@@ -1,5 +1,6 @@
 export class Student {
     studentId?: number | string;
+    studentName?: string;
     studentAddress: string;
     studentClass: string;
     studentBatch: string;
@@ -11,7 +12,7 @@ export class Student {
     studentFee: string;
     studentPassword: string;
     studentMac?: string;
-    studentDob: string;
+    studentDob: any;
     studentSubject: string;
     studentCompExam: string;
     studentImage: string;

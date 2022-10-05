@@ -11,119 +11,268 @@
         <h1 class="text-centerl text-muted">ADD STUDENT</h1>
         <hr >
 
-        <form class="row g-3 mt-5">    
+        <form class="row g-3 mt-5" #studentForm="ngForm">    
              
             <div class="col-md-3">
-                <label for="student"
+                <label for="studentName"
+                       [ngClass]="{ 'text-danger': studentName.touched && studentName.invalid , 'text-success': studentName.touched && studentName.valid  }"
                        class="form-label lbl">Student Name</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="studentName"
+                       name="studentName"
+                       [(ngModel)]="student.studentName"
+                       #studentName="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': studentName.touched && studentName.invalid , 'is-valid': studentName.touched && studentName.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Student Name
+                </div>
             </div>
+            
             <div class="col-md-3">
-                <label for="address"
-                       class="form-label">Address</label>
+                <label for="studentAddress"
+                       [ngClass]="{ 'text-danger': studentAddress.touched && studentAddress.invalid , 'text-success': studentAddress.touched && studentAddress.valid  }"
+                       class="form-label lbl">Student Address</label>
                 <input type="text"
                        class="form-control"
-                       id="address">
+                       id="studentAddress"
+                       name="studentAddress"
+                       [(ngModel)]="student.studentAddress"
+                       #studentAddress="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': studentAddress.touched && studentAddress.invalid , 'is-valid': studentAddress.touched && studentAddress.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Student Address
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                                        <option value="2">Class 2 </option>
-                                        <option value="3">Class 3 </option>
-                                        <option value="4">Class 4 </option>
-                                        <option value="5">Class 5 </option>
-                                        <option value="6">Class 6 </option>
-                                        <option value="7">Class 7 </option>
-                                        <option value="8">Class 8 </option>
-                                        <option value="9">Class 9 </option>
-                                        <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadBaches($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forBatch"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
                        class="form-label">For Batch</label>
-                <select id="forBatch"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="batchId"
+                        name="batchId"
+                        class="form-select"
+                        [(ngModel)]="batch.batchId"
+                        #batchId="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+                    <option value="select">Choose Batch</option>
+                    <option *ngFor="let data of allBatchList ; let i = index"
+                            [value]="data.batchId">Class {{data.batchName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="batchId.touched && batchId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="batchId.touched && batchId.invalid">
+                    Please provide a Batch Name
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forMedium"
+                <label for="studentMedium"
+                       [ngClass]="{ 'text-danger': studentMedium.touched && studentMedium.invalid , 'text-success': studentMedium.touched && studentMedium.valid  }"
                        class="form-label">Medium</label>
-                <select id="forMedium"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="Marathi">Marathi</option>
-                    <option value="Semi">Semi</option>
-                    <option value="CBSE">CBSE</option>
+                <select id="studentMedium"
+                        name="studentMedium"
+                        class="form-select"
+                        [(ngModel)]="medium.value"
+                        #studentMedium="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': studentMedium.touched && studentMedium.errors?.['defaultSelected'] , 'is-valid': studentMedium.touched && studentMedium.valid  }">
+                    <option value="select">Choose Medium</option>
+                    <option *ngFor="let data of mediumData ; let i = index"
+                            [value]="data.value"> {{data.name}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="studentMedium.touched && studentMedium.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="studentMedium.touched && studentMedium.invalid">
+                    Please provide a Medium
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forGender"
+                <label for="studentGender" [ngClass]="{ 'text-danger': studentGender.touched && studentGender.invalid , 'text-success': studentGender.touched && studentGender.valid  }"
                        class="form-label">Gender</label>
-                <select id="forGender"
-                        class="form-select">
-                    <option selected>Choose...</option>
+                <select id="studentGender"
+                        class="form-select"
+                        id="studentGender"
+                        name="studentGender"
+                        [(ngModel)]="student.studentGender"
+                        #studentGender="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': studentGender.touched && studentGender.errors?.['defaultSelected'] , 'is-valid': studentGender.touched && studentGender.valid  }">
+                    <option value="select">Choose...</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="studentGender.touched && studentGender.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="studentGender.touched && studentGender.invalid">
+                    Please provide a Gender
+                </div>
             </div>
 
 
             <div class="col-md-2">
-                <label for="forMobile"
-                       class="form-label">Mobile</label>
+                <label for="studentMobile"
+                       [ngClass]="{ 'text-danger': studentMobile.touched && studentMobile.invalid , 'text-success': studentMobile.touched && studentMobile.valid  }"
+                       class="form-label lbl">Student Mobile</label>
                 <input type="text"
                        class="form-control"
-                       id="forMobile">
+                       id="studentMobile"
+                       name="studentMobile"
+                       [(ngModel)]="student.studentMobile"
+                       #studentMobile="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': studentMobile.touched && studentMobile.invalid , 'is-valid': studentMobile.touched && studentMobile.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Student Mobile
+                </div>
             </div>
+
             <div class="col-md-3">
-                <label for="forEmail"
-                       class="form-label">Email</label>
+                <label for="studentEmail"
+                       [ngClass]="{ 'text-danger': studentEmail.touched && studentEmail.invalid , 'text-success': studentEmail.touched && studentEmail.valid  }"
+                       class="form-label lbl">Student Email</label>
                 <input type="email"
                        class="form-control"
-                       id="forEmail">
+                       id="studentEmail"
+                       name="studentEmail"
+                       [(ngModel)]="student.studentEmail"
+                       #studentEmail="ngModel"
+                       required
+                       email
+                       [ngClass]="{ 'is-invalid': studentEmail.touched && studentEmail.invalid , 'is-valid': studentEmail.touched && studentEmail.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Student Email Id
+                </div>
             </div>
+            
             <div class="col-md-3">
-                <label for="forSchool"
-                       class="form-label">School Name</label>
+                <label for="studentSchool"
+                       [ngClass]="{ 'text-danger': studentSchool.touched && studentSchool.invalid , 'text-success': studentSchool.touched && studentSchool.valid  }"
+                       class="form-label lbl">School Name</label>
                 <input type="text"
                        class="form-control"
-                       id="forSchool">
+                       id="studentSchool"
+                       name="studentSchool"
+                       [(ngModel)]="student.studentSchool"
+                       #studentSchool="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': studentSchool.touched && studentSchool.invalid , 'is-valid': studentSchool.touched && studentSchool.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Student School Name
+                </div>
             </div>
             <div class="col-md-1">
-                <label for="forFee"
-                       class="form-label">Fees</label>
+                <label for="studentFee"
+                       [ngClass]="{ 'text-danger': studentFee.touched && studentFee.invalid , 'text-success': studentFee.touched && studentFee.valid  }"
+                       class="form-label lbl">Fee</label>
                 <input type="text"
                        class="form-control"
-                       id="forFee">
+                       id="studentFee"
+                       name="studentFee"
+                       [(ngModel)]="student.studentFee"
+                       #studentFee="ngModel"
+                       required                       
+                       [ngClass]="{ 'is-invalid': studentFee.touched && studentFee.invalid , 'is-valid': studentFee.touched && studentFee.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Fees
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forPassword"
-                       class="form-label">Password</label>
+                <label for="studentPassword"
+                       [ngClass]="{ 'text-danger': studentPassword.touched && studentPassword.invalid , 'text-success': studentPassword.touched && studentPassword.valid  }"
+                       class="form-label lbl">Password</label>
                 <input type="text"
                        class="form-control"
-                       id="forPassword">
+                       id="studentPassword"
+                       name="studentPassword"
+                       [(ngModel)]="student.studentPassword"
+                       #studentPassword="ngModel"
+                       required                       
+                       [ngClass]="{ 'is-invalid': studentPassword.touched && studentPassword.invalid , 'is-valid': studentPassword.touched && studentPassword.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Password
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forMacId"
-                       class="form-label">MAC ID</label>
+                <label for="studentMac"
+                       [ngClass]="{ 'text-danger': studentMac.touched && studentMac.invalid , 'text-success': studentMac.touched && studentMac.valid  }"
+                       class="form-label lbl">MAC ID</label>
                 <input type="text"
                        class="form-control"
-                       id="forMacId">
+                       id="studentMac"
+                       name="studentMac"
+                       [(ngModel)]="student.studentMac"
+                       #studentMac="ngModel"
+                       required                       
+                       [ngClass]="{ 'is-invalid': studentMac.touched && studentMac.invalid , 'is-valid': studentMac.touched && studentMac.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a MAC No
+                </div>
             </div>
 
 
@@ -137,7 +286,11 @@
                        [bsConfig]="bsConfig"
                        [dateTooltipTexts]="selectedDates"
                        [daysDisabled]="[6,0]"
-                       [datesDisabled]="disabledDates">
+                       [datesDisabled]="disabledDates"
+                       name="studentDob"
+                       [(ngModel)]="student.studentDob"
+                       #studentDob="ngModel" 
+                       required>
             </div>
             <div class="col-md-12">
                 <label for="inputZip"

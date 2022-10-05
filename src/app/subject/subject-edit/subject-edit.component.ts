@@ -23,7 +23,7 @@ export class SubjectEditComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     const id = this._route.snapshot.paramMap.get('id');
-    this.spinner.show();
+   
     this.service.getAllClass().subscribe((data) => {
       //console.log(data);
       this.classesList = data;

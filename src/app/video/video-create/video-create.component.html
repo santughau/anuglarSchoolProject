@@ -9,71 +9,127 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">CREATE VIDEO</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
+        <form class="row g-3 mt-2 mb-5" #videoForm="ngForm">
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadSubjects($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
             <div class="col-md-2">
-                <label for="forClass"
-                       class="form-label">SUBJECT</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
+                <label for="subjectId"
+                       [ngClass]="{ 'text-danger': subjectId.touched && subjectId.invalid , 'text-success': subjectId.touched && subjectId.valid  }"
+                       class="form-label">For Subjecet</label>
+                <select id="subjectId"
+                        name="subjectId"
+                        class="form-select subjectId"
+                        [(ngModel)]="subjectModel.subjectId"
+                        #subjectId="ngModel"
+                        (change)="loadChapters($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': subjectId.touched && subjectId.errors?.['defaultSelected'] , 'is-valid': subjectId.touched && subjectId.valid  }">
+                    <option value="select">Choose Subject</option>
+                    <option *ngFor="let data of subjects ; let i = index"
+                            [value]="data.subjectId">{{data.subjectName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="subjectId.touched && subjectId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="subjectId.touched && subjectId.invalid">
+                    Please provide a Subject Name
+                </div>
             </div>
 
             <div class="col-md-2">
-                <label for="forClass"
-                       class="form-label">CHAPTER</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
+                <label for="chapterId"
+                       [ngClass]="{ 'text-danger': chapterId.touched && chapterId.invalid , 'text-success': chapterId.touched && chapterId.valid  }"
+                       class="form-label">Chapters</label>
+                <select id="chapterId"
+                        name="chapterId"
+                        class="form-select subjectId"
+                        [(ngModel)]="chapterModel.chapterId"
+                        #chapterId="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': chapterId.touched && chapterId.errors?.['defaultSelected'] , 'is-valid': chapterId.touched && chapterId.valid  }">
+                    <option value="select">Choose Chapter</option>
+                    <option *ngFor="let data of chapters ; let i = index"
+                            [value]="data.chapterId">{{data.chapterName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="chapterId.touched && chapterId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="chapterId.touched && chapterId.invalid">
+                    Please provide a Subject Name
+                </div>
             </div>
 
             <div class="col-md-3">
-                <label for="student"
-                       class="form-label lbl">VIDEO TITLE</label>
+                <label for="videoTitle"
+                       [ngClass]="{ 'text-danger': videoTitle.touched && videoTitle.invalid , 'text-success': videoTitle.touched && videoTitle.valid  }"
+                       class="form-label lbl">Video Title</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="videoTitle"
+                       name="videoTitle"
+                       [(ngModel)]="video.videoTitle"
+                       #videoTitle="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': videoTitle.touched && videoTitle.invalid , 'is-valid': videoTitle.touched && videoTitle.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Video Title
+                </div>
             </div>
 
-            <div class="col-md-1">
-                <label for="student"
-                       class="form-label lbl">LINK</label>
+            <div class="col-md-3">
+                <label for="videoLink"
+                       [ngClass]="{ 'text-danger': videoLink.touched && videoLink.invalid , 'text-success': videoLink.touched && videoLink.valid  }"
+                       class="form-label lbl">Link</label>
                 <input type="text"
                        class="form-control"
-                       id="student">
+                       id="videoLink"
+                       name="videoLink"
+                       [(ngModel)]="video.videoLink"
+                       #videoLink="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': videoLink.touched && videoLink.invalid , 'is-valid': videoLink.touched && videoLink.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Video Link Here
+                </div>
             </div>
 
 
             <div class="col-2  mt-5">
-                <button type="submit"
+                <button type="submit" [disabled]="videoForm.invalid" (click)="saveVideo()"
                         class="btn btn-danger ">ADD VIDEO</button>
             </div>
         </form>
