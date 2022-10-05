@@ -9,6 +9,7 @@ import { ClassList } from 'src/app/classTitle/classList.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Batch } from '../../batch/batch.model';
 import { BatchService } from 'src/app/batch/batch.service';
+import {  IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-student-create',
   templateUrl: './student-create.component.html',
@@ -79,6 +80,10 @@ export class StudentCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
+
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
   constructor(private router : Router, private studentService :StudentService,private spinner: NgxSpinnerService, private toastr: ToastrService,private batchService : BatchService,) {
 
 
@@ -87,6 +92,16 @@ export class StudentCreateComponent implements OnInit {
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
     this.getAllClass();
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
   }
 
   getAllClass() {
@@ -119,6 +134,13 @@ export class StudentCreateComponent implements OnInit {
       
     })
     
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
 }

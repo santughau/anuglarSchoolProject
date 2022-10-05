@@ -297,10 +297,15 @@
                        class="form-label ">Subjects</label><br>
                 <div class="form-check form-check-inline ">
                     <label class="form-check-label">
-                        <input class="form-check-input"
-                               type="checkbox"
-                               name="com[]"
-                               value="1">
+                        <ng-multiselect-dropdown
+  [placeholder]="'custom placeholder'"
+  [settings]="dropdownSettings"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+>
+</ng-multiselect-dropdown>
                         Marathi
                     </label>
                 </div>
