@@ -32,7 +32,9 @@
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/ngx-spinner/animations/timer.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/@fullcalendar/common/main.css",
+              "node_modules/@fullcalendar/daygrid/main.css"
             
             ],
             "scripts": [
@@ -119,6 +121,5 @@
         }
       }
     }
-  },
-  "defaultProject": "apexAngular"
+  }
 }

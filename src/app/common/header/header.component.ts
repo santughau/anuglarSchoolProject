@@ -9,7 +9,7 @@ import { CommonServiceService } from '../common-service.service';
 export class HeaderComponent implements OnInit {
   isFavorite: boolean = false;
   @ViewChild('el') elRefs?: ElementRef;
-  profile: any;
+  profile: any = {};
   brandName: string = "Lax";
   constructor(private renderer: Renderer2, private elRef : ElementRef,private service : CommonServiceService,private spinner: NgxSpinnerService,) { }
 

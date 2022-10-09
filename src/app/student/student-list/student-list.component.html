@@ -1,6 +1,6 @@
-
 <div class="row box">
-  <ngx-spinner  type="timer"><p style="font-size: 20px; color: white">Loading...</p>
+  <ngx-spinner type="timer">
+    <p style="font-size: 20px; color: white">Loading...</p>
   </ngx-spinner>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -10,8 +10,71 @@
     </ol>
   </nav>
   <div class="col-md-12 ">
-    <h1 class="text-muted mb-5">VIEW ALL STUDENTS</h1>
+    <h1 class="text-muted mb-5">VIEW ALL Student</h1>
     <hr>
+    <form class="row g-3 mt-2 mb-5"
+          #homework="ngForm">
+      <div class="col-md-1">
+        <label for="classId"
+               [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+               class="form-label">For Class</label>
+        <select id="classId"
+                name="classId"
+                class="form-select"
+                [(ngModel)]="classList.classId"
+                #classId="ngModel"
+                (change)="loadBatches($event)"
+                appSelectValidator="select"
+                [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+          <option value="select">Choose Class</option>
+          <option *ngFor="let data of allClassList ; let i = index"
+                  [value]="data.classId">Class {{data.className}} </option>
+        </select>
+        <div class="valid-feedback"
+             *ngIf="classId.touched && classId.valid">
+          Looks good!
+        </div>
+        <div class="invalid-feedback"
+             *ngIf="classId.touched && classId.invalid">
+          Please provide a Class Name
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="batchId"
+               [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
+               class="form-label">For Batch</label>
+        <select id="batchId"
+                name="batchId"
+                class="form-select subjectId"
+                [(ngModel)]="batch.batchId"
+                #batchId="ngModel"
+                (change)="loadStudent($event)"
+                appSelectValidator="select"
+                [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+          <option value="select">Choose Subject</option>
+          <option *ngFor="let data of allBatchList ; let i = index"
+                  [value]="data.batchId">{{data.batchName}} </option>
+        </select>
+        <div class="valid-feedback"
+             *ngIf="batchId.touched && batchId.valid">
+          Looks good!
+        </div>
+        <div class="invalid-feedback"
+             *ngIf="batchId.touched && batchId.invalid">
+          Please provide a Subject Name
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
+<div class="row box"
+     *ngIf="showStudent">
+  <div class="col-md-12 ">
+
 
     <div id="table-responsive">
       <table class="table table-bordered display"
@@ -22,6 +85,7 @@
             <th scope="col">Student Name</th>
             <th scope="col">Class</th>
             <th scope="col">Batch</th>
+            <th scope="col">Subjects</th>
             <th scope="col">Image</th>
             <th scope="col"><i class="fa fa-eye"
                  aria-hidden="true"></i>
@@ -36,23 +100,46 @@
         </thead>
         <tbody>
 
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td>Class </td>
-            <td></td>
-            <td><img src="../images/student/"
+          <tr *ngFor="let student of students; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{student.studentName}}</td>
+            <td>Class {{student.subjectClass}}</td>
+            <td>{{student.studentBatch}}</td>
+            <td>
+              <div  *ngFor="let course of student.studentSubject; let lastItem = last" >
+                <span>{{course}}</span><span *ngIf="!lastItem">,</span>
+              </div >
+            </td>
+            <td><img src="http://localhost/ranjana/student/images/{{student.studentImage}}.jpg"
                    class="img-fluid"
                    width="100px"></td>
-            <td><a href="studentDetails.php?id="
-                 class="btn btn-primary"><i class="fa fa-eye"
+            <td><a (click)="viewStudent(student.studentId)" class="btn btn-primary"><i class="fa fa-eye"
                    aria-hidden="true"></i></a></td>
-            <td><a href="editStudent.php?id="
-                 class="btn btn-warning"><i class="fa fa-pencil-square-o"
+            <td><a  (click)="editStudent(student.studentId)" class="btn btn-warning"><i class="fa fa-pencil-square-o"
                    aria-hidden="true"></i></a></td>
-            <td><a href="student.php?del="
-                 class="btn btn-danger"><i class="fa fa-trash-o"
-                   aria-hidden="true"></i></a></td>
+            <td><a (click)="openModal(template)" class="btn btn-danger"><i class="fa fa-trash-o"
+                   aria-hidden="true"></i></a>
+                   <ng-template #template>
+                    <div class="modal-header bg-danger text-white">
+                        <h4 class="modal-title pull-left text-center">Delete</h4>
+                        <button type="button"
+                                class="btn-close close pull-right"
+                                aria-label="Close"
+                                (click)="modalRef?.hide()">
+                            <span aria-hidden="true"
+                                  class="visually-hidden">&times;</span>
+                        </button>
+                    </div>
+                    <div class=" modal-body text-center">
+                        <p>Do you want to confirm delete <span class="text-danger text-bold">Student
+                                {{student.studentName}} </span> ?</p>
+                        <button class="mybtn btn btn-danger "
+                                (click)="confirm(student.studentId)">Yes</button>
+                        <button class="btn btn-primary ml-5"
+                                (click)="decline()">No</button>
+                    </div>
+                </ng-template>      
+            </td>
           </tr>
 
         </tbody>
@@ -64,5 +151,13 @@
             id="but">Export to Excel</button>
     <hr>
 
+  </div>
+</div>
+
+<div class="row box"
+     *ngIf="showMsg">
+  <div class="alert alert-danger text-center"
+       role="alert">
+    There is no Student . Please Add First Student
   </div>
 </div>

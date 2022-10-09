@@ -24,7 +24,7 @@ FullCalendarModule.registerPlugins([
 
 
 @NgModule({
-  declarations: [StudentListComponent, StudentCreateComponent, StudentEditComponent, StudentDetailsComponent, PresentyComponent,],
+  declarations: [StudentListComponent, StudentCreateComponent , StudentEditComponent, StudentDetailsComponent, PresentyComponent,],
   imports: [
     CommonModule,StudentRoutingModule,SharedModulesModule,FullCalendarModule,FormsModule,NgxBootstrapModule
   ],

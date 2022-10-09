@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Quiz } from '../quiz.model';
 import { QuizService } from '../quiz.service';
@@ -38,15 +38,15 @@ export class QuizAddQuestionComponent implements OnInit {
   }
 
 
-  addForm: FormGroup
-  question = new FormControl('');
-  ans = new FormControl('');
-  optionA = new FormControl('');
-  optionB = new FormControl('');
-  optionC = new FormControl('');
-  optionD = new FormControl('');
+  addForm: UntypedFormGroup
+  question = new UntypedFormControl('');
+  ans = new UntypedFormControl('');
+  optionA = new UntypedFormControl('');
+  optionB = new UntypedFormControl('');
+  optionC = new UntypedFormControl('');
+  optionD = new UntypedFormControl('');
   constructor(private router: Router, private service: QuizService) {
-    this.addForm = new FormGroup({
+    this.addForm = new UntypedFormGroup({
       ans: this.ans,
       question: this.question,
       optionA: this.optionA,

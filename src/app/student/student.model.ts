@@ -18,4 +18,5 @@ export class Student {
     studentImage: string;
     studentStatus: boolean;
     studentCreated: string;
+    subjectClass?:string
 }

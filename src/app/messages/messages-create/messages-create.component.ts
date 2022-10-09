@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Messages } from '../messages.model';
 import { MessagesService } from '../messages.service';
@@ -48,10 +48,10 @@ export class MessagesCreateComponent implements OnInit {
     { id: 8, studentName: 'Genoveva Luettgen', isSelected: false }
   ];
   checkedPro: any[] = [];
-  addForm: FormGroup
-  body = new FormControl('');
+  addForm: UntypedFormGroup
+  body = new UntypedFormControl('');
   constructor(private router: Router, private service: MessagesService) {
-    this.addForm = new FormGroup({
+    this.addForm = new UntypedFormGroup({
       body: this.body
     })
   }
