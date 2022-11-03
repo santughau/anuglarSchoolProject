@@ -16,35 +16,35 @@
             <tbody>
                 <tr class="info">
                     <th class="bg-dark text-white">Name</th>
-                    <th></th>
+                    <th>{{student.studentName}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Address</th>
-                    <th></th>
+                    <th>{{student.studentAddress}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Class</th>
-                    <th>Class </th>
+                    <th>Class {{student.subjectClass}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Batch</th>
-                    <th></th>
+                    <th>{{student.studentBatch}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Medium</th>
-                    <th></th>
+                    <th>{{student.studentMedium}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Gender</th>
-                    <th></th>
+                    <th>{{student.studentGender}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Mobile</th>
-                    <th></th>
+                    <th>{{student.studentMobile}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">E-mail</th>
-                    <th></th>
+                    <th>{{student.studentEmail}}</th>
                 </tr>
             </tbody>
         </table>
@@ -55,49 +55,46 @@
                 <tr class="info">
                     <th class="bg-dark text-white">School</th>
                     <th>
-
+                        {{student.studentSchool}}
                     </th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Fees</th>
                     <th>
-
+                        {{student.studentFee}}
                     </th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Password</th>
                     <th>
-
+                        {{student.studentPassword}}
                     </th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">MAC ID</th>
                     <th>
-
+                        {{student.studentMac}}
                     </th>
                 </tr>
-                <tr class="info">
-                    <th class="bg-dark text-white">Subject</th>
+                <tr class="info" valign= "middle">
+                    <th class="bg-dark text-white ">Subject</th>
                     <th>
-
+                        <div  *ngFor="let course of student.studentSubject; let lastItem = last" >
+                            <span>{{course['subjectName']}}</span><span *ngIf="!lastItem">,</span>
+                          </div >
                     </th>
                 </tr>
-                <tr class="info">
-                    <th class="bg-dark text-white">Compititive Exam</th>
+                
+                <tr class="info" >
+                    <th class="bg-dark text-white" >Date Of Birth</th>
                     <th>
-
-                    </th>
-                </tr>
-                <tr class="info">
-                    <th class="bg-dark text-white">Date Of Birth</th>
-                    <th>
-
+                        {{student.studentDob | date}}
                     </th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Registration Date</th>
                     <th>
-
+                        {{student.studentCreated | date}}
                     </th>
                 </tr>
             </tbody>
@@ -106,12 +103,12 @@
     <div class="col-md-4 ">
         <div class="img">
             <img class="img-fluid"
-                 src="../../../assets/student/2.jpg" />
+                 src="{{croppedImage}}" />
         </div>
         <h5 class="text-center text-muted mt-5">Sansakr Sontakke</h5>
         <div class="img">
-            <button class="btn btn-primary ">Print Details</button>
-            <button class="btn btn-primary ml-5">Update Details</button>
+            <button class="btn btn-primary " (click)="getDetails()">Print Details</button>
+            <button class="btn btn-primary ml-5" [routerLink]="['/student/studentEdit',student.studentId]">Update Details</button>
         </div>
     </div>
 

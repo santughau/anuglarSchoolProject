@@ -1,4 +1,4 @@
 export class ClassList {
-    classId?: number | string;
+    classId?: any;
     className: string;
 }

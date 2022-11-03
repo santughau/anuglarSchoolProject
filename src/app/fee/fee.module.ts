@@ -7,6 +7,7 @@ import { FeeRoutingModule } from './fee-routing.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { FeeService } from './fee.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     FeeCreateComponent,
     FeeEditComponent,],
   imports: [
-    CommonModule,FeeRoutingModule,SharedModulesModule,
+    CommonModule,FeeRoutingModule,SharedModulesModule,FormsModule,NgxBootstrapModule
   ],
   providers: [FeeService],
 })

@@ -1,10 +1,10 @@
 export class Fee {
-    feeId?: number | string;
+    feeId?: any;
     feeClass: number | string;
     feeBatch: number | string;
     feeStudentId: number | string;
     feeStudentName?: string;
     feeFeeAmt: string;
-    feeVoucherNo: string;
-    feeDate: string;
+    feeVoucherNo: any;
+    feeDate: any;
 }

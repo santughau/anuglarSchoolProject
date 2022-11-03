@@ -304,7 +304,7 @@ export class StudentCreateComponent implements OnInit {
     formData.append('studentAddress', this.student.studentAddress!);
     formData.append('studentClass', this.classList.classId as string);
     formData.append('studentBatch', this.batch.batchId as string);
-    formData.append('studentMedium', this.student.studentMedium!);
+    formData.append('studentMedium', this.medium.value!);
     formData.append('studentGender', this.student.studentGender!);
     formData.append('studentMobile', this.student.studentMobile!);
     formData.append('studentEmail', this.student.studentEmail!);
@@ -341,7 +341,7 @@ export class StudentCreateComponent implements OnInit {
           }, 1500);  
       }
       if (this.progress == 100) {
-        this.router.navigate(['/student/studentCreate']);
+        this.router.navigate(['/student/students']);
       }
     });
     this.toastr.success('Student   Uploaded Successfully!', 'Weldone!', {

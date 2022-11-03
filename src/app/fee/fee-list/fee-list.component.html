@@ -1,5 +1,5 @@
 <div class="row box">
-  
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -10,55 +10,99 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">VIEW ALL STUDENTS FEE</h1>
         <hr>
-        <form class="row g-3 mt-2 mb-5">
-
+        <form class="row g-3 mt-2 mb-5"
+              #feeForm="ngForm">
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                    <option value="2">Class 2 </option>
-                    <option value="3">Class 3 </option>
-                    <option value="4">Class 4 </option>
-                    <option value="5">Class 5 </option>
-                    <option value="6">Class 6 </option>
-                    <option value="7">Class 7 </option>
-                    <option value="8">Class 8 </option>
-                    <option value="9">Class 9 </option>
-                    <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadBaches($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forBatch"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
                        class="form-label">For Batch</label>
-                <select id="forBatch"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="batchId"
+                        name="batchId"
+                        class="form-select"
+                        [(ngModel)]="batch.batchId"
+                        #batchId="ngModel"
+                        (change)="loadStudents($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+                    <option value="select">Choose Batch</option>
+                    <option *ngFor="let data of allBatchList ; let i = index"
+                            [value]="data.batchId">Class {{data.batchName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="batchId.touched && batchId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="batchId.touched && batchId.invalid">
+                    Please provide a Batch Name
+                </div>
             </div>
 
             <div class="col-md-3">
-                <label for="forGender"
+                <label for="studentId"
+                       [ngClass]="{ 'text-danger': studentId.touched && studentId.invalid , 'text-success': studentId.touched && studentId.valid  }"
                        class="form-label">Student Name</label>
-                <select id="forGender"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                <select id="studentId"
+                        name="studentId"
+                        class="form-select"
+                        [(ngModel)]="student.studentId"
+                        #studentId="ngModel"
+                        appSelectValidator="select"
+                        (change)="loadFees($event)"
+                        [ngClass]="{ 'is-invalid': studentId.touched && studentId.errors?.['defaultSelected'] , 'is-valid': studentId.touched && studentId.valid  }">
+                    <option value="select">Choose Student</option>
+                    <option *ngFor="let data of studentList ; let i = index"
+                            [value]="data.studentId">Class {{data.studentName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="studentId.touched && studentId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="studentId.touched && studentId.invalid">
+                    Please Select Student Name
+                </div>
             </div>
-
-
-
-            <div class="col-7 d-flex justify-content-end mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Show All Fees</button>
+            <div class="alert alert-primary text-center"
+                 role="alert"
+                 *ngIf="showfee">
+                <p>Total Fees Paid = {{total_fee}}</p>
+                <button (click)="allVoucherPrint(student.studentId)" class="btn btn-danger ml-5">Print All Vouchers</button>
             </div>
         </form>
+
+
+    </div>
+</div>
+<div class="row box"
+     *ngIf="showfee">
+    <div class="col-md-12">
         <div id="table-responsive">
             <table class="table table-bordered display"
                    id="table2excel">
@@ -85,20 +129,41 @@
                 </thead>
                 <tbody>
 
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td>Class </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
+                    <tr *ngFor="let data of feeList; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{data.studentName}}</td>
+                        <td> {{data.feeClass}}</td>
+                        <td>{{data.feeBatch}}</td>
+                        <td>{{data.feeFeeAmt}}</td>
+                        <td>{{data.feeVoucherNo}}</td>
+                        <td>{{data.feeDate | date}}</td>
+                        <td (click)="editFee(data.feeId)"><a class="btn btn-warning"><i class="fa fa-pencil-square-o text-white"
                                    aria-hidden="true"></i></a></td>
-                        <td><a class="btn btn-danger"><i class="fa fa-trash-o"
+                        <td (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
                                    aria-hidden="true"></i></a></td>
-                        <td><a class="btn btn-success"><i class="fa fa-print"
+                        <td (click)="printBill(data.feeVoucherNo)"><a class="btn btn-success"><i class="fa fa-print"
                                    aria-hidden="true"></i></a></td>
+
+                        <ng-template #template>
+                            <div class="modal-header bg-danger text-white">
+                                <h4 class="modal-title pull-left text-center">Delete</h4>
+                                <button type="button"
+                                        class="btn-close close pull-right"
+                                        aria-label="Close"
+                                        (click)="modalRef?.hide()">
+                                    <span aria-hidden="true"
+                                          class="visually-hidden">&times;</span>
+                                </button>
+                            </div>
+                            <div class=" modal-body text-center">
+                                <p>Do you want to confirm delete <span class="text-danger text-bold">Fees Of
+                                        {{data.studentName}} </span> ?</p>
+                                <button class="mybtn btn btn-danger "
+                                        (click)="confirm(data.feeId)">Yes</button>
+                                <button class="btn btn-primary ml-5"
+                                        (click)="decline()">No</button>
+                            </div>
+                        </ng-template>
                     </tr>
 
                 </tbody>
@@ -109,6 +174,5 @@
                 class="btn btn-warning text-white offset-md-4"
                 id="but">Export to Excel</button>
         <hr>
-
     </div>
 </div>

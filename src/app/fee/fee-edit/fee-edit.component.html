@@ -11,80 +11,131 @@
         <h1 class="text-centerl text-muted">EDIT FEES</h1>
         <hr >
 
-        <form class="row g-3 mt-5"> 
+        <form class="row g-3 mt-5" #feeForm="ngForm"> 
 
             <div class="col-md-1">
-                <label for="forClass"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
                        class="form-label">For Class</label>
-                <select id="forClass"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="1">Class 1 </option>
-                                        <option value="2">Class 2 </option>
-                                        <option value="3">Class 3 </option>
-                                        <option value="4">Class 4 </option>
-                                        <option value="5">Class 5 </option>
-                                        <option value="6">Class 6 </option>
-                                        <option value="7">Class 7 </option>
-                                        <option value="8">Class 8 </option>
-                                        <option value="9">Class 9 </option>
-                                        <option value="10">Class 10 </option>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadBaches($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                    <option value="select">Choose Class</option>
+                    <option *ngFor="let data of allClassList ; let i = index"
+                            [value]="data.classId">Class {{data.className}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                    Please provide a Class Name
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forBatch"
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
                        class="form-label">For Batch</label>
-                <select id="forBatch"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="batchId"
+                        name="batchId"
+                        class="form-select"
+                        [(ngModel)]="batch.batchId"
+                        #batchId="ngModel"
+                        (change)="loadStudents($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+                    <option value="select">Choose Batch</option>
+                    <option *ngFor="let data of allBatchList ; let i = index"
+                            [value]="data.batchId">Class {{data.batchName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="batchId.touched && batchId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="batchId.touched && batchId.invalid">
+                    Please provide a Batch Name
+                </div>
             </div>
 
             <div class="col-md-3">
-                <label for="forGender"
+                <label for="studentId"
+                       [ngClass]="{ 'text-danger': studentId.touched && studentId.invalid , 'text-success': studentId.touched && studentId.valid  }"
                        class="form-label">Student Name</label>
-                <select id="forGender"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                <select id="studentId"
+                        name="studentId"
+                        class="form-select"
+                        [(ngModel)]="student.studentId"
+                        #studentId="ngModel"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': studentId.touched && studentId.errors?.['defaultSelected'] , 'is-valid': studentId.touched && studentId.valid  }">
+                    <option value="select">Choose Batch</option>
+                    <option *ngFor="let data of studentList ; let i = index"
+                            [value]="data.studentId">Class {{data.studentName}} </option>
                 </select>
+                <div class="valid-feedback"
+                     *ngIf="studentId.touched && studentId.valid">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="studentId.touched && studentId.invalid">
+                    Please Select Student Name
+                </div>
             </div>
             
             <div class="col-md-1">
-                <label for="forFee"
-                       class="form-label">Fees</label>
+                <label for="feeFeeAmt"
+                       [ngClass]="{ 'text-danger': feeFeeAmt.touched && feeFeeAmt.invalid , 'text-success': feeFeeAmt.touched && feeFeeAmt.valid  }"
+                       class="form-label lbl">Fees</label>
                 <input type="text"
                        class="form-control"
-                       id="forFee">
+                       id="feeFeeAmt"
+                       name="feeFeeAmt"
+                       [(ngModel)]="fee.feeFeeAmt"
+                       #feeFeeAmt="ngModel"
+                       required
+                       [ngClass]="{ 'is-invalid': feeFeeAmt.touched && feeFeeAmt.invalid , 'is-valid': feeFeeAmt.touched && feeFeeAmt.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Fees Amt
+                </div>
             </div>
 
             <div class="col-md-1">
-                <label for="forFee"
-                       class="form-label">Voucher No</label>
+                <label for="feeVoucherNo"
+                       [ngClass]="{ 'text-danger': feeVoucherNo.touched && feeVoucherNo.invalid , 'text-success': feeVoucherNo.touched && feeVoucherNo.valid  }"
+                       class="form-label lbl">Voucher No</label>
                 <input type="text"
                        class="form-control"
-                       id="forFee">
+                       id="feeVoucherNo"
+                       name="feeVoucherNo"
+                       [(ngModel)]="fee.feeVoucherNo"
+                       #feeVoucherNo="ngModel"
+                       required
+                       disabled="disable"
+                       [ngClass]="{ 'is-invalid': feeVoucherNo.touched && feeVoucherNo.invalid , 'is-valid': feeVoucherNo.touched && feeVoucherNo.valid  }">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a Fees Amt
+                </div>
             </div>
 
-            <div class="col-md-3">
-                <label for="forDate"
-                       class="form-label">Date</label>
-                       <input type="text"
-                       placeholder="Datepicker"
-                       class="form-control"
-                       bsDatepicker
-                       [bsConfig]="bsConfig"
-                       [dateTooltipTexts]="selectedDates"
-                       [daysDisabled]="[6,0]"
-                       [datesDisabled]="disabledDates">
-            </div>
+            
 
             <div class="col-2 d-flex justify-content-center mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Update Fees</button>
+                 <button type="submit" [disabled]="feeForm.invalid"
+                 (click)="updateFees()"    class="btn btn-danger ">Update Fees</button>
             </div>
         </form>
         

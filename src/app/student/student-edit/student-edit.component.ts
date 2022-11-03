@@ -355,8 +355,9 @@ export class StudentEditComponent implements OnInit  {
           }, 1500);  
       }
       if (this.progress == 100) {
-        this.router.navigate(['/sstudent/students']);
+        this.router.navigate(['/student/students']);
       }
+      this.router.navigate(['/student/students']);
     });
     this.toastr.success('Student   Uploaded Successfully!', 'Weldone!', {
       timeOut: 3000,

@@ -29,4 +29,6 @@ export class StudentService {
   updateStudent(data: any): Observable<any> {
     return this.http.post(this.url + 'student/update.php', data);    
   }
+
+  
 }
