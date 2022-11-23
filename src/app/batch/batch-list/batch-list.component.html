@@ -78,7 +78,7 @@
                         <td>10</td>
                         <td>{{batch.batchStartsFrom}}</td>
                         <td>{{batch.batchTime}} </td>
-                        <td><a class="btn btn-primary"><i class="fa fa-eye"
+                        <td (click)="batchDetails(batch.batchId)"><a class="btn btn-primary"><i class="fa fa-eye"
                                    aria-hidden="true"></i></a></td>
                         <td (click)="editBatch(batch.batchId)"><a class="btn btn-warning"><i
                                    class="fa fa-pencil-square-o"

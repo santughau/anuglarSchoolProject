@@ -15,19 +15,29 @@ export class ExamService {
     return this.http.post(this.url + 'exam/create.php', data,)
   }
 
-  getAllExam(): Observable<any> {
-    return this.http.get(this.url + 'exam/read.php?v=' + Math.random())
+  getAllExam(id): Observable<any> {
+    return this.http.get(this.url + 'exam/read.php?id=' + id + '&v=' + Math.random());
   }
 
-  deleteExam(data:any): Observable<any> {
+  deleteExam(data: any): Observable<any> {
     return this.http.post(this.url + 'exam/delete.php', data)
   }
 
-  getSingleExan(id:any):Observable<any> {    
+  getSingleExan(id: any): Observable<any> {
     return this.http.get(this.url + 'exam/read_one.php?id=' + id + '&v=' + Math.random());
   }
 
   updateExam(data: any): Observable<any> {
-    return this.http.post(this.url + 'exam/update.php', data);    
+    return this.http.post(this.url + 'exam/update.php', data);
+  }
+
+
+  
+  getStudentListForDownload(id: any,batch:any): Observable<any> {
+    return this.http.get(this.url + 'result/read.php?id=' + id + '&batch=' +batch + '&v=' + Math.random());
+  }
+
+  createData(data: any): Observable<any>{
+    return this.http.post(this.url + 'batch/csv.php', data)
   }
 }

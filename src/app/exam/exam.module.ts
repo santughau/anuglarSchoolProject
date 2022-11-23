@@ -10,6 +10,7 @@ import { ExamService } from './exam.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { ExamUploadComponent } from './exam-upload/exam-upload.component';
 
 
 
@@ -19,6 +20,7 @@ import { DataTablesModule } from 'angular-datatables';
     ExamCreateComponent,
     ExamEditComponent,
     ExamDownloadCsvComponent,
+    ExamUploadComponent,
   ],
   imports: [
     CommonModule,

@@ -65,8 +65,6 @@
           Please provide a Subject Name
         </div>
       </div>
-
-
     </form>
   </div>
 </div>
@@ -93,6 +91,9 @@
             <th scope="col"><i class="fa fa-pencil-square-o"
                  aria-hidden="true"></i>
             </th>
+            <th scope="col"><i class="fa fa-bar-chart"
+              aria-hidden="true"></i>
+         </th>
             <th scope="col"><i class="fa fa-trash-o"
                  aria-hidden="true"></i>
             </th>
@@ -106,39 +107,45 @@
             <td>Class {{student.subjectClass}}</td>
             <td>{{student.studentBatch}}</td>
             <td>
-              <div  *ngFor="let course of student.studentSubject; let lastItem = last" >
+              <div *ngFor="let course of student.studentSubject; let lastItem = last">
                 <span>{{course}}</span><span *ngIf="!lastItem">,</span>
-              </div >
+              </div>
             </td>
             <td><img src="http://localhost/ranjana/student/images/{{student.studentImage}}.jpg"
                    class="img-fluid"
                    width="100px"></td>
-            <td><a (click)="viewStudent(student.studentId)" class="btn btn-primary"><i class="fa fa-eye"
+            <td><a (click)="viewStudent(student.studentId)"
+                 class="btn btn-primary"><i class="fa fa-eye"
                    aria-hidden="true"></i></a></td>
-            <td><a  (click)="editStudent(student.studentId)" class="btn btn-warning"><i class="fa fa-pencil-square-o"
+            <td><a (click)="editStudent(student.studentId)"
+                 class="btn btn-warning"><i class="fa fa-pencil-square-o"
                    aria-hidden="true"></i></a></td>
-            <td><a (click)="openModal(template)" class="btn btn-danger"><i class="fa fa-trash-o"
+            <td><a (click)="attendanceStudent(student.studentId)"
+                 class="btn btn-dark"><i class="fa fa-bar-chart"
+                   aria-hidden="true"></i></a></td>
+            <td><a (click)="openModal(template)"
+                 class="btn btn-danger"><i class="fa fa-trash-o"
                    aria-hidden="true"></i></a>
-                   <ng-template #template>
-                    <div class="modal-header bg-danger text-white">
-                        <h4 class="modal-title pull-left text-center">Delete</h4>
-                        <button type="button"
-                                class="btn-close close pull-right"
-                                aria-label="Close"
-                                (click)="modalRef?.hide()">
-                            <span aria-hidden="true"
-                                  class="visually-hidden">&times;</span>
-                        </button>
-                    </div>
-                    <div class=" modal-body text-center">
-                        <p>Do you want to confirm delete <span class="text-danger text-bold">Student
-                                {{student.studentName}} </span> ?</p>
-                        <button class="mybtn btn btn-danger "
-                                (click)="confirm(student.studentId)">Yes</button>
-                        <button class="btn btn-primary ml-5"
-                                (click)="decline()">No</button>
-                    </div>
-                </ng-template>      
+              <ng-template #template>
+                <div class="modal-header bg-danger text-white">
+                  <h4 class="modal-title pull-left text-center">Delete</h4>
+                  <button type="button"
+                          class="btn-close close pull-right"
+                          aria-label="Close"
+                          (click)="modalRef?.hide()">
+                    <span aria-hidden="true"
+                          class="visually-hidden">&times;</span>
+                  </button>
+                </div>
+                <div class=" modal-body text-center">
+                  <p>Do you want to confirm delete <span class="text-danger text-bold">Student
+                      {{student.studentName}} </span> ?</p>
+                  <button class="mybtn btn btn-danger "
+                          (click)="confirm(student.studentId)">Yes</button>
+                  <button class="btn btn-primary ml-5"
+                          (click)="decline()">No</button>
+                </div>
+              </ng-template>
             </td>
           </tr>
 

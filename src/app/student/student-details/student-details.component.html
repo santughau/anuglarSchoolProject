@@ -119,43 +119,15 @@
         <h1 class="text-muted mb-5">Fee Details</h1>
         <hr>
     </div>
-    <div class="col-md-4 ">
-        <form>
-            <div class="mb-3 row">
-                <label for="addFee"
-                       class="col-sm-3 col-form-label">Add Fee Amt</label>
-                <div class="col-sm-9">
-                    <input type="text"
-                           class="form-control"
-                           id="addFee">
-                </div>
-            </div>
-
-            <div class="mb-3 row">
-                <label for="forReceipt"
-                       class="col-sm-3 col-form-label">Receipt No</label>
-                <div class="col-sm-9">
-                    <input type="text"
-                           class="form-control"
-                           id="forReceipt">
-                </div>
-            </div>
-
-            <div class=" row">
-                <div class="img">
-                    <button class="btn btn-danger ml-5">Add Fees</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-4 table-responsive">
+  
+    <div class="col-md-6 table-responsive">
         <table class="table table-bordered table-condensed ">
             <tbody>
 
-                <tr class="info">
-                    <th class="bg-dark text-white">2019-03-29 20:31:32</th>
-                    <th> Rs 500</th>
-                    <th>Voucher No. 1</th>
+                <tr class="info" *ngFor="let fee of fees">
+                    <th class="bg-dark text-white">{{fee['feeDate'] |date}}</th>
+                    <th> Rs {{fee['feeFeeAmt'] }}</th>
+                    <th>Voucher No. {{fee['feeVoucherNo']}}</th>
                 </tr>
 
             </tbody>
@@ -164,20 +136,20 @@
             <button class="btn btn-primary ">Print All Receipt</button>
         </div>
     </div>
-    <div class="col-md-4 table-responsive">
+    <div class="col-md-6 table-responsive">
         <table class="table table-bordered table-condensed ">
             <tbody>
                 <tr class="info">
                     <th class="bg-dark text-white">Total Fees</th>
-                    <th> Rs 100 </th>
+                    <th> Rs {{student.studentFee}} </th>
                 </tr>
                 <tr class="info">
                     <th class="bg-dark text-white">Paid Fees</th>
-                    <th> Rs 100</th>
+                    <th> Rs {{total_fee}}</th>
                 </tr>
                 <tr class="info">
                     <th class="bg-danger text-white">Balance</th>
-                    <th> Rs 100</th>
+                    <th> Rs {{student.studentFee - total_fee}}</th>
                 </tr>
             </tbody>
         </table>

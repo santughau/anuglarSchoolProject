@@ -4,5 +4,5 @@ export class Quiz {
     quizSubjectId: string;
     quizChapterId: string;
     quizTitle: string;
-    quizLink: string;
+    quizLink?: string;
 }

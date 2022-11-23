@@ -35,8 +35,7 @@ export class SubjectListComponent implements OnInit, OnDestroy, AfterViewInit {
 
  ngAfterViewInit(): void {
     this.dtTrigger.next(true);
-    this.getAllSubject();
-   
+    this.getAllSubject();   
  }
   
  exportAsXLSX(): void {

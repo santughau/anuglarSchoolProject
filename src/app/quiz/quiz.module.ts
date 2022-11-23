@@ -8,7 +8,7 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { QuizAddQuestionComponent } from './quiz-add-question/quiz-add-question.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
 import { QuizService } from './quiz.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
@@ -26,7 +26,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
   ],
   imports: [
     CommonModule,FormsModule,
-    QuizRoutingModule,SharedModulesModule,ReactiveFormsModule,EditorModule
+    QuizRoutingModule,SharedModulesModule,EditorModule
   ],
   providers: [QuizService],
 })

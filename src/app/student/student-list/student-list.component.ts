@@ -43,14 +43,14 @@ export class StudentListComponent implements OnInit {
   students: Student[] = [];
   batchId: any = null;
   allBatchList: any[] = [];
-  constructor(private router : Router, private service :StudentService,private spinner: NgxSpinnerService,private toastr: ToastrService,private modalService: BsModalService,private _route: ActivatedRoute,private batchService : BatchService) { }
+  constructor(private router: Router, private service: StudentService, private spinner: NgxSpinnerService, private toastr: ToastrService, private modalService: BsModalService, private _route: ActivatedRoute, private batchService: BatchService) { }
 
   ngOnInit(): void {
     this.spinner.show();
     this.showMsg = false;
     this.batchId = this._route.snapshot.paramMap.get('id');
-    console.log('ss' +this.batchId);
-    
+    console.log('ss' + this.batchId);
+
     if (this.batchId !== null) {
       this.getData(this.batchId);
     }
@@ -64,7 +64,7 @@ export class StudentListComponent implements OnInit {
   getAllClass() {
     this.spinner.show();
     this.batchService.getAllClass().subscribe((data) => {
-      this.allClassList = data;      
+      this.allClassList = data;
       this.spinner.hide();
     })
   }
@@ -76,60 +76,56 @@ export class StudentListComponent implements OnInit {
     this.spinner.show();
     this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
-      
-     // console.log(this.allBatchList);
+      // console.log(this.allBatchList);
       this.spinner.hide();
-      
     });
   }
 
   loadStudent(ev: any) {
     this.batchId = ev.target.value;
-
     this.getData(this.batchId);
   }
 
 
-  getData(batchId:any) {
+  getData(batchId: any) {
     this.service.getAllStudents(batchId).subscribe((data) => {
-      console.log(data);      
-       this.students = data.document;
-       console.log("lenght = " + this.students.length);
-       if (this.students.length !== 0) {
-         this.showStudent = true;
-         this.showMsg = false;
-       } else {
-         this.showMsg = true;
-         this.showStudent = false;
-       }
-       
+      console.log(data);
+      this.students = data.document;
+      console.log("lenght = " + this.students.length);
+      if (this.students.length !== 0) {
+        this.showStudent = true;
+        this.showMsg = false;
+      } else {
+        this.showMsg = true;
+        this.showStudent = false;
+      }
       console.log(this.students);
       this.spinner.hide();
     })
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
   decline(): void {
     this.modalRef?.hide();
   }
 
-  editStudent(id:any) {
+  editStudent(id: any) {
     console.log(id);
     this.router.navigate(['student/studentEdit', id])
   }
 
-  viewStudent(id:any) {
+  viewStudent(id: any) {
     console.log(id);
     this.router.navigate(['student/studentDetails', id])
   }
 
-  confirm(id:any): void {
-    console.log("sid" + id); 
+  confirm(id: any): void {
+    console.log("sid" + id);
     const data = {
-      'studentId' : id
+      'studentId': id
     }
     this.service.deleteStudent(data).subscribe(res => {
       console.log("deleted");
@@ -140,8 +136,13 @@ export class StudentListComponent implements OnInit {
       timeOut: 3000,
       progressBar: true,
       progressAnimation: 'decreasing',
-      closeButton: true,     
+      closeButton: true,
     });
     this.modalRef?.hide();
+  }
+
+  attendanceStudent(id: any) {
+    console.log(id);
+    this.router.navigate(['student/presenty', id])
   }
 }

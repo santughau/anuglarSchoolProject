@@ -17,7 +17,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
 import { SelectRequiredValidatorDirective } from '../directive/select-required-validator.directive';
 import { FirstCapDirective } from '../directive/first-cap.directive';
@@ -26,12 +26,12 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
-const boot: any = [TooltipModule.forRoot(), AccordionModule.forRoot(), AlertModule.forRoot(), ButtonsModule.forRoot(), CarouselModule.forRoot(), BsDatepickerModule.forRoot(), BsDropdownModule.forRoot(), ModalModule.forRoot(), PaginationModule.forRoot(), PopoverModule.forRoot(), ProgressbarModule.forRoot(), RatingModule.forRoot(), SortableModule.forRoot(), TabsModule.forRoot(), TimepickerModule.forRoot(), TypeaheadModule.forRoot(),NgxSpinnerModule, ToastrModule.forRoot(),NgxPaginationModule,RouterModule,NgMultiSelectDropDownModule.forRoot(),]
+import { AngularEditorModule } from '@kolkov/angular-editor';
+const boot: any = [TooltipModule.forRoot(), AccordionModule.forRoot(), AlertModule.forRoot(), ButtonsModule.forRoot(), CarouselModule.forRoot(), BsDatepickerModule.forRoot(), BsDropdownModule.forRoot(), ModalModule.forRoot(), PaginationModule.forRoot(), PopoverModule.forRoot(), ProgressbarModule.forRoot(), RatingModule.forRoot(), SortableModule.forRoot(), TabsModule.forRoot(), TimepickerModule.forRoot(), TypeaheadModule.forRoot(), NgxSpinnerModule, ToastrModule.forRoot(), NgxPaginationModule, RouterModule, NgMultiSelectDropDownModule.forRoot(), AngularEditorModule,NgxPaginationModule]
 
 @NgModule({
-  declarations: [SelectRequiredValidatorDirective,FirstCapDirective,ToggleDirective,TruncatePipe],
-  imports: [boot,ImageCropperModule,ReactiveFormsModule, ],
-  exports: [boot ,SelectRequiredValidatorDirective,FirstCapDirective,ToggleDirective,ImageCropperModule,TruncatePipe]
+  declarations: [SelectRequiredValidatorDirective, FirstCapDirective, ToggleDirective, TruncatePipe],
+  imports: [boot, ImageCropperModule, ReactiveFormsModule,FormsModule],
+  exports: [boot, SelectRequiredValidatorDirective, FirstCapDirective, ToggleDirective, ImageCropperModule, TruncatePipe]
 })
 export class SharedModulesModule { }

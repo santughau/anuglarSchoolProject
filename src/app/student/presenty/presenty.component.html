@@ -8,7 +8,7 @@
         </ol>
     </nav>
     <div class="col-md-5 ">
-        <h1 class="text-muted mb-6">Sanskar's Presnety report</h1>
+        <h1 class="text-muted mb-6">{{student.studentName}}'s Presnety report</h1>
         <hr>
         <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
@@ -18,7 +18,7 @@
         <hr>
         <div class="card mb-3">
             <div class="card-header bg-danger text-white">
-                Sanskar's Absent Days
+                {{student.studentName}}'s Absent Days
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{absentDays}}</h5>
@@ -26,12 +26,21 @@
         </div>
 
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header bg-success text-white">
-                Sanskar's Present Days
+                {{student.studentName}}'s Present Days
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{presentDays}}</h5>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header bg-dark text-white">
+               Print Presenty Report
+            </div>
+            <div class="card-body">
+               <button class="btn btn-danger " (click)="printReport()">Print</button>
             </div>
         </div>
     </div>
@@ -42,12 +51,12 @@
 
 <ng-template #template>
     <div class="modal-header bg-primary text-white">
-      <h4 class="modal-title pull-left">Sanskar's Presenty Report</h4>
+      <h4 class="modal-title pull-left">{{student.studentName}}'s Presenty Report</h4>
       <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      Sanskar has {{title}} on {{ start | date}}
+        {{student.studentName}} has {{title}} on {{ start | date}}
     </div>
   </ng-template>

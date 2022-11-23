@@ -18,21 +18,25 @@ export class BatchService {
     return this.http.post(this.url + 'batch/create.php', data,)
   }
 
-  getBatchWiseClass(id:any):Observable<any> {    
+  getBatchWiseClass(id: any): Observable<any> {
     return this.http.get(this.url + 'batch/read_By_ClassWiase.php?id=' + id + '&v=' + Math.random());
   }
 
-  deleteBatch(data:any): Observable<any> {
+  deleteBatch(data: any): Observable<any> {
     return this.http.post(this.url + 'batch/delete.php', data)
   }
 
-  
 
-  getSingleBatch(id:any):Observable<any> {    
+
+  getSingleBatch(id: any): Observable<any> {
     return this.http.get(this.url + 'batch/read_one.php?id=' + id + '&v=' + Math.random());
   }
 
   updateBatch(data: any): Observable<any> {
-    return this.http.post(this.url + 'batch/update.php', data);    
+    return this.http.post(this.url + 'batch/update.php', data);
+  }
+
+  updateAttendance(data: any): Observable<any> {
+    return this.http.post(this.url + 'batch/present.php', data);
   }
 }

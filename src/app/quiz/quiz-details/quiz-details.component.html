@@ -8,45 +8,42 @@
         </ol>
     </nav>
     <div class="col-md-12 ">
-        <h1 class="text-muted mb-5">QUIZ TITLE GOES HERE</h1>
+        <h1 class="text-muted m-5">{{questions[0].quizTitle}}</h1>
+        <span class="m-5">Class : {{questions[0].ClassName}}</span> <span class="m-5"> Subject : {{questions[0].subjectName}}</span> <span class="m-5">Chapter : {{questions[0].chapterName}}</span> <span class="m-5">Total Questions : {{questions.length}}</span>
         <hr>
     </div>
 </div>
 
 <div class="row box">
-    <div class="col-md-12 ">
-        <div class="question">This is my question ?</div><br>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div><br>
-        <p>Answer : A</p>
+    <div class="col-md-12 " *ngFor="let q of questions">
+        <div class="text-danger"  >
+            <span [innerHTML]="q.questions"></span>
+        </div><hr>
+        <div class="font-weight-bold text-dark"  >Option A<br>
+            <span  [innerHTML]="q.optionA"></span>
+        </div>
+        <div class="font-weight-bold text-dark"  >Option B<br>
+            <span  [innerHTML]="q.optionB"></span>
+        </div>
+        <div class="font-weight-bold text-dark"  >Option C<br>
+            <span  [innerHTML]="q.optionC"></span>
+        </div>
+        <div class="font-weight-bold text-dark"  >Option D<br>
+            <span  [innerHTML]="q.optionD"></span>
+        </div><hr>
+        <div class="font-weight-bold text-dark"  >Answer
+            <span [innerHTML]="q.answer"></span>
+        </div><hr>
         <div class="d-flex justify-content-start qBox">
-         <a 
+         <a (click)="editQuestions(q.questionsId)"
             class="btn btn-success"><i class="fa fa-pencil-square-o"
                 aria-hidden="true"></i></a>
-         <a 
+         <a (click)="deleteQuestions(q.questionsId)"
             class="btn btn-danger"><i class="fa fa-trash-o"
                 aria-hidden="true"></i></a>
         </div><hr>
     </div>
    
-    <div class="col-md-12 ">
-        <div class="question">This is my question ?</div><br>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div>
-        <div>This is my question ?</div><br>
-        <p>Answer : A</p>
-        <div class="d-flex justify-content-start qBox">
-         <a 
-            class="btn btn-success"><i class="fa fa-pencil-square-o"
-                aria-hidden="true"></i></a>
-         <a 
-            class="btn btn-danger"><i class="fa fa-trash-o"
-                aria-hidden="true"></i></a>
-        </div><hr>
-    </div>
 
     
 </div>

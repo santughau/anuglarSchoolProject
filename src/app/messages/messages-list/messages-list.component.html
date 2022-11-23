@@ -1,5 +1,5 @@
 <div class="row box">
- 
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -14,26 +14,68 @@
         <form class="row g-3 mt-2 mb-5">
 
 
-            <div class="col-md-2">
-                <label for="forBatch"
-                       class="form-label">For Batch</label>
-                <select id="forBatch"
-                        class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
-            </div>
+            <form class="row g-3 mt-5"
+                  #messageForm="ngForm">
+
+                <div class="col-md-1">
+                    <label for="classId"
+                           [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+                           class="form-label">For Class</label>
+                    <select id="classId"
+                            name="classId"
+                            class="form-select"
+                            [(ngModel)]="classList.classId"
+                            #classId="ngModel"
+                            (change)="loadBatches($event)"
+                            appSelectValidator="select"
+                            [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                        <option value="select">Choose Class</option>
+                        <option *ngFor="let data of allClassList ; let i = index"
+                                [value]="data.classId">Class {{data.className}} </option>
+                    </select>
+                    <div class="valid-feedback"
+                         *ngIf="classId.touched && classId.valid">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback"
+                         *ngIf="classId.touched && classId.invalid">
+                        Please provide a Class Name
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="batchId"
+                           [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
+                           class="form-label">For Batch</label>
+                    <select id="batchId"
+                            name="batchId"
+                            class="form-select subjectId"
+                            [(ngModel)]="batch.batchId"
+                            #batchId="ngModel"
+                            (change)="loadBatch($event)"
+                            appSelectValidator="select"
+                            [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+                      <option value="select">Choose Subject</option>
+                      <option *ngFor="let data of allBatchList ; let i = index"
+                              [value]="data.batchId">{{data.batchName}} </option>
+                    </select>
+                    <div class="valid-feedback"
+                         *ngIf="batchId.touched && batchId.valid">
+                      Looks good!
+                    </div>
+                    <div class="invalid-feedback"
+                         *ngIf="batchId.touched && batchId.invalid">
+                      Please provide a Subject Name
+                    </div>
+                  </div>
 
 
-            <div class="col-7 d-flex justify-content-start mt-5">
-                <button type="submit"
-                        class="btn btn-danger ">Select Batch</button>
-            </div>
+            </form>
+
         </form>
 
-        <div id="table-responsive">
-            <table class="table table-bordered display"
-                   id="table2excel">
+        <div id="table-responsive" class="table-responsive">
+            <table class="table table-bordered display" 
+                   id="table2excel" >
                 <thead class="table-dark text-center">
                     <tr>
                         <th scope="col">Sr No</th>
@@ -51,24 +93,48 @@
                 </thead>
                 <tbody>
 
-                    <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td>Class </td>
-                        <td></td>
-                        <td></td>
-                        <td><img src="../images/student/"
+                    <tr *ngFor="let student of studentList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index; ">
+                        <th >{{i+1}}</th>
+                        <td>{{student.studentName}}</td>
+                        <td>Class {{student.className}}</td>
+                        <td>{{student.batchName}}</td>
+                        <td>{{student.messageDate | date }}</td>
+                        <td><img src="http://localhost/ranjana/student/images/{{student.studentImage}}.jpg"
                                  class="img-fluid"
                                  width="100px"></td>
 
-                        <td></td>
-                        <td><a class="btn btn-danger"><i class="fa fa-trash-o"
-                                   aria-hidden="true"></i></a></td>
+                        <td><span [innerHTML]="student.messageText"></span></td>
+                        <td class="text-center"><button type="button"
+                            class="btn btn-danger"
+                            (click)="openModal(template)"><i class="fa fa-trash-o"
+                           aria-hidden="true"></i></button></td>
+
+                           <ng-template #template>
+                            <div class="modal-header bg-danger text-white">
+                                <h4 class="modal-title pull-left text-center">Delete</h4>
+                                <button type="button"
+                                        class="btn-close close pull-right"
+                                        aria-label="Close"
+                                        (click)="modalRef?.hide()">
+                                    <span aria-hidden="true"
+                                          class="visually-hidden">&times;</span>
+                                </button>
+                            </div>
+                            <div class=" modal-body text-center">
+                                <p>Do you want to confirm delete <span class="text-danger text-bold">Class
+                                        {{student.messageId}} </span> ?</p>
+                                <button class="mybtn btn btn-danger "
+                                        (click)="confirm(student.messageId)">Yes</button>
+                                <button class="btn btn-primary ml-5"
+                                        (click)="decline()">No</button>
+                            </div>
+                        </ng-template>
                     </tr>
 
                 </tbody>
             </table>
             <hr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
         <button type="button"
                 class="btn btn-warning text-white offset-md-4"

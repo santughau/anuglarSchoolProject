@@ -1,5 +1,5 @@
 <div class="row box">
- 
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -13,80 +13,110 @@
 
 </div>
 
-<form class=" g-3 mt-5"
-      [formGroup]="addForm"
-      (ngSubmit)="addPost()">
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-danger">ADD QUESTION HERE</label>
-            <editor [formControlName]="'question'"
-                    apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                    [init]="tinyObject"></editor>
+
+<div class="row">
+    <div class="col-md-6">
+        <form class=" g-3 mt-5" #questionForm="ngForm">
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-danger">ADD QUESTION HERE</label>
+                    <angular-editor name="que" required
+                                    [(ngModel)]="question"
+                                    [config]="config"></angular-editor>
+                </div>
+            </div>
+        
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-primary">OPTION A</label>
+                    <angular-editor name="opta" required
+                                    [(ngModel)]="optionA"
+                                    [config]="config"></angular-editor>
+                </div>
+            </div>
+        
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-primary">OPTION B</label>
+                    <angular-editor name="optb" required
+                                    [(ngModel)]="optionB"
+                                    [config]="config"></angular-editor>
+                </div>
+        
+            </div>
+        
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-primary">OPTION C</label>
+                    <angular-editor name="optc" required
+                                    [(ngModel)]="optionC"
+                                    [config]="config"></angular-editor>
+                </div>
+        
+            </div>
+        
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-primary">OPTION D</label>
+                    <angular-editor name="optd" required
+                                    [(ngModel)]="optionD"
+                                    [config]="config"></angular-editor>
+                </div>
+            </div>
+        
+        
+            <div class="row box">
+                <div class="col-md-12">
+                    <label for="student"
+                           class="form-label text-success">CHOOSE ANSWER</label>
+                    <select id="forMedium" name="answer" required
+                    [(ngModel)]="answer"
+                            class="form-select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+        
+                </div>
+                <div class="col-md-12 d-flex justify-content-center mt-5">
+                    <button type="submit" (click)="addQuestion()" [disabled]="questionForm.invalid"
+                            class="btn btn-danger ">ADD QUESTION</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 ">
+        <div class="row box g-3 mt-5">
+            <h2 class="text-center">Preview Of Question</h2><hr>
+            <div class="text-danger"  >Q1
+                <span [innerHTML]="question"></span>
+            </div><hr>
+
+            <div class="font-weight-bold text-dark"  >Option A<br>
+                <span  [innerHTML]="optionA"></span>
+            </div>
+
+            <div class="font-weight-bold text-dark"  >Option B<br>
+                <span [innerHTML]="optionB"></span>
+            </div>
+
+            <div class="font-weight-bold text-dark"  >Option C<br>
+                <span [innerHTML]="optionC"></span>
+            </div>
+
+            <div class="font-weight-bold text-dark"  >Option D<br>
+                <span [innerHTML]="optionD"></span>
+            </div><hr>
+
+            <div class="font-weight-bold text-dark"  >Answer
+                <span [innerHTML]="answer"></span>
+            </div><hr>
         </div>
     </div>
-
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-primary">OPTION A</label>
-            <editor [formControlName]="'optionA'"
-                    apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                    [init]="tinyObject"></editor>
-        </div>
-    </div>
-
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-primary">OPTION B</label>
-            <editor [formControlName]="'optionB'"
-                    apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                    [init]="tinyObject"></editor>
-        </div>
-
-    </div>
-
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-primary">OPTION C</label>
-            <editor [formControlName]="'optionC'"
-                    apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                    [init]="tinyObject"></editor>
-        </div>
-
-    </div>
-
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-primary">OPTION D</label>
-            <editor [formControlName]="'optionD'"
-                    apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                    [init]="tinyObject"></editor>
-        </div>
-    </div>
-
-
-    <div class="row box">
-        <div class="col-md-12">
-            <label for="student"
-                   class="form-label text-success">CHOOSE ANSWER</label>
-                   <select id="forMedium" [formControlName]="'ans'"
-                   class="form-select">
-               <option selected>Choose...</option>
-               <option value="A">A</option>
-               <option value="B">B</option>
-               <option value="C">C</option>
-               <option value="D">D</option>
-           </select>
-            
-        </div>
-        <div class="col-md-12 d-flex justify-content-center mt-5">
-            <button type="submit"
-                   
-                    class="btn btn-danger ">ADD QUESTION</button>
-        </div>
-    </div>
-</form>
+</div>

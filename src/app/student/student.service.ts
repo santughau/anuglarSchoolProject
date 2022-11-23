@@ -14,7 +14,7 @@ export class StudentService {
     return this.http.post(this.url + 'student/create.php', data,)
   }
 
-  getAllStudents(id:any):Observable<any> {    
+  getAllStudents(id: any): Observable<any> {
     return this.http.get(this.url + 'student/read.php?id=' + id + '&v=' + Math.random());
   }
 
@@ -22,13 +22,19 @@ export class StudentService {
     return this.http.post(this.url + 'student/delete.php', data)
   }
 
-  getSingleStudent(id:any):Observable<any> {    
+  getSingleStudent(id: any): Observable<any> {
     return this.http.get(this.url + 'student/read_one.php?id=' + id + '&v=' + Math.random());
   }
 
   updateStudent(data: any): Observable<any> {
-    return this.http.post(this.url + 'student/update.php', data);    
+    return this.http.post(this.url + 'student/update.php', data);
+  }
+  getPresnety(id: any): Observable<any> {
+    return this.http.get(this.url + 'presnety/attendance.php?id=' + id + '&v=' + Math.random());
   }
 
-  
+  getReport(id: any): Observable<any> {
+    return this.http.get(this.url + 'presnety/report.php?id=' + id + '&v=' + Math.random());
+  }
+
 }

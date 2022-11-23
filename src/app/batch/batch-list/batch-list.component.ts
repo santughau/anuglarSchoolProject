@@ -104,4 +104,9 @@ export class BatchListComponent implements OnInit {
     this.modalRef?.hide();
   }
 
+  batchDetails(id) {
+    console.log(id);
+    this.router.navigate(['batch/batchDetails', id])
+  }
+
 }

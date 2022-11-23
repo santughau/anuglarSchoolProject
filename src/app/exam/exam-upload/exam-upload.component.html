@@ -1,0 +1,88 @@
+<div class="row box">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">View Exam</li>
+        </ol>
+    </nav>
+    <div class="col-md-12 ">
+        <h1 class="text-muted mb-5">VIEW ALL Students</h1>
+        <hr>
+        <form class="row g-3 mt-2 mb-5"
+              #homework="ngForm">
+
+        </form>
+    </div>
+
+</div>
+
+<div class="row box">
+    <div class="col-md-12 ">
+        <div id="table-responsive">
+            <table class="table table-bordered display"
+                   id="table2excel">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">resultStudentId</th>
+                        <th scope="col">resultBatchId</th>
+                        <th scope="col">resultClassId</th>
+                        <th scope="col">resultExamId</th>
+                        <th scope="col">resultDate</th>
+                        <th scope="col">resultSubjectId</th>
+                        <th scope="col">resultTotalMarks</th>
+                        <th scope="col">resultObtainMarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let student of allStudentList; ">
+                        <td>{{student.studentName}}</td>
+                        <td> {{student.resultStudentId}}</td>
+                        <td> {{student.resultBatchId}}</td>
+                        <td> {{student.resultClassId}}</td>
+                        <td> {{student.resultExamId}}</td>
+                        <td> {{student.resultDate |date}}</td>
+                        <td> {{student.resultSubjectId}}</td>
+                        <td> {{student.resultTotalMarks}}</td>
+                        <td> {{student.resultObtainMarks}}</td>
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+            <hr>
+        </div>
+        <button type="button"
+                (click)="exportAsXLSX()"
+                class="btn btn-warning text-white offset-md-4"
+                id="but">Export to Excel</button>
+        <hr>
+
+
+    </div>
+</div>
+
+<div class="row box">
+    <div class="col-md-5">
+        <h1 class="bg-primary text-white text-center">Please upload CSV file or Excel file</h1>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <div>
+                <input type="file"
+                       class="form-control "
+                       (change)="uploadData($event)"
+                       name="uploadExcel" />
+            </div>
+
+            <div>
+                <button class="btn btn-danger "
+                        (click)="uploadDataInPhp()">Upload In PHP</button>
+            </div>
+
+        </div>
+    </div>
+</div>

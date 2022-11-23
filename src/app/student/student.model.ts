@@ -9,7 +9,7 @@ export class Student {
     studentMobile: string;
     studentEmail?: string;
     studentSchool: string;
-    studentFee: string;
+    studentFee: any;
     studentPassword: string;
     studentMac?: string;
     studentDob: any;

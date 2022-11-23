@@ -8,10 +8,69 @@
     </ol>
   </nav>
   <div class="col-md-12 ">
-    <h1 class="text-muted mb-5">VIEW ALL EXAM</h1>
+    <h1 class="text-muted mb-5">VIEW ALL Exams</h1>
     <hr>
-    
-   
+    <form class="row g-3 mt-2 mb-5"
+          #homework="ngForm">
+      <div class="col-md-1">
+        <label for="classId"
+               [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+               class="form-label">For Class</label>
+        <select id="classId"
+                name="classId"
+                class="form-select"
+                [(ngModel)]="classList.classId"
+                #classId="ngModel"
+                (change)="loadBatches($event)"
+                appSelectValidator="select"
+                [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+          <option value="select">Choose Class</option>
+          <option *ngFor="let data of allClassList ; let i = index"
+                  [value]="data.classId">Class {{data.className}} </option>
+        </select>
+        <div class="valid-feedback"
+             *ngIf="classId.touched && classId.valid">
+          Looks good!
+        </div>
+        <div class="invalid-feedback"
+             *ngIf="classId.touched && classId.invalid">
+          Please provide a Class Name
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="batchId"
+               [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
+               class="form-label">For Batch</label>
+        <select id="batchId"
+                name="batchId"
+                class="form-select subjectId"
+                [(ngModel)]="batch.batchId"
+                #batchId="ngModel"
+                (change)="loadBatch($event)"
+                appSelectValidator="select"
+                [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+          <option value="select">Choose Subject</option>
+          <option *ngFor="let data of allBatchList ; let i = index"
+                  [value]="data.batchId">{{data.batchName}} </option>
+        </select>
+        <div class="valid-feedback"
+             *ngIf="batchId.touched && batchId.valid">
+          Looks good!
+        </div>
+        <div class="invalid-feedback"
+             *ngIf="batchId.touched && batchId.invalid">
+          Please provide a Subject Name
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="row box"
+     *ngIf="showBatch">
+  <div class="col-md-12 ">
     <div id="table-responsive">
       <table class="table table-bordered display"
              id="table2excel">
@@ -22,9 +81,13 @@
             <th scope="col">Batch Name</th>
             <th scope="col">Subject Name</th>
             <th scope="col">Exam Name</th>
+            <th scope="col">Exam Id</th>
             <th scope="col">Date</th>
             <th scope="col">Total Marks</th>
             <th scope="col"><i class="fa fa-download"
+                 aria-hidden="true"></i>
+            </th>
+            <th scope="col"><i class="fa fa-eye"
                  aria-hidden="true"></i>
             </th>
             <th scope="col"><i class="fa fa-pencil-square-o"
@@ -37,20 +100,23 @@
         </thead>
         <tbody>
 
-          <tr *ngFor="let exam of allExamList">
-            <th scope="row"></th>
+          <tr *ngFor="let exam of allExamList; let i = index;">
+            <th scope="row">{{i+1}}</th>
             <td>{{exam.ClassName}}</td>
             <td> {{exam.batchName}}</td>
             <td>{{exam.subjectName}}</td>
             <td>{{exam.examName}}</td>
+            <td>{{exam.examId}}</td>
             <td>{{exam.examDate |date}}</td>
             <td>{{exam.examTotalMarks}}</td>
-            <td><a class="btn btn-primary"><i class="fa fa-download"
+            <td class="text-center" (click)="goToDownload(exam.examId,exam.examBatch)"><a class="btn btn-success"><i class="fa fa-download"
+                   aria-hidden="true"></i></a></td>
+            <td class="text-center" (click)="goToPrint(exam.examId,exam.examBatch)"><a class="btn btn-primary"><i class="fa fa-eye"
                    aria-hidden="true"></i></a></td>
             <td class="text-center"
                 (click)="editExam(exam.examId)"><a class="btn btn-warning"><i class="fa fa-pencil-square-o"
                    aria-hidden="true"></i></a></td>
-            <td (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
+            <td class="text-center" (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
                    aria-hidden="true"></i></a></td>
 
 
@@ -66,7 +132,7 @@
                 </button>
               </div>
               <div class=" modal-body text-center">
-                <p>Do you want to confirm delete <span class="text-danger text-bold">Exam 
+                <p>Do you want to confirm delete <span class="text-danger text-bold">Exam
                     {{exam.examName}} </span> ?</p>
                 <button class="mybtn btn btn-danger "
                         (click)="confirm(exam.examId)">Yes</button>
@@ -80,11 +146,20 @@
       </table>
       <hr>
     </div>
-    <button type="button" (click)="exportAsXLSX()"
+    <button type="button"
+            (click)="exportAsXLSX()"
             class="btn btn-warning text-white offset-md-4"
             id="but">Export to Excel</button>
     <hr>
 
 
+  </div>
+</div>
+
+<div class="row box"
+     *ngIf="showMsg">
+  <div class="alert alert-danger text-center"
+       role="alert">
+    There is no Student . Please Add First Student
   </div>
 </div>

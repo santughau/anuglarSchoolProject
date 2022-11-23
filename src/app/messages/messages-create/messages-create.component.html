@@ -10,47 +10,109 @@
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">CREATE MESSAGES</h1>
         <form class="row g-3 mt-5"
-              [formGroup]="addForm"
-              (ngSubmit)="addPost()">
+              #messageForm="ngForm">
+
+              <div class="col-md-1">
+                <label for="classId"
+                       [ngClass]="{ 'text-danger': classId.touched && classId.invalid , 'text-success': classId.touched && classId.valid  }"
+                       class="form-label">For Class</label>
+                <select id="classId"
+                        name="classId"
+                        class="form-select"
+                        [(ngModel)]="classList.classId"
+                        #classId="ngModel"
+                        (change)="loadBatches($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': classId.touched && classId.errors?.['defaultSelected'] , 'is-valid': classId.touched && classId.valid  }">
+                  <option value="select">Choose Class</option>
+                  <option *ngFor="let data of allClassList ; let i = index"
+                          [value]="data.classId">Class {{data.className}} </option>
+                </select>
+                <div class="valid-feedback"
+                     *ngIf="classId.touched && classId.valid">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="classId.touched && classId.invalid">
+                  Please provide a Class Name
+                </div>
+              </div>
+        
+              <div class="col-md-2">
+                <label for="batchId"
+                       [ngClass]="{ 'text-danger': batchId.touched && batchId.invalid , 'text-success': batchId.touched && batchId.valid  }"
+                       class="form-label">For Batch</label>
+                <select id="batchId"
+                        name="batchId"
+                        class="form-select subjectId"
+                        [(ngModel)]="batch.batchId"
+                        #batchId="ngModel"
+                        (change)="loadBatch($event)"
+                        appSelectValidator="select"
+                        [ngClass]="{ 'is-invalid': batchId.touched && batchId.errors?.['defaultSelected'] , 'is-valid': batchId.touched && batchId.valid  }">
+                  <option value="select">Choose Subject</option>
+                  <option *ngFor="let data of allBatchList ; let i = index"
+                          [value]="data.batchId">{{data.batchName}} </option>
+                </select>
+                <div class="valid-feedback"
+                     *ngIf="batchId.touched && batchId.valid">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback"
+                     *ngIf="batchId.touched && batchId.invalid">
+                  Please provide a Subject Name
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="forDate"
+                       class="form-label">Date</label>
+                       <input type="text"
+                       placeholder="Datepicker"
+                       class="form-control"
+                       bsDatepicker
+                       [bsConfig]="bsConfig"
+                       [dateTooltipTexts]="selectedDates"
+                       [daysDisabled]="[6,0]"
+                       [datesDisabled]="disabledDates"
+                       name="studentDob"
+                       [(ngModel)]="msgDate"
+                       #studentDob="ngModel" 
+                       required>
+            </div>
 
             <div class="col-md-12">
                 <label for="student"
                        class="form-label lbl">Write Message Here.....</label>
-                <editor [formControlName]="'body'"
-                        apiKey="ll52xytvhtp7ag9dnikmiu3y4rc8h0y0d682yffe2x4eiu8e"
-                        [init]="tinyObject"></editor>
-            </div>
-
-
-            <div class="col-md-2">
-                <label for="forMedium"
-                       class="form-label">Please Select</label>
-                <select class="form-select" name="bulk-options" id="forMedium" class="form-control" >
-                    <option value="">Please Select</option>
-                    <option value="sendMsg">Send Message</option>
-                </select>
+                <angular-editor name="ss"
+                                [(ngModel)]="htmlContent"
+                                [config]="config"></angular-editor>
             </div>
 
             <div class="col-1 d-flex justify-content-center mt-5">
-                <button type="submit" (click)="apply()"
-                        class="btn btn-danger ">Apply</button>
+                <button type="submit"
+                        (click)="apply()"
+                        class="btn btn-danger ">Send</button>
             </div>
         </form>
-
+        {{ htmlContent }}
 
     </div>
-    
+
 </div>
 
 
 <div class="row box">
-   
+
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">Select Students</h1>
-        <table class="table table-bordered " id="table2excel">
-            <thead class="thead-dark">
+        <table class="table table-bordered "
+               id="table2excel">
+               <thead class="table-dark text-center">
                 <tr>
-                    <th><input [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)" type="checkbox" id="selectallboxes"></th>
+                    <th><input [checked]="isAllCheckBoxChecked()"
+                               (change)="checkAllCheckBox($event)"
+                               type="checkbox"
+                               id="selectallboxes"></th>
                     <th scope="col">Sr No</th>
                     <th scope="col">Student Name</th>
                     <th scope="col">Class</th>
@@ -59,21 +121,26 @@
                 </tr>
             </thead>
             <tbody>
-          
-                <tr *ngFor="let p of products; let i=index;">
-                    <td ><input type="checkbox"  value="{{p.id}}" [(ngModel)]="products[i].isSelected" ></td>
-                    <th scope="row">{{p.id}}</th>
-                    <td><a  class=""></a></td>
-                    <td>Class </td>
-                    <td></td>
-                    <td><img src="" class="img-fluid" width="100px"></td>
+
+                <tr *ngFor="let p of studentList; let i=index;">
+                    <td><input type="checkbox"
+                        value="{{p.studentId}}"
+                        (change)="checkCheckBox($event,p.studentId)"
+                        [(ngModel)]="studentList[i].checked"></td>
+                    <th scope="row">{{p.studentId}}</th>
+                    <td>{{p.studentName}}</td>
+                    <td>Class {{p.subjectClass}}</td>
+                    <td>{{p.studentBatch}}</td>
+                    <td><img src="http://localhost/ranjana/student/images/{{p.studentImage}}.jpg"
+                             class="img-fluid"
+                             width="100px"></td>
                 </tr>
 
-               
+
             </tbody>
         </table>
 
 
     </div>
-    
+
 </div>

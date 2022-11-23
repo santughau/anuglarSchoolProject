@@ -1,66 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Quiz } from '../quiz.model';
+import { Router, ActivatedRoute } from '@angular/router';
 import { QuizService } from '../quiz.service';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Component({
   selector: 'app-quiz-add-question',
   templateUrl: './quiz-add-question.component.html',
   styleUrls: ['./quiz-add-question.component.css']
 })
 export class QuizAddQuestionComponent implements OnInit {
-  spinner: boolean = true;
-  quiz: Quiz = {
-    quizId: '',
-    quizClassId: '',
-    quizSubjectId: '',
-    quizChapterId: '',
-    quizTitle: '',
-    quizLink: ''
-  }
-  tinyObject = {
-    height: 150,
-    menubar: true,
-    image_advtab: true,
-    imagetools_toolbar:
-      'rotateleft rotateright | flipv fliph | editimage imageoptions',
+  quizId: any = '';
+  question: any = '';
+  optionA: any = '';
+  optionB: any = '';
+  optionC: any = '';
+  optionD: any = '';
+  answer: any = 'A';
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
 
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount '
-    ],
-    toolbar:
-      'undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent | removeformat | help styleselect '
-  }
-
-
-  addForm: UntypedFormGroup
-  question = new UntypedFormControl('');
-  ans = new UntypedFormControl('');
-  optionA = new UntypedFormControl('');
-  optionB = new UntypedFormControl('');
-  optionC = new UntypedFormControl('');
-  optionD = new UntypedFormControl('');
-  constructor(private router: Router, private service: QuizService) {
-    this.addForm = new UntypedFormGroup({
-      ans: this.ans,
-      question: this.question,
-      optionA: this.optionA,
-      optionB: this.optionB,
-      optionC: this.optionC,
-      optionD: this.optionD
-    })
+  };
+  constructor(private router: Router, private service: QuizService, private spinner: NgxSpinnerService, private _route: ActivatedRoute, private toastr: ToastrService,) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.quizId = this._route.snapshot.paramMap.get('id');
+    this.spinner.hide();
   }
 
-  addPost() {
-    console.log(this.addForm.value);
+  addQuestion() {
+
+    const data = {
+      'questions': this.question,
+      'optionA': this.optionA,
+      'optionB': this.optionB,
+      'optionC': this.optionC,
+      'optionD': this.optionD,
+      'answer': this.answer,
+      'quizId': this.quizId,
+    }
+
+    this.service.createQuestions(data).subscribe((res) => {
+      console.log(res);
+
+      this.spinner.hide();
+      this.question = '';
+      this.optionA = '';
+      this.optionB = '';
+      this.optionC = '';
+      this.optionD = '';
+    });
+    this.toastr.success('Question Added Successfully!', 'Weldone!', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      closeButton: true,
+    });
   }
 
 }
