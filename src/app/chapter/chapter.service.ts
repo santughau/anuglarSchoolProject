@@ -14,27 +14,27 @@ export class ChapterService {
     return this.http.get(this.url + 'classlist/read.php?v=' + Math.random())
   }
 
-  getSubjectClassWise(id:any):Observable<any> {    
+   getSubjectClassWise(id:any):Observable<any> {    
     return this.http.get(this.url + 'subjectmodel/read_By_subjectClassId.php?id=' + id + '&v=' + Math.random());
-  }
+  } 
 
-  createChapter(data: any): Observable<any> {
+ /*  createChapter(data: any): Observable<any> {
     return this.http.post(this.url + 'chapter/create.php', data,)
-  }
+  } */
 
-  getSubjectWiseChapter(id:any):Observable<any> {    
+ /*  getSubjectWiseChapter(id:any):Observable<any> {    
     return this.http.get(this.url + 'chapter/read_By_subjectClassId.php?id=' + id + '&v=' + Math.random());
-  }
+  } */
 
-  deleteChapter(data:any): Observable<any> {
+  /* deleteChapter(data:any): Observable<any> {
     return this.http.post(this.url + 'chapter/delete.php', data)
-  }
+  } */
 
-  getSingleChapter(id: any): Observable<any> {
+  /* getSingleChapter(id: any): Observable<any> {
     return this.http.get(this.url + 'chapter/read_one.php?id=' + id + '&v=' + Math.random());
-  }
+  } */
 
-  updateChapter(data: any): Observable<any> {
+  /* updateChapter(data: any): Observable<any> {
     return this.http.post(this.url + 'chapter/update.php', data);    
-  }
+  } */
 }

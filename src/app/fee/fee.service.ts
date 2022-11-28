@@ -11,7 +11,7 @@ export class FeeService {
   url = "http://localhost/ranjana/";
   constructor(private http: HttpClient) { }
 
-  createFee(data: any): Observable<any> {
+  /* createFee(data: any): Observable<any> {
     return this.http.post(this.url + 'fees/create.php', data,)
   }
 
@@ -33,6 +33,6 @@ export class FeeService {
 
   updateFee(data: any): Observable<any> {
     return this.http.post(this.url + 'fees/update.php', data);    
-  }
+  } */
 
 }

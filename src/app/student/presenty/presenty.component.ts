@@ -1,11 +1,18 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Student } from '../student.model';
-import { StudentService } from '../student.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-presenty',
   templateUrl: './presenty.component.html',
@@ -45,7 +52,6 @@ export class PresentyComponent implements OnInit {
     { title: 'Present', date: '2022-03-01', color: '#0000FF' },
     { title: 'Absent', date: '2022-03-02', color: '#0000FF' },
     { title: 'Present', date: '2022-03-03', color: '#FF0000' },
-
   ];
   eventadd: any = [
     { title: 'Absent For Physics', date: '2022-03-03', msg: 'Hello' }
@@ -55,20 +61,19 @@ export class PresentyComponent implements OnInit {
   config = {
     animated: true
   };
-
   calendarOptions: CalendarOptions = {};
 
-  constructor(private modalService: BsModalService, private router: Router, private studentService: StudentService, private spinner: NgxSpinnerService, private toastr: ToastrService, private _route: ActivatedRoute,) { }
+  constructor(private modalService: BsModalService,    private _route: ActivatedRoute,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.studentId = this._route.snapshot.paramMap.get('id');
-    this.studentService.getSingleStudent(this.studentId).subscribe((data) => {
+    this.appService.getMethod('student/read_one.php?id=' + this.studentId).subscribe((data) => {
       this.student = data.document;
       console.log(this.student);
     });
 
-    this.studentService.getPresnety(this.studentId).subscribe((data) => {
+    this.appService.getMethod('presnety/attendance.php?id=' +this.studentId).subscribe((data) => {
       this.totlaevents = data.document;
       console.log(this.student);
       this.calendarOptions = {
@@ -85,11 +90,9 @@ export class PresentyComponent implements OnInit {
       });
     });
 
-
-
     console.log(this.presentDays);
     console.log(this.absentDays);
-    this.spinner.hide();
+    this.appService.hideSpinner();
   }
 
   handleDateClick(arg: any) {
@@ -102,7 +105,7 @@ export class PresentyComponent implements OnInit {
   }
 
   printReport() {
-    let link = 'http://localhost/ranjana/presnety/report.php?id=' + this.studentId;
+    let link = this.appService.serverUrl + 'presnety/report.php?id=' + this.studentId;
     window.open(link, "_blank");
   }
 }

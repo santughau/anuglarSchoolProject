@@ -1,11 +1,18 @@
-import { Component, OnInit  } from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../chapter.model';
-import { ChapterService } from '../chapter.service';
 
 @Component({
   selector: 'app-add-chapter',
@@ -34,32 +41,31 @@ export class AddChapterComponent implements OnInit {
     chapterName: '',
     chapterTopicId:''
   }
-  constructor(private router: Router,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: ChapterService) { }
+  constructor(private router: Router,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.getData()
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadSubjects(ev: any) { 
     this.subjectModel.subjectId = 'select'
     console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
       console.log(this.subjects);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    });    
   }
 
   saveChapter(chapterForm:any) {
@@ -70,19 +76,13 @@ export class AddChapterComponent implements OnInit {
       'chapterName':this.chapterModel.chapterName,
     }
     console.log(data);
-    this.spinner.show();   
-    
+    this.appService.showSpinner();    
     chapterForm.form.reset();
-    this.service.createChapter(data).subscribe((res) => {
-      this.spinner.hide();
+    this.appService.postMethod('chapter/create.php', data,).subscribe((res) => {
+      this.appService.hideSpinner();
       this.router.navigate(['/chapter/chapterList'])
     });
-    this.toastr.success('Chapter Created Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });
+    this.appService.successMsg('Chapter Created Successfully!', 'Weldone !');
     
   }
 

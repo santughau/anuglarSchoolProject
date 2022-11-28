@@ -1,15 +1,20 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Fee } from '../fee.model';
-import { FeeService } from '../fee.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
-import { StudentService } from 'src/app/student/student.service';
 import { Batch } from '../../batch/batch.model';
-import { BatchService } from 'src/app/batch/batch.service';
 import { Student } from 'src/app/student/student.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-fee-create',
@@ -78,56 +83,49 @@ export class FeeCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router: Router, private studentService: StudentService, private spinner: NgxSpinnerService, private toastr: ToastrService, private batchService: BatchService, private service: FeeService) { }
+  constructor(private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
     this.getAllClass();
-    this.spinner.show();
-    this.service.getLastInsertId().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('fees/lastId.php').subscribe((data) => {
       // this.fee = data.document.feeId;
       this.fee.feeVoucherNo = parseInt(data.document.Auto_increment) ;
       console.log(this.fee);
-
-      this.spinner.hide();
+      this.appService.hideSpinner();
     });
   }
 
 
   getAllClass() {
-    this.spinner.show();
-    this.batchService.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadBaches(ev?: any) {
     this.batch.batchId = 'select'
     this.batchId = ev.target.value;
     // const id = ev.target.value;
-    this.spinner.show();
-
-
-    this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' + this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
-
-      this.spinner.hide();
+      this.appService.hideSpinner();
     });
-
-
   }
 
 
   loadStudents(ev: any) {
     console.log(ev.target.value);
     this.student.studentId = 'select';
-    this.spinner.show();
-    this.studentService.getAllStudents(ev.target.value).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('student/read.php?id=' + ev.target.value).subscribe((data) => {
       this.studentList = data.document;
       console.log(this.studentList);
-
-      this.spinner.hide();
+      this.appService.hideSpinner();
     });
   }
 
@@ -140,18 +138,10 @@ export class FeeCreateComponent implements OnInit {
       'feeVoucherNo': this.fee.feeVoucherNo,
       'feeDate': this.fee.feeDate
     }
-
     console.log(data);
-
-    this.service.createFee(data).subscribe((res) => {
-      this.toastr.success('Exam Created Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,
-      });
+    this.appService.postMethod('fees/create.php',data).subscribe((res) => {
+      this.appService.successMsg('Exam Created Successfully !', 'Weldone !');
       this.router.navigate(['/fee/feeList']);
     });
-
   }
 }

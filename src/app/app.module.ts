@@ -23,6 +23,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './header.interceptor';
 import { ExcelServiceService } from './shared/services/excel-service.service';
 import { CommonServiceModule } from './common/common-service.module';
+import { SharedServiceService } from './shared/services/shared-service.service';
 
 
 @NgModule({
@@ -49,9 +50,9 @@ import { CommonServiceModule } from './common/common-service.module';
     HomeworkModule,PdfViewerModule,HttpClientModule,
   ],
  
+ 
   
-  
-  providers: [ExcelServiceService, {  
+  providers: [ExcelServiceService, SharedServiceService,{  
     provide: HTTP_INTERCEPTORS,  
     useClass: HeaderInterceptor,  
     multi: true  

@@ -1,11 +1,18 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import {  Component,  OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { SubjectModel } from 'src/app/subject/subject.model';
-import { Chapter } from '../chapter.model';
 import { ChapterService } from '../chapter.service';
 @Component({
   selector: 'app-chapter-list',
@@ -29,38 +36,37 @@ export class ChapterListComponent implements OnInit {
     subjectName: '',
   }
  
-  constructor(private modalService: BsModalService,private router: Router,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: ChapterService) { }
+  constructor(private modalService: BsModalService,private router: Router,private service: ChapterService,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.getData()
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
-    })
+      console.log(this.allClassList);
+      this.appService.hideSpinner();
+    });
   }
 
   loadSubjects(ev: any) { 
     this.subjectModel.subjectId = 'select'
     console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
       console.log(this.subjects);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    });    
   }
 
   loadChapters(ev:any) {
     console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectWiseChapter(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('chapter/read_By_subjectClassId.php?id=' + id ).subscribe((data) => {
       this.chapters = data.document;
       if (this.chapters.length == 0) {
         this.showTable = false;
@@ -69,7 +75,7 @@ export class ChapterListComponent implements OnInit {
         this.showTable = true;
       }
       console.log(this.chapters);
-      this.spinner.hide();
+      this.appService.hideSpinner();
       
     })
   }
@@ -84,37 +90,25 @@ export class ChapterListComponent implements OnInit {
   }
 
   confirm(id: any): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     console.log(id); 
     const data = {
       'chapterId' : id
     }
-    this.service.deleteChapter(data).subscribe(res => {
+    this.appService.postMethod('chapter/delete.php',data).subscribe(res => {
       console.log("deleted" + res);
       if (res.status == 'success') {
-        this.spinner.hide();
-        this.toastr.error('Subject Deleted Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.hideSpinner();        
+        this.appService.successMsg('Chapter Deleted Successfully!', 'Weldone !');
         this.modalRef?.hide();
       } else {
-        this.spinner.hide();
-        this.toastr.error('Sorry Subject Was not Deleted Successfully!', 'OOPs Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.hideSpinner();        
+        this.appService.errorsMsg('Sorry Chapter Was not Deleted Successfully!', 'OOPs Try Again!');
         this.modalRef?.hide();
       }
       this.modalRef?.hide();
       this.router.navigate(['/chapter/addChapter'])
-    });
-    
-    
+    });    
   }
  
   decline(): void {

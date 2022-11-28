@@ -1,9 +1,16 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SubjectModel } from '../subject.model';
-import { SubjectService } from '../subject.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-subject-edit',
@@ -18,45 +25,34 @@ export class SubjectEditComponent implements OnInit {
     subjectClass: '',
     subjectName: '',
   }
-  constructor(private spinner: NgxSpinnerService,private router: Router, private service: SubjectService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
+  constructor(private router: Router, private _route: ActivatedRoute,private appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
-    const id = this._route.snapshot.paramMap.get('id');
-   
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    const id = this._route.snapshot.paramMap.get('id');   
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       //console.log(data);
       this.classesList = data;
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
-    this.spinner.show();
-    this.service.getSingleSubject(id).subscribe((data) => {
+    this.appService.showSpinner();
+    const url = 'subjectmodel/read_one.php?id=' + id;    
+    this.appService.getMethod(url).subscribe((data) => {
       //console.log(data);
       this.subjectModel = data;
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   updateSubject() {
-    this.service.updateSubject(this.subjectModel).subscribe(res => {
+    this.appService.postMethod('subjectmodel/update.php' ,this.subjectModel).subscribe(res => {
       if (res.status == 'success') {
-        this.toastr.success('Subject Updated Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.successMsg('Subject Updated Successfully!', 'Weldone !');
         this.router.navigate(['subject/subjectList'])
       } else {
-        this.toastr.error('Subject Not  Updated Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-     }
-      
-    })
+        this.appService.errorsMsg('Subject Not Updated Successfully!', 'Weldone !');
+      }
+    });
   }
 
 }

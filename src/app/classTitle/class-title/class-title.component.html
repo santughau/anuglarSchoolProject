@@ -1,12 +1,13 @@
+<!-------------
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp 
+  ----------->
 <div class="row box">
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active"
-                aria-current="page">View Class</li>
-        </ol>
-    </nav>
     <div class="col-md-12 ">
         <ngx-spinner type="timer">
             <p style="font-size: 20px; color: white">Loading...</p>
@@ -25,7 +26,7 @@
                 <input type="text"
                        class="form-control"
                        id="className"
-                       name="className"                       
+                       name="className"
                        [(ngModel)]="classList.className"
                        #className="ngModel"
                        required
@@ -38,7 +39,6 @@
                 </div>
             </div>
 
-
             <div class="col-md-4  mt-5">
                 <button type="submit"
                         [disabled]="classForm.invalid"
@@ -46,13 +46,9 @@
             </div>
 
             <div class="col-md-4  mt-5">
-                <a   [routerLink]="['/class/classList']" 
-                        class="btn btn-primary ">Go to Class List</a>
+                <a [routerLink]="['/class/classList']"
+                   class="btn btn-primary ">Go to Class List</a>
             </div>
         </form>
-       
-     
-
-
     </div>
 </div>

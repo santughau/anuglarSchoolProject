@@ -1,11 +1,18 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Batch } from '../batch.model';
-import { BatchService } from '../batch.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-batch-edit',
   templateUrl: './batch-edit.component.html',
@@ -41,32 +48,30 @@ export class BatchEditComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router: Router,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: BatchService,private _route: ActivatedRoute,) { }
+  constructor(private router: Router,private _route: ActivatedRoute,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.batchId = this._route.snapshot.paramMap.get('id');
-    console.log("batchId = " + this.batchId);
-    
+    console.log("batchId = " + this.batchId);    
     this.getData();
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
-
-    this.service.getSingleBatch(this.batchId).subscribe((data) => {      
+    this.appService.getMethod('batch/read_one.php?id=' + this.batchId).subscribe((data) => {
       this.batch = data.document;
       this.classList.classId = this.batch.batchClass;
       console.log(this.batch);
       console.log(this.batch);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   updateBatch() {
@@ -79,26 +84,15 @@ export class BatchEditComponent implements OnInit {
       'batchStartsFrom':this.batch.batchStartsFrom,
       'batchTime':this.batch.batchTime,
     }
-    this.spinner.show();
-    this.service.updateBatch(data).subscribe(res => {
+    this.appService.showSpinner();
+    this.appService.postMethod('batch/update.php', data).subscribe(res => {
       if (res.status == 'success') {
-        this.toastr.success('Batch Updated Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.successMsg('Batch Updated Successfully!', 'Weldone !');
         this.router.navigate(['/batch/batchList'])
       } else {
-        this.toastr.error('Batch Not  Updated Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-     }
-      
-    })
+        this.appService.errorsMsg('Batch not Updated Successfully!', 'Try Again !');
+      }
+    });
   }
 
 }

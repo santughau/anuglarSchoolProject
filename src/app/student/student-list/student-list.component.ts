@@ -1,14 +1,20 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Student } from '../student.model';
-import { StudentService } from '../student.service';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { Batch } from 'src/app/batch/batch.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SubjectModel } from 'src/app/subject/subject.model';
-import { ToastrService } from 'ngx-toastr';
-import { BatchService } from 'src/app/batch/batch.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-student-list',
@@ -43,10 +49,10 @@ export class StudentListComponent implements OnInit {
   students: Student[] = [];
   batchId: any = null;
   allBatchList: any[] = [];
-  constructor(private router: Router, private service: StudentService, private spinner: NgxSpinnerService, private toastr: ToastrService, private modalService: BsModalService, private _route: ActivatedRoute, private batchService: BatchService) { }
+  constructor(private router: Router,    private modalService: BsModalService, private _route: ActivatedRoute, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.showMsg = false;
     this.batchId = this._route.snapshot.paramMap.get('id');
     console.log('ss' + this.batchId);
@@ -57,15 +63,15 @@ export class StudentListComponent implements OnInit {
     this.getAllClass();
     setTimeout(() => {
       /** spinner ends after 5 seconds */
-      this.spinner.hide();
+      this.appService.hideSpinner();
     }, 5000);
   }
 
   getAllClass() {
-    this.spinner.show();
-    this.batchService.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
   }
 
@@ -73,11 +79,11 @@ export class StudentListComponent implements OnInit {
     console.log(ev.target.value);
     this.batch.batchId = 'select'
     this.batchId = ev.target.value;
-    this.spinner.show();
-    this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' + this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
       // console.log(this.allBatchList);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     });
   }
 
@@ -88,7 +94,8 @@ export class StudentListComponent implements OnInit {
 
 
   getData(batchId: any) {
-    this.service.getAllStudents(batchId).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('student/read.php?id=' + batchId).subscribe((data) => {
       console.log(data);
       this.students = data.document;
       console.log("lenght = " + this.students.length);
@@ -100,7 +107,7 @@ export class StudentListComponent implements OnInit {
         this.showStudent = false;
       }
       console.log(this.students);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
   }
 
@@ -127,17 +134,12 @@ export class StudentListComponent implements OnInit {
     const data = {
       'studentId': id
     }
-    this.service.deleteStudent(data).subscribe(res => {
+    this.appService.postMethod('student/delete.php', data).subscribe(res => {
       console.log("deleted");
       this.router.navigate(['/student/students']);
       this.getData(this.batchId);
     });
-    this.toastr.error('Student Deleted Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,
-    });
+    this.appService.successMsg('Student Deleted Successfully!', 'Weldone !');
     this.modalRef?.hide();
   }
 

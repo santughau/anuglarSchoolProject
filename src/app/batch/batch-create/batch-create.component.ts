@@ -1,11 +1,18 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { Batch } from '../batch.model';
-import { BatchService } from '../batch.service';
 
 
 @Component({
@@ -42,32 +49,27 @@ export class BatchCreateComponent implements OnInit {
     new Date('2022-08-05'),
     new Date('2022-08-09')
   ];
-  constructor(private router: Router,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: BatchService,) { }
+  constructor(private router: Router,public appService: SharedServiceService) { }
 
-  ngOnInit(): void { 
-    
+  ngOnInit(): void {    
     this.getData();
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
+
   saveBatch() {
     this.batch.batchClass = this.classList.classId!
-    this.service.createBatch(this.batch).subscribe((res) => {
-      this.toastr.success('Batch Created Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,     
-      });
+    this.appService.postMethod('batch/create.php',this.batch).subscribe((res) => {
+      this.appService.successMsg('Batch Created Successfully!', 'Weldone !');
       this.router.navigate(['/batch/batchList']);
     });
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 }

@@ -1,18 +1,21 @@
-import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Student } from '../student.model';
-import { StudentService } from '../student.service';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { Batch } from 'src/app/batch/batch.model';
-import { SubjectModel } from 'src/app/subject/subject.model';
-import { BatchService } from 'src/app/batch/batch.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ChapterService } from 'src/app/chapter/chapter.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-student-edit',
@@ -100,25 +103,23 @@ export class StudentEditComponent implements OnInit  {
   progress: number = 0;
   vaildFile: boolean = false;
   studentId: any;
-  constructor(private router : Router, private studentService :StudentService,private spinner: NgxSpinnerService, private toastr: ToastrService,private batchService : BatchService,private service: ChapterService,private _route: ActivatedRoute,) { }
+  constructor(private router : Router, private _route: ActivatedRoute,public appService: SharedServiceService) { }
  
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
-    this.spinner.show();
+    this.appService.showSpinner();
     this.studentId = this._route.snapshot.paramMap.get('id');
 
-    this.studentService.getSingleStudent(this.studentId).subscribe((data) => {      
+    this.appService.getMethod('student/read_one.php?id=' + this.studentId).subscribe((data) => {
       this.student = data.document;
       console.log(this.student);
-      
-      this.croppedImage = "http://localhost/ranjana/student/images/" + this.student.studentImage + ".jpg"
+      this.croppedImage = this.appService.serverUrl + "student/images/" + this.student.studentImage + ".jpg"
       console.log(this.croppedImage);
       this.student.studentDob = new Date();
-      this.getDropdownData(this.student.studentClass);    
-      this.spinner.hide();
-    })
-
+      this.getDropdownData(this.student.studentClass);
+      this.appService.hideSpinner();
+    });
     this.getAllClass();
     this.dropdownSettings = {
       singleSelection: false,
@@ -137,19 +138,17 @@ export class StudentEditComponent implements OnInit  {
 
 
   getAllClass() {
-    this.spinner.show();
-    this.batchService.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;      
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
   }
 
   loadBaches(ev?: any) {
     this.dropdownList = [];
-    //console.log('this.selectedIte');
-    
-    //console.log(this.selectedItems);
-    
+    //console.log('this.selectedIte');    
+    //console.log(this.selectedItems);    
     this.dropdownSettings = {
       ...this.dropdownSettings,
       clearSearchFilter : true
@@ -158,8 +157,8 @@ export class StudentEditComponent implements OnInit  {
     this.batch.batchId = 'select'
     this.batchId = ev.target.value;
    // const id = ev.target.value;
-    this.spinner.show();
-    this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
+   this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id='+ this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
       if (this.allBatchList.length == 0) {
         //this.showTable = false;
@@ -168,21 +167,21 @@ export class StudentEditComponent implements OnInit  {
        // this.showTable = true;
       }
      // console.log(this.allBatchList);
-      this.spinner.hide();
+     this.appService.hideSpinner();
       
     });
     const id = ev.target.value;
-    this.spinner.show();
+    this.appService.showSpinner();
     this.getDropdownData(id);
   }
 
   getDropdownData(id) {
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.dropdownList = data.document;
       /*  const transformed = sub.map(({ subjectId, subjectName }) => ({ item_id: subjectId, item_text: subjectName }));
        console.log(transformed);
        this.dropdownList = transformed */
-      this.spinner.hide();
+       this.appService.hideSpinner();
     }); 
   }
 
@@ -232,18 +231,19 @@ export class StudentEditComponent implements OnInit  {
    }
    imageCropped(event: ImageCroppedEvent) {
      this.croppedImage = event.base64;
-     console.log(this.croppedImage);
-     
-    // this.myfile = base64ToFile(this.croppedImage);
-   
+     console.log(this.croppedImage);     
+    // this.myfile = base64ToFile(this.croppedImage);   
     this.myfile = this.dataURLtoFile(this.croppedImage, 'gallery.jpg');     
    }
+  
    imageLoaded(image?: LoadedImage) {
        // show cropper
    }
+  
    cropperReady() {
        // cropper ready
    }
+  
    loadImageFailed() {
        // show message
    }
@@ -283,6 +283,7 @@ export class StudentEditComponent implements OnInit  {
       flipH:!this.transform.flipH
     }
   }
+
   flipVertical() { 
     this.rotateStatus = false;
     this.flipHorizontalStatus = false;
@@ -293,6 +294,7 @@ export class StudentEditComponent implements OnInit  {
       flipV:!this.transform.flipV
     }
   }
+  
   discardChanges() {
     this.rotateStatus = false;
     this.flipHorizontalStatus = false;
@@ -333,9 +335,8 @@ export class StudentEditComponent implements OnInit  {
     
 
 
-    this.spinner.show();   
-    this.studentService.updateStudent(formData).subscribe((event: any) => {
-
+    this.appService.showSpinner(); 
+    this.appService.postMethod('student/update.php',formData).subscribe((event: any) => {
       switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
@@ -359,13 +360,7 @@ export class StudentEditComponent implements OnInit  {
       }
       this.router.navigate(['/student/students']);
     });
-    this.toastr.success('Student   Uploaded Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    }); 
-    
+    this.appService.successMsg('Student   Uploaded Successfully!', 'Weldone !');
   }
 
 }

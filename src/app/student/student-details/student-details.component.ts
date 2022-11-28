@@ -1,10 +1,16 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { FeeService } from 'src/app/fee/fee.service';
+import { ActivatedRoute } from '@angular/router';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { Student } from '../student.model';
-import { StudentService } from '../student.service';
 @Component({
   selector: 'app-student-details',
   templateUrl: './student-details.component.html',
@@ -35,27 +41,25 @@ export class StudentDetailsComponent implements OnInit {
   }
   studentId: any;
   croppedImage: any = '../../assets/student/8.jpg';
-  constructor(private router: Router, private studentService: StudentService, private spinner: NgxSpinnerService, private toastr: ToastrService, private _route: ActivatedRoute, private feeService: FeeService) { }
+  constructor(    private _route: ActivatedRoute, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.studentId = this._route.snapshot.paramMap.get('id');
-
-    this.studentService.getSingleStudent(this.studentId).subscribe((data) => {
+    this.appService.getMethod('student/read_one.php?id=' + this.studentId).subscribe((data) => {
       this.student = data.document;
       console.log(this.student);
-      this.croppedImage = "http://localhost/ranjana/student/images/" + this.student.studentImage + ".jpg"
+      this.croppedImage = this.appService.serverUrl + "student/images/" + this.student.studentImage + ".jpg"
       console.log(this.croppedImage);
       this.student.studentDob = new Date();
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
 
-    this.feeService.getStudentAllFees(this.studentId).subscribe((data) => {
-      this.fees = data.document;      
+    this.appService.getMethod('fees/read_By_studentId.php?id=' + this.studentId).subscribe((data) => {
+      this.fees = data.document;
       console.log(this.fees);
       this.findsum(this.fees)
-    })
-
+    });
   }
 
   findsum(data) {
@@ -64,13 +68,12 @@ export class StudentDetailsComponent implements OnInit {
     console.log(tvalue);
     for (let j = 0; j < data.length; j++) {
       this.total_fee += parseInt(tvalue[j].feeFeeAmt);
-
     }
     console.log(this.total_fee)
   }
 
   getDetails() {
-    let link = 'http://localhost/ranjana/student/details.php?id=' + this.studentId;
+    let link = this.appService.serverUrl + '/student/details.php?id=' + this.studentId;
     window.open(link, "_blank");
   }
 

@@ -1,11 +1,18 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Chapter } from '../chapter.model';
-import { ChapterService } from '../chapter.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-chapter-edit',
@@ -35,40 +42,40 @@ export class ChapterEditComponent implements OnInit {
     chapterName: '',
     chapterTopicId:''
   }
-  constructor(private spinner: NgxSpinnerService,private router: Router, private service :ChapterService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
+  constructor(private router: Router, private _route: ActivatedRoute,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.chapterId = this._route.snapshot.paramMap.get('id');
-    this.getData();
-    this.spinner.show();
-    
-   
-    this.service.getSingleChapter(this.chapterId).subscribe((data) => {
+    this.getData();   
+    this.appService.getMethod('chapter/read_one.php?id=' + this.chapterId).subscribe((data) => {
+      console.log(data);      
       this.chapterModel.chapterTopicId = data.document.chapterTopicId; 
       this.chapterModel.chapterName = data.document.chapterName;     
-      this.spinner.hide();
+      this.classList.classId = data.document.chapterClassId;           
+      this.appService.hideSpinner();
     })
   }
 
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
-    })
+      console.log(this.allClassList);
+      this.appService.hideSpinner();
+    });
   }
 
   loadSubjects(ev: any) { 
     this.subjectModel.subjectId = 'select'
+    console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
-      this.spinner.hide();
-    })
-    
+      console.log(this.subjects);
+      this.appService.hideSpinner();
+    });    
   }
 
   updateChapter() {
@@ -79,24 +86,13 @@ export class ChapterEditComponent implements OnInit {
       'chapterSubjectId':this.subjectModel.subjectId,
       'chapterName':this.chapterModel.chapterName,
     }
-    this.spinner.show();  
-   
-    this.service.updateChapter(data).subscribe(res => {
-      if (res.status == 'success') {
-        this.toastr.success('Subject Updated Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+    this.appService.showSpinner();   
+    this.appService.postMethod('chapter/update.php', data).subscribe(res => {
+      if (res.status == 'success') {        
+        this.appService.successMsg('Chapter Updated Successfully!', 'Weldone !');
         this.router.navigate(['/chapter/chapterList'])
       } else {
-        this.toastr.error('Subject Not  Updated Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.errorsMsg('Chapter Not Updated Successfully!', 'Try Again !');
      }
       
     })

@@ -1,11 +1,17 @@
-import { Component, OnInit,TemplateRef } from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Batch } from '../batch.model';
-import { BatchService } from '../batch.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-batch-list',
   templateUrl: './batch-list.component.html',
@@ -22,18 +28,18 @@ export class BatchListComponent implements OnInit {
     className: '',
     classId: 'select',
   }
-  constructor(private service : BatchService,private router : Router,private modalService: BsModalService,private spinner: NgxSpinnerService, private toastr: ToastrService,) { }
+  constructor(private router : Router,private modalService: BsModalService,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData();
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadBaches(ev?:any) {
@@ -41,20 +47,18 @@ export class BatchListComponent implements OnInit {
     console.log(ev);
     this.batchId = ev.target.value;
    // const id = ev.target.value;
-    this.spinner.show();
-    this.service.getBatchWiseClass(this.batchId).subscribe((data) => {
+   this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' + this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
       if (this.allBatchList.length == 0) {
         this.showTable = false;
-        console.log(this.showTable);        
+        console.log(this.showTable);
       } else {
         this.showTable = true;
       }
       console.log(this.allBatchList);
-      this.spinner.hide();
-      
-    })
-    
+      this.appService.hideSpinner();
+    });    
   }
 
   editBatch(id:any) {
@@ -68,36 +72,24 @@ export class BatchListComponent implements OnInit {
 
 
   confirm(id: any): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     console.log(id); 
     const data = {
       'batchId' : id
     }
-    this.service.deleteBatch(data).subscribe(res => {
+    this.appService.postMethod('batch/delete.php',data).subscribe(res => {
       if (res.status == 'success') {
-        this.spinner.hide();
-        this.toastr.error('Batch Deleted Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.hideSpinner();
+        this.appService.errorsMsg('Batch Deleted Successfully!', 'Weldone !');
         this.modalRef?.hide();
        this.router.navigate(['/batch/batchCreate']);     
       } else {
-        this.spinner.hide();
-        this.toastr.error('Sorry Batch Was not Deleted Successfully!', 'OOPs Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.hideSpinner();
+        this.appService.errorsMsg('Batch Was not Deleted Successfully!', 'Try Again !');
         this.modalRef?.hide();      }
       this.modalRef?.hide();
       this.router.navigate(['/batch/batchCreate'])
-    });
-    
-    
+    });    
   }
 
   decline(): void {
@@ -106,7 +98,7 @@ export class BatchListComponent implements OnInit {
 
   batchDetails(id) {
     console.log(id);
-    this.router.navigate(['batch/batchDetails', id])
+    this.router.navigate(['batch/batchDetails', id]);
   }
 
 }

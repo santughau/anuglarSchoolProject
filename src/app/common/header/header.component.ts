@@ -1,6 +1,14 @@
-import { Component, OnInit,Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { CommonServiceService } from '../common-service.service';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,14 +19,14 @@ export class HeaderComponent implements OnInit {
   @ViewChild('el') elRefs?: ElementRef;
   profile: any = {};
   brandName: string = "Lax";
-  constructor(private renderer: Renderer2, private elRef : ElementRef,private service : CommonServiceService,private spinner: NgxSpinnerService,) { }
+  constructor(private renderer: Renderer2, private elRef : ElementRef,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.service.getProfile(1).subscribe((data) => {
-      this.profile = data.document;      
-      this.spinner.hide();
-    })
+    this.appService.showSpinner();
+    this.appService.getMethod('profile/read_one.php?id=1').subscribe((data) => {
+      this.profile = data.document;
+      this.appService.hideSpinner();
+    });
   }
 
   hideShow() {

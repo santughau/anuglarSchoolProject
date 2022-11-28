@@ -1,11 +1,13 @@
+<!-------------
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp 
+  ----------->
 <div class="row box">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active"
-                aria-current="page">View Subjects</li>
-        </ol>
-    </nav>
     <div class="col-md-12 ">
         <h1 class="text-muted mb-5">VIEW ALL Subjects</h1>
         <hr>
@@ -50,10 +52,7 @@
         <div id="table-responsive" class="table-responsive"
              *ngIf="showTable">
             <table class="row-border hover table table-bordered  table-striped"
-                   id="table2excel"
-                   datatable
-                   [dtOptions]="dtOptions"
-                   [dtTrigger]="dtTrigger">
+                   id="table2excel">
                 <thead class="table-dark text-center">
                     <tr>
                         <th scope="col">Sr No</th>
@@ -73,7 +72,7 @@
                 </thead>
                 <tbody>
 
-                    <tr *ngFor="let subject of subjects; let i = index">
+                    <tr *ngFor="let subject of subjects | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                         <th scope="row">{{i+1}}</th>
                         <td>{{subject.subjectClassId}}</td>
                         <td>{{subject.subjectClass}}</td>
@@ -114,7 +113,7 @@
                 </tbody>
             </table>
             <hr>
-
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
             <button type="button"
                     (click)="exportAsXLSX()"
                     class="btn btn-warning text-white offset-md-4"

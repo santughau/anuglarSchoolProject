@@ -1,17 +1,21 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Student } from '../student.model';
-import { StudentService } from '../student.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Batch } from '../../batch/batch.model';
-import { BatchService } from 'src/app/batch/batch.service';
-import {  IDropdownSettings } from 'ng-multiselect-dropdown';
-import { ChapterService } from 'src/app/chapter/chapter.service';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-student-create',
@@ -102,7 +106,7 @@ export class StudentCreateComponent implements OnInit {
   vaildFile: boolean = false;
 
 
-  constructor(private router : Router, private studentService :StudentService,private spinner: NgxSpinnerService, private toastr: ToastrService,private batchService : BatchService,private service: ChapterService) {
+  constructor(private router : Router,  public appService: SharedServiceService) {
 
 
   }
@@ -125,19 +129,17 @@ export class StudentCreateComponent implements OnInit {
   }
 
   getAllClass() {
-    this.spinner.show();
-    this.batchService.getAllClass().subscribe((data) => {
-      this.allClassList = data;      
-      this.spinner.hide();
-    })
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
+      this.allClassList = data;
+      this.appService.hideSpinner();
+    });
   }
 
   loadBaches(ev?: any) {
     this.dropdownList = [];
-    //console.log('this.selectedIte');
-    
-    //console.log(this.selectedItems);
-    
+    //console.log('this.selectedIte');    
+    //console.log(this.selectedItems);    
     this.dropdownSettings = {
       ...this.dropdownSettings,
       clearSearchFilter : true
@@ -146,8 +148,8 @@ export class StudentCreateComponent implements OnInit {
     this.batch.batchId = 'select'
     this.batchId = ev.target.value;
    // const id = ev.target.value;
-    this.spinner.show();
-    this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
+   this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' +this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
       if (this.allBatchList.length == 0) {
         this.showTable = false;
@@ -156,36 +158,33 @@ export class StudentCreateComponent implements OnInit {
         this.showTable = true;
       }
      // console.log(this.allBatchList);
-      this.spinner.hide();
+     this.appService.hideSpinner();
       
     });
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.dropdownList = data.document;
       /*  const transformed = sub.map(({ subjectId, subjectName }) => ({ item_id: subjectId, item_text: subjectName }));
        console.log(transformed);
        this.dropdownList = transformed */
-      this.spinner.hide();
-    });
-    
+       this.appService.hideSpinner();
+    });    
   }
 
   onItemSelect(item: any) {
    this.selectedItems.push(item)
-   console.log(this.selectedItems);
-    
+   console.log(this.selectedItems);    
     var result = this.selectedItems.map((res) => {
       return res.subjectId;
     }).join(',')
-    console.log(result);
-    
+    console.log(result);    
   }
+
   onSelectAll(items: any) {
     console.log(items);
     this.selectedItems = items;
-    console.log(this.selectedItems);
-    
+    console.log(this.selectedItems);    
   }
 
   onItemDeSelect(items?: any) {
@@ -214,21 +213,22 @@ export class StudentCreateComponent implements OnInit {
     // console.log(event);
     // console.log(event.target.files[0].name);
        this.imageChangedEvent = event;
-   }
+  }
+  
    imageCropped(event: ImageCroppedEvent) {
      this.croppedImage = event.base64;
-     console.log(this.croppedImage);
-     
-    // this.myfile = base64ToFile(this.croppedImage);
-   
+     console.log(this.croppedImage);     
+    // this.myfile = base64ToFile(this.croppedImage);   
     this.myfile = this.dataURLtoFile(this.croppedImage, 'gallery.jpg');     
    }
+  
    imageLoaded(image?: LoadedImage) {
        // show cropper
    }
    cropperReady() {
        // cropper ready
    }
+  
    loadImageFailed() {
        // show message
    }
@@ -238,8 +238,7 @@ export class StudentCreateComponent implements OnInit {
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), 
         n = bstr.length, 
-        u8arr = new Uint8Array(n);
-        
+        u8arr = new Uint8Array(n);        
     while(n--){
         u8arr[n] = bstr.charCodeAt(n);
     }    
@@ -268,6 +267,7 @@ export class StudentCreateComponent implements OnInit {
       flipH:!this.transform.flipH
     }
   }
+
   flipVertical() { 
     this.rotateStatus = false;
     this.flipHorizontalStatus = false;
@@ -278,6 +278,7 @@ export class StudentCreateComponent implements OnInit {
       flipV:!this.transform.flipV
     }
   }
+
   discardChanges() {
     this.rotateStatus = false;
     this.flipHorizontalStatus = false;
@@ -287,16 +288,13 @@ export class StudentCreateComponent implements OnInit {
    
   }
 
- 
-
-
-  saveStudent() {   
+   saveStudent() {   
+    this.appService.showSpinner();
     this.lgModal.hide();
     var result = this.selectedItems.map((res) => {
       return res.subjectId;
     }).join(',')
-    console.log(result);
-    
+    console.log(result);    
     console.log(this.myfile);
     const formData = new FormData();
     formData.append('file', this.myfile);
@@ -316,12 +314,7 @@ export class StudentCreateComponent implements OnInit {
     formData.append('studentSubject', result);
     console.log( formData);
     
-    
-
-
-    this.spinner.show();   
-    this.studentService.createStudent(formData).subscribe((event: any) => {
-
+    this.appService.postMethod('student/create.php',formData).subscribe((event: any) => {
       switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
@@ -344,12 +337,6 @@ export class StudentCreateComponent implements OnInit {
         this.router.navigate(['/student/students']);
       }
     });
-    this.toastr.success('Student   Uploaded Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });
-    
+    this.appService.successMsg('Student   Uploaded Successfully!', 'Weldone !');
   }
 }

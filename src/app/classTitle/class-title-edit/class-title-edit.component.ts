@@ -1,8 +1,15 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { ClassTitleService } from '../class-title.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { ClassList } from '../classList.model';
 @Component({
   selector: 'app-class-title-edit',
@@ -10,46 +17,31 @@ import { ClassList } from '../classList.model';
   styleUrls: ['./class-title-edit.component.css']
 })
 export class ClassTitleEditComponent implements OnInit {
-  
-  classList : ClassList = {
+
+  classList: ClassList = {
     classId: '',
     className: ''
   }
-  constructor(private spinner: NgxSpinnerService,private router : Router, private service :ClassTitleService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
+  constructor( private router: Router,  private _route: ActivatedRoute,  private appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     const id = this._route.snapshot.paramMap.get('id');
-    this.spinner.show();
-    this.service.getSingleClass(id).subscribe((data) => {
+    this.appService.getMethod('classlist/read_one.php?id=' + id).subscribe((data) => {
       //console.log(data);
       this.classList = data
       console.log(this.classList);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    });
+
   }
-  updateClass(classForm: any){
+  updateClass() {
+    this.appService.showSpinner();
     console.log(this.classList);
-    this.service.updateClass(this.classList).subscribe((res) => {
-      this.spinner.hide(); 
+    this.appService.postMethod('classlist/update.php', this.classList).subscribe((res) => {
+      this.appService.hideSpinner();
       this.router.navigate(['/class/classList'])
-    })
-    this.toastr.success('Class Updated Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });  
-  }
-
-
-  update(clasForm:any) {
-    console.log(clasForm);
-    this.service.createClass(this.classList).subscribe((res) => {
-      console.log(res);
-      
-    })
-    
+    });
+    this.appService.successMsg('Class Updated Successfully!', 'Weldone !');
   }
 }

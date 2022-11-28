@@ -1,10 +1,16 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ExtraService } from '../extra.service';
 import { Profile } from '../profile.model';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { CommonServiceService } from 'src/app/common/common-service.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -31,15 +37,15 @@ export class ProfileComponent implements OnInit {
     profileLogo: ''
   }
   someSubscription: any;
-  constructor(private router: Router, private service: CommonServiceService, private spinner: NgxSpinnerService, private toastr: ToastrService) { 
+  constructor( private service: CommonServiceService,  public appService: SharedServiceService) { 
   }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.service.getProfile(1).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('profile/read_one.php?id=1').subscribe((data) => {
       this.profile = data.document;
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
   editData() {    
     this.disableBoolean = !this.disableBoolean;
@@ -69,27 +75,17 @@ export class ProfileComponent implements OnInit {
       'profileWebsite':this.profile.profileWebsite,
       'profileLogo':this.profile.profileLogo,
     }
-    this.spinner.show();
-    this.service.updateProfile(data).subscribe(res => {
+    this.appService.showSpinner();
+    this.appService.postMethod('profile/update.php',data).subscribe(res => {
       //this.router.navigate([this.router.url]);
       window.location.reload();
       if (res.status == 'success') {
-        this.toastr.success('Profile Updated Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-        
+        this.appService.successMsg('Profile Updated Successfully!', 'Weldone !');
+        this.appService.hideSpinner();
       } else {
-        this.toastr.error('Profile Not  Updated Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-     }
-      
-    })
+        this.appService.errorsMsg('Profile Not Updated Successfully!', 'Try Again! !')
+        this.appService.hideSpinner();
+      }
+    });
   }
 }

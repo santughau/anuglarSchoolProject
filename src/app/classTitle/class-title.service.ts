@@ -15,7 +15,7 @@ export class ClassTitleService {
 
   constructor(private http: HttpClient) { }
 
-  createClass(data: any): Observable<any> {
+  /* createClass(data: any): Observable<any> {
     return this.http.post(this.url + 'classlist/create.php', data,)
   }
 
@@ -32,5 +32,5 @@ export class ClassTitleService {
 
   deleteClass(data: any): Observable<any> {
     return this.http.post(this.url + 'classlist/delete.php', data)
-  }
+  } */
 }

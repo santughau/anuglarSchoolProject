@@ -1,20 +1,21 @@
+<!-------------
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp 
+  -----------> 
 <div class="row box"> 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active"
-                aria-current="page">Edit Class</li>
-        </ol>
-    </nav>
     <div class="col-md-12 ">
         <ngx-spinner type="timer">
             <p style="font-size: 20px; color: white">Loading...</p>
         </ngx-spinner>
-        <h1 class="text-muted mb-5">EDIT ALL CLASSES</h1>
+        <h1 class="text-muted mb-5">EDIT  CLASS</h1>
         <hr>
         <form class="row g-3 mt-2 mb-5 needs-validation"
               #classForm="ngForm"
-              (ngSubmit)="updateClass(classForm)"
               novalidate>
 
             <div class="col-md-3">
@@ -40,7 +41,7 @@
 
             <div class="col-md-4  mt-5">
                 <button type="submit"
-                        [disabled]="classForm.invalid"
+                        [disabled]="classForm.invalid" (click)="updateClass()"
                         class="btn btn-danger ">Update Class Name</button>
             </div>
 
@@ -49,8 +50,5 @@
                         class="btn btn-primary ">Go to Class Add Form</a>
             </div>
         </form>
-        
-        
-
     </div>
 </div>

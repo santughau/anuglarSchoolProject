@@ -1,10 +1,17 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { Gallery } from '../gallery.model';
-import { GalleryService } from '../gallery.service';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 
 
@@ -30,7 +37,7 @@ export class GalleryCreateComponent implements OnInit {
     galleryImage: '',
     galleryTitle: ''
   }
-  constructor(private router : Router, private service :GalleryService,private spinner: NgxSpinnerService, private toastr: ToastrService) { }
+  constructor(private router : Router,  public appService: SharedServiceService) { }
 
   ngOnInit(): void {
   }
@@ -39,21 +46,23 @@ export class GalleryCreateComponent implements OnInit {
     // console.log(event);
     // console.log(event.target.files[0].name);
        this.imageChangedEvent = event;
-   }
+  }
+  
    imageCropped(event: ImageCroppedEvent) {
      this.croppedImage = event.base64;
-     console.log(this.croppedImage);
-     
-    // this.myfile = base64ToFile(this.croppedImage);
-   
+     console.log(this.croppedImage);     
+    // this.myfile = base64ToFile(this.croppedImage);   
     this.myfile = this.dataURLtoFile(this.croppedImage, 'gallery.jpg');     
    }
+  
    imageLoaded(image?: LoadedImage) {
        // show cropper
    }
+  
    cropperReady() {
        // cropper ready
    }
+  
    loadImageFailed() {
        // show message
    }
@@ -64,34 +73,20 @@ export class GalleryCreateComponent implements OnInit {
      const formData = new FormData();
      formData.append('file', this.myfile);
      formData.append('title', this.gallery.galleryTitle);
-     console.log( formData);
-     
+     console.log( formData);     
      /* const upload$ = this.http.post("http://localhost/ranjana/gallery/santu.php", formData);
      const ok = upload$.subscribe();
      if (ok) {
        this.router.navigate(['gallery/galleryList'])
      } */
-
-
-     this.service.createGallery(formData).subscribe((res) => {
+     this.appService.postMethod('gallery/create.php', formData).subscribe((res) => {
        if (res.status == "success") {
-        this.toastr.success('Image Uploaded Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-        this.router.navigate(['gallery/galleryList'])
+         this.appService.successMsg('Image Uploaded Successfully!', 'Weldone !');
+         this.router.navigate(['gallery/galleryList'])
        } else {
-        this.toastr.error('Image does not  Uploaded Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-      }
-     })
-     
+         this.appService.errorsMsg('Image not  Uploaded Successfully!', 'OOPS Try Again !');
+       }
+     });     
    }
  
  
@@ -101,8 +96,7 @@ export class GalleryCreateComponent implements OnInit {
          mime = arr[0].match(/:(.*?);/)[1],
          bstr = atob(arr[1]), 
          n = bstr.length, 
-         u8arr = new Uint8Array(n);
-         
+         u8arr = new Uint8Array(n);         
      while(n--){
          u8arr[n] = bstr.charCodeAt(n);
      }    
@@ -131,6 +125,7 @@ export class GalleryCreateComponent implements OnInit {
        flipH:!this.transform.flipH
      }
    }
+  
    flipVertical() { 
      this.rotateStatus = false;
      this.flipHorizontalStatus = false;
@@ -141,13 +136,13 @@ export class GalleryCreateComponent implements OnInit {
        flipV:!this.transform.flipV
      }
    }
+  
    discardChanges() {
      this.rotateStatus = false;
      this.flipHorizontalStatus = false;
      this.flipVerticalStatus = false;
      this.discardChangesStatus = true;
-     this.lgModal.hide();
-    
+     this.lgModal.hide();    
    }
 
 }
