@@ -1,15 +1,20 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
-import { ChapterService } from 'src/app/chapter/chapter.service';
 import { Exam } from '../exam.model';
-import { ExamService } from '../exam.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Batch } from 'src/app/batch/batch.model';
-import { BatchService } from 'src/app/batch/batch.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-exam-create',
@@ -60,21 +65,21 @@ export class ExamCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router: Router, private service: ExamService, private chapterService : ChapterService,private spinner: NgxSpinnerService, private toastr: ToastrService,private batchService : BatchService) {
+  constructor(private router: Router, public appService: SharedServiceService,) {
   }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
-    this.getData()
+    this.getData();
   }
 
   getData() {
-    this.spinner.show();
-    this.chapterService.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadSubjects(ev: any) { 
@@ -82,24 +87,21 @@ export class ExamCreateComponent implements OnInit {
     this.batch.batchId = 'select'
     console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.chapterService.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id='+id).subscribe((data) => {
       this.subjects = data.document;
       console.log(this.subjects);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
 
-    this.batchService.getBatchWiseClass(id).subscribe((data) => {
-      this.allBatchList = data.document;      
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' + id).subscribe((data) => {
+      this.allBatchList = data.document;
       console.log(this.allBatchList);
-      this.spinner.hide();
-      
-    })
-    
+      this.appService.hideSpinner();      
+    });    
   }
 
-  addExam() {
-    
+  addExam() {    
     const data = {
       'examClass': this.classList.classId,
       'examBatch': this.batch.batchId,
@@ -107,19 +109,11 @@ export class ExamCreateComponent implements OnInit {
       'examTotalMarks': this.exam.examTotalMarks,
       'examName': this.exam.examName,
       'examDate':this.exam.examDate
-    }
-    
+    }    
     console.log(data);
-
-    this.service.createexam(data).subscribe((res) => {
-      this.toastr.success('Exam Created Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,     
-      });
+    this.appService.postMethod('exam/create.php', data).subscribe((res) => {
+      this.appService.successMsg('Exam Created Successfully!', 'Weldone!');
       this.router.navigate(['/exam/examList']);
     });
   }
-
 }

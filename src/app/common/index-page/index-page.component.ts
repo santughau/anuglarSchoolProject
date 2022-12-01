@@ -8,6 +8,8 @@
   Youtube : youtube.com/@jswebapp
 */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-index-page',
@@ -16,9 +18,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public appService: SharedServiceService,private router: Router,) { }
 
   ngOnInit(): void {
+    /* if (this.appService.isLoggedIn()) {
+      this.router.navigate(['indexpage'])
+    } else {
+      this.router.navigate(['login'])
+    } */
   }
 
 }

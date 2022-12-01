@@ -20,7 +20,6 @@ import { PresentyComponent } from './presenty/presenty.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { StudentService } from './student.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { FormsModule } from '@angular/forms';
 
@@ -37,7 +36,7 @@ FullCalendarModule.registerPlugins([
   imports: [
     CommonModule,StudentRoutingModule,SharedModulesModule,FullCalendarModule,FormsModule,NgxBootstrapModule
   ],
-  providers: [StudentService],
+  providers: [],
 })
 export class StudentModule { 
 }

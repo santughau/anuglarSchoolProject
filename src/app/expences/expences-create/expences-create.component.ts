@@ -1,11 +1,17 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { Expences } from '../expences.model';
-import { ExpencesService } from '../expences.service';
-
 @Component({
   selector: 'app-expences-create',
   templateUrl: './expences-create.component.html',
@@ -30,7 +36,7 @@ export class ExpencesCreateComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router: Router, private service: ExpencesService,private spinner: NgxSpinnerService, private toastr: ToastrService) { }
+  constructor(private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
@@ -42,15 +48,9 @@ export class ExpencesCreateComponent implements OnInit {
       'expencesAmt' : this.expences.expencesAmt,
       'expencesDate' : this.expences.expencesDate
     }
-    this.service.createExpense(data).subscribe((res) => {
-      this.toastr.success('Expense Created Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,     
-      });
+    this.appService.postMethod('expense/create.php',data).subscribe((res) => {
+      this.appService.successMsg('Expenses Created Successfully !', 'Weldone !');
       this.router.navigate(['/expences/expencesList']);
     }); 
   }
-
 }

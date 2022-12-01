@@ -1,14 +1,20 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Homework } from '../homework.model';
-import { HomeworkService } from '../homework.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
-import { ChapterService } from '../../chapter/chapter.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-homework-create',
   templateUrl: './homework-create.component.html',
@@ -49,32 +55,31 @@ export class HomeworkCreateComponent implements OnInit {
   progress: number = 0;
   vaildFile: boolean = false;
   disablebtn: boolean = false;
-  constructor(private router: Router,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: ChapterService, private Homeservice :HomeworkService) { }
+  constructor(private router: Router, public appService: SharedServiceService,) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData();
   }
   
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadSubjects(ev: any) { 
     this.subjectModel.subjectId = 'select'
     //console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
       //console.log(this.subjects);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    });    
   }
 
   loadChapters(ev: any) {
@@ -82,14 +87,14 @@ export class HomeworkCreateComponent implements OnInit {
     const id = ev.target.value;
     console.log(id);
     
-    this.spinner.show();
-    this.Homeservice.getChapters(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('chapter/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       console.log(data);
       
       this.chapters = data.document;
       console.log(this.chapters);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   fileChangeEvent(event: any) {
@@ -108,8 +113,7 @@ export class HomeworkCreateComponent implements OnInit {
     } else {
       this.vaildFile = true;
       this.disablebtn = true;
-    } 
-   
+    }   
   }
 
 
@@ -129,8 +133,8 @@ export class HomeworkCreateComponent implements OnInit {
     formData.append('homeworkName', this.homeworks.homeworkName);
     console.log(data);
     console.log(formData);
-    this.spinner.show();   
-    this.Homeservice.createHomework(formData).subscribe((event: any) => {
+    this.appService.showSpinner();   
+    this.appService.postMethod('homework/create.php',formData).subscribe((event: any) => {
 
       switch (event.type) {
         case HttpEventType.Sent:
@@ -154,15 +158,6 @@ export class HomeworkCreateComponent implements OnInit {
         this.router.navigate(['/homework/homeworkList',{id:this.chapterModel.chapterId}]);
       }
     });
-    this.toastr.success('Homework File Uploaded Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });
-    
+    this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
   }
-
- 
-
 }

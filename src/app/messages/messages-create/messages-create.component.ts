@@ -1,15 +1,19 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Messages } from '../messages.model';
-import { MessagesService } from '../messages.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { Batch } from 'src/app/batch/batch.model';
-import { BatchService } from 'src/app/batch/batch.service';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
-import { StudentService } from 'src/app/student/student.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-messages-create',
   templateUrl: './messages-create.component.html',
@@ -70,7 +74,7 @@ export class MessagesCreateComponent implements OnInit {
   absentStudent: any[] = [];
   studentList: any[] = [];
 
-  constructor(private router: Router, private messageService: MessagesService, private spinner: NgxSpinnerService, private toastr: ToastrService, private batchService: BatchService, private studentService: StudentService) {
+  constructor(private router: Router, public appService: SharedServiceService) {
 
   }
 
@@ -80,22 +84,22 @@ export class MessagesCreateComponent implements OnInit {
   }
 
   getAllClass() {
-    this.spinner.show();
-    this.batchService.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadBatches(ev: any) {
     console.log(ev.target.value);
     this.batch.batchId = 'select'
     this.batchId = ev.target.value;
-    this.spinner.show();
-    this.batchService.getBatchWiseClass(this.batchId).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('batch/read_By_ClassWiase.php?id=' + this.batchId).subscribe((data) => {
       this.allBatchList = data.document;
       // console.log(this.allBatchList);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     });
   }
 
@@ -105,8 +109,8 @@ export class MessagesCreateComponent implements OnInit {
   }
 
   getData(id) {
-    this.spinner.show();
-    this.studentService.getAllStudents(this.batchId).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('student/read.php?id=' + this.batchId).subscribe((data) => {
       this.studentList = data.document;
       console.log(this.studentList);
 
@@ -114,6 +118,7 @@ export class MessagesCreateComponent implements OnInit {
       this.presentStudent = this.studentList.map(function (el) { return el.studentId; });
     });
   }
+
   checkAllCheckBox(ev: any) {
     this.studentList.forEach(x => x.checked = ev.target.checked);
     if (ev.target.checked == true) {
@@ -160,7 +165,7 @@ export class MessagesCreateComponent implements OnInit {
         return e.isSelected === true;
       }).map(ele => ele.id)
       //console.log(this.checkedPro);*/
-
+    
     const data = {
       'messageStudentId': this.presentStudent.join(","),
       'messageText': this.htmlContent,
@@ -169,22 +174,13 @@ export class MessagesCreateComponent implements OnInit {
       'messageBatchId': this.batch.batchId
     }
     console.log(data);
-     this.messageService.createMEssage(data).subscribe((res) => {
+     this.appService.postMethod('messages/create.php',data).subscribe((res) => {
        console.log(res);
  
        if (res.code == 1) {
-         this.toastr.success('Message Created Successfully!', 'Weldone!', {
-           timeOut: 3000,
-           progressBar: true,
-           progressAnimation: 'decreasing',
-           closeButton: true,     
-         });
+         this.appService.successMsg('Message Created Successfully!', 'Weldone!');
          this.router.navigate(['/messages/messageList']);
-       } 
-       
-       
-     }); 
-
+       }
+     });
   }
-
 }

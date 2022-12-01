@@ -20,11 +20,11 @@ import { Profile } from './profile.model';
 export class ExtraService {
   url = "http://localhost/ranjana/";
   constructor(private http: HttpClient) { }
-  getProfile(id?:any):Observable<any> {    
+  /* getProfile(id?:any):Observable<any> {    
     return this.http.get(this.url + 'profile/read_one.php?id=' + id + '&v=' + Math.random());
   }
 
   updateProfile(data: any): Observable<any> {
     return this.http.post(this.url + 'profile/update.php', data);    
-  }
+  } */
 }

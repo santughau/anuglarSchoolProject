@@ -1,10 +1,17 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { EventList } from '../event.model';
-import { EventsService } from '../events.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 
 @Component({
@@ -35,15 +42,14 @@ export class EventsCreateComponent implements OnInit {
   ];
 
 
-  constructor(private router: Router, private service: EventsService,private spinner: NgxSpinnerService, private toastr: ToastrService,) { }
+  constructor(private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
   }
 
 
-  addEvent() {
-    
+  addEvent() {    
     const data = {
       'eventTitle': this.eventList.eventTitle,
       'eventMessage': this.eventList.eventMessage,
@@ -52,15 +58,9 @@ export class EventsCreateComponent implements OnInit {
     }
     
     console.log(data);    
-    this.service.createEvent(data).subscribe((res) => {
-      this.toastr.success('Events Created Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,     
-      });
+    this.appService.postMethod('events/create.php',data).subscribe((res) => {
+      this.appService.successMsg('Events Created Successfully!', 'Weldone!');
       this.router.navigate(['/events/eventList']);
     });
   }
-
 }

@@ -1,14 +1,19 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Quiz } from '../quiz.model';
-import { QuizService } from '../quiz.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
-import { ChapterService } from '../../chapter/chapter.service';
-import { HomeworkService } from 'src/app/homework/homework.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-quiz-create',
@@ -45,18 +50,18 @@ export class QuizCreateComponent implements OnInit {
     quizChapterId: '',
     quizTitle: '',
   }
-  constructor(private Quizservice: QuizService, private router: Router, private spinner: NgxSpinnerService, private toastr: ToastrService, private service: ChapterService, private Homeservice: HomeworkService) { }
+  constructor( private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.getData()
   }
 
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
   }
 
@@ -64,28 +69,25 @@ export class QuizCreateComponent implements OnInit {
     this.subjectModel.subjectId = 'select'
     //console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
       //console.log(this.subjects);
-      this.spinner.hide();
-    })
-
+      this.appService.hideSpinner();
+    });
   }
 
   loadChapters(ev: any) {
     this.chapterModel.chapterId = 'select'
     const id = ev.target.value;
     console.log(id);
-
-    this.spinner.show();
-    this.Homeservice.getChapters(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('chapter/read_By_subjectClassId.php?id=' +id).subscribe((data) => {
       console.log(data);
-
       this.chapters = data.document;
       console.log(this.chapters);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
 
@@ -98,16 +100,10 @@ export class QuizCreateComponent implements OnInit {
       'quizTitle': this.quiz.quizTitle,
     }
     console.log(data);
-    this.spinner.show();
-    this.Quizservice.createQuiz(data).subscribe((event: any) => {
-      this.toastr.success('Quiz  Uploaded Successfully!', 'Weldone!', {
-        timeOut: 3000,
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        closeButton: true,
-      });
+    this.appService.showSpinner();
+    this.appService.postMethod('quiz/create.php', data).subscribe((event: any) => {
+      this.appService.successMsg('Quiz  Uploaded Successfully!', 'Weldone!');
     });
-
     this.router.navigate(['/quiz/quizList']);
   }
 

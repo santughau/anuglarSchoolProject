@@ -107,8 +107,6 @@ export class StudentCreateComponent implements OnInit {
 
 
   constructor(private router : Router,  public appService: SharedServiceService) {
-
-
   }
 
   ngOnInit(): void {
@@ -125,7 +123,6 @@ export class StudentCreateComponent implements OnInit {
       noDataAvailablePlaceholderText: 'Please Select Class',
       //limitSelection:1
     };
-
   }
 
   getAllClass() {
@@ -158,8 +155,7 @@ export class StudentCreateComponent implements OnInit {
         this.showTable = true;
       }
      // console.log(this.allBatchList);
-     this.appService.hideSpinner();
-      
+     this.appService.hideSpinner();      
     });
     const id = ev.target.value;
     this.appService.showSpinner();

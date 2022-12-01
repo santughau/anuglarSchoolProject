@@ -1,12 +1,13 @@
+<!-------------
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp 
+  ----------->
 <div class="row box">
-
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active"
-          aria-current="page">View Expences</li>
-    </ol>
-  </nav>
   <div class="col-md-12 ">
     <h1 class="text-muted mb-5">VIEW ALL EXPENCES</h1>
     <hr>
@@ -43,26 +44,26 @@
             <td (click)="openModal(template)"><a class="btn btn-danger"><i class="fa fa-trash-o"
                    aria-hidden="true"></i></a></td>
 
-                   <ng-template #template>
-                    <div class="modal-header bg-danger text-white">
-                        <h4 class="modal-title pull-left text-center">Delete</h4>
-                        <button type="button"
-                                class="btn-close close pull-right"
-                                aria-label="Close"
-                                (click)="modalRef?.hide()">
-                            <span aria-hidden="true"
-                                  class="visually-hidden">&times;</span>
-                        </button>
-                    </div>
-                    <div class=" modal-body text-center">
-                        <p>Do you want to confirm delete <span class="text-danger text-bold">
-                                {{expense.expencesParticular}} </span> ?</p>
-                        <button class="mybtn btn btn-danger "
-                                (click)="confirm(expense.expencesId)">Yes</button>
-                        <button class="btn btn-primary ml-5"
-                                (click)="decline()">No</button>
-                    </div>
-                </ng-template>
+            <ng-template #template>
+              <div class="modal-header bg-danger text-white">
+                <h4 class="modal-title pull-left text-center">Delete</h4>
+                <button type="button"
+                        class="btn-close close pull-right"
+                        aria-label="Close"
+                        (click)="modalRef?.hide()">
+                  <span aria-hidden="true"
+                        class="visually-hidden">&times;</span>
+                </button>
+              </div>
+              <div class=" modal-body text-center">
+                <p>Do you want to confirm delete <span class="text-danger text-bold">
+                    {{expense.expencesParticular}} </span> ?</p>
+                <button class="mybtn btn btn-danger "
+                        (click)="confirm(expense.expencesId)">Yes</button>
+                <button class="btn btn-primary ml-5"
+                        (click)="decline()">No</button>
+              </div>
+            </ng-template>
           </tr>
 
         </tbody>

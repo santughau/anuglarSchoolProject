@@ -1,3 +1,12 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuizRoutingModule } from './quiz-routing.module';
@@ -10,7 +19,6 @@ import { QuizAddQuestionComponent } from './quiz-add-question/quiz-add-question.
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule } from '@angular/forms';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
-import { QuizService } from './quiz.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 
 
@@ -28,6 +36,6 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     CommonModule,FormsModule,
     QuizRoutingModule,SharedModulesModule,EditorModule
   ],
-  providers: [QuizService],
+  providers: [],
 })
 export class QuizModule { }

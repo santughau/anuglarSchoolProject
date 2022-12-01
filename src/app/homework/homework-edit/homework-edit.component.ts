@@ -1,7 +1,16 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { Homework } from '../homework.model';
-import { HomeworkService } from '../homework.service';
 @Component({
   selector: 'app-homework-edit',
   templateUrl: './homework-edit.component.html',
@@ -17,7 +26,7 @@ export class HomeworkEditComponent implements OnInit {
     homeworkName: '',
     homeworkFile: '',
 }
-  constructor(private router: Router, private service: HomeworkService) { }
+  constructor(private router: Router, public appService: SharedServiceService,) { }
 
   ngOnInit(): void {
   }

@@ -1,11 +1,17 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { EventList } from '../event.model';
-import { EventsService } from '../events.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 
 @Component({
   selector: 'app-events-list',
@@ -20,7 +26,7 @@ export class EventsListComponent implements OnInit {
   presentDays: number = 0;
   absentDays: number = 0;
   eventId: any = null;
-  
+
   @ViewChild('template') template!: string;
   /* events: any = [
     { title: 'Present', date: '2022-03-01', color: '#0000FF' },
@@ -44,13 +50,13 @@ export class EventsListComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     events: this.totlaevents,
-    eventClick: this.handleDateClick.bind(this), 
+    eventClick: this.handleDateClick.bind(this),
   };
-  constructor(private modalService: BsModalService,private router : Router, private service :EventsService,private spinner: NgxSpinnerService, private toastr: ToastrService,) { }
+  constructor(private modalService: BsModalService, private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
 
- this.getAllEvents()
+    this.getAllEvents()
     /* this.events.forEach((e: { [x: string]: string; }) => {
       if (e["title"] == 'Present') {
         this.presentDays++;
@@ -59,7 +65,7 @@ export class EventsListComponent implements OnInit {
       }
     }); */
     //console.log(this.presentDays);
-   // console.log(this.absentDays);
+    // console.log(this.absentDays);
   }
 
   handleDateClick(arg: any) {
@@ -73,12 +79,12 @@ export class EventsListComponent implements OnInit {
   }
 
   getAllEvents() {
-    this.spinner.show();
-    this.service.getAllEvents().subscribe((data) => {
-     // console.log(data);
+    this.appService.showSpinner();
+    this.appService.getMethod('events/read.php').subscribe((data) => {
+      // console.log(data);
       this.totlaevents = data.document;
-     console.log(this.totlaevents);
-      
+      console.log(this.totlaevents);
+
     });
 
     setTimeout(() => {
@@ -88,57 +94,46 @@ export class EventsListComponent implements OnInit {
         events: this.totlaevents,
       };
     }, 2500);
-    this.spinner.hide();
+    this.appService.hideSpinner();
   }
 
 
-  editEvents(id:any) {
+  editEvents(id: any) {
     console.log(id);
     this.router.navigate(['events/eventsEdit', id])
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
-  
+
   decline(): void {
     this.modalRef?.hide();
-  } 
+  }
 
   confirm(id: any): void {
-    this.spinner.show();
-    console.log(id); 
+    this.appService.showSpinner();
+    console.log(id);
     const data = {
-      'eventId' : id
+      'eventId': id
     }
-    this.service.deleteEvents(data).subscribe(res => {
+    this.appService.postMethod('events/delete.php',data).subscribe(res => {
       if (res.status == 'success') {
-        this.spinner.hide();
-        this.toastr.error('Event Deleted Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.hideSpinner();
+        this.appService.errorsMsg('Event Deleted Successfully!', 'Weldone!');
         this.modalRef?.hide();
-       this.router.navigate(['/events/eventsCreate']);     
+        this.router.navigate(['/events/eventsCreate']);
       } else {
-        this.spinner.hide();
-        this.toastr.error('Event Batch Was not Deleted Successfully!', 'OOPs Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-        this.modalRef?.hide();      }
+        this.appService.hideSpinner();
+        this.appService.errorsMsg('Event Batch Was not Deleted Successfully!', 'OOPs Try Again!');
+        this.modalRef?.hide();
+      }
       this.modalRef?.hide();
       this.router.navigate(['/events/eventsCreate'])
     });
-    
-    
   }
-  }
-    
+}
+
 
 

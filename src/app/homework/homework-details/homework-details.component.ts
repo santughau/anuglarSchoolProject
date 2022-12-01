@@ -1,11 +1,18 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Homework } from '../homework.model';
-import { HomeworkService } from '../homework.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-homework-details',
   templateUrl: './homework-details.component.html',
@@ -34,23 +41,22 @@ export class HomeworkDetailsComponent implements OnInit {
   total = 0;
   @ViewChild('template1') private template1: any
   @ViewChild('template2') private template2: any
-  constructor(private spinner: NgxSpinnerService,private modalService: BsModalService, private router: Router, private service: HomeworkService,private _route: ActivatedRoute,private toastr: ToastrService,) { }
+  constructor(private modalService: BsModalService, private _route: ActivatedRoute,public appService: SharedServiceService,) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.homeworkId = this._route.snapshot.paramMap.get('id');
     console.log(this.homeworkId);
     this.getHomework();
   }
 
   getHomework() {
-    this.service.getSingleHomework(this.homeworkId).subscribe((data) => {
+    this.appService.getMethod('homework/read_one.php?id=' + this.homeworkId).subscribe((data) => {
       this.homework = data.document;
       console.log(this.homework);
       const pdfFile = this.homework.homeworkFile;
-      this.pdfSrc = 'http://localhost/ranjana/homework/files/' + pdfFile + '.pdf';
-
-    })
+      this.pdfSrc = this.appService.serverUrl + 'homework/files/' + pdfFile + '.pdf';
+    });
   }
 
   searchQueryChanged(newQuery: string) {
@@ -72,7 +78,7 @@ export class HomeworkDetailsComponent implements OnInit {
     console.log('callBackFn', event._transport._params.url);
     console.log('callBackFn', event);
     // Setting total number of pages
-    this.totalPages = event._pdfInfo.numPages
+    this.totalPages = event._pdfInfo.numPages;
   }
 
   zoomOut() {
@@ -100,7 +106,6 @@ export class HomeworkDetailsComponent implements OnInit {
     } else {
       this.pageVariable = this.pageVariable + 1
     }
-
   }
 
   pageOut() {
@@ -127,9 +132,5 @@ export class HomeworkDetailsComponent implements OnInit {
     this.loaded = event.loaded;
     this.total = event.total;
     this.dynamic = (100 * this.loaded) / this.total;
-
   }
-
-
-
 }

@@ -1,0 +1,67 @@
+<section class="body">
+    <div class="container">
+        <div class="login-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="logo">
+                        <span class="logo-font text-center">{{profile.profileInstituteName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <br>
+                    <h3 class="header-title text-danger">LOGIN</h3>
+                    <form class="login-form" #loginForm="ngForm">
+                        <div class="col-md-12">
+                            <label for="email"
+                                   [ngClass]="{ 'text-danger': email.touched && email.invalid , 'text-success': email.touched && email.valid  }"
+                                   class="form-label lbl">Email</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   [(ngModel)]="user.email"
+                                   #email="ngModel"
+                                   required
+                                   [ngClass]="{ 'is-invalid': email.touched && email.invalid , 'is-valid': email.touched && email.valid  }">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please provide Exam Name.
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="email"
+                                   [ngClass]="{ 'text-danger': password.touched && password.invalid , 'text-success': password.touched && password.valid  }"
+                                   class="form-label lbl">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   [(ngModel)]="user.password"
+                                   #password="ngModel"
+                                   required
+                                   [ngClass]="{ 'is-invalid': password.touched && password.invalid , 'is-valid': password.touched && password.valid  }">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please provide Exam Name.
+                            </div>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-end mt-5">
+                            <button type="submit" (click)="login()" [disabled]="loginForm.invalid"
+                                    class="btn btn-danger ">Login</button>
+                        </div>
+                    </form>
+                    <p>&#169; <a id="customLink" href="https://jswebapp.com/">JSWEBAPP</a> </p>
+                </div>
+                <div class="col-sm-6 hide-on-mobile">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

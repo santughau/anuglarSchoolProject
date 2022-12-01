@@ -10,13 +10,12 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 //import { environment } from 'src/environments/environment.prod';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +24,13 @@ export class SharedServiceService {
   serverUrl = environment.baseUrl;
   uniqueUrl = '&v=' + Math.random();
   internetOnline: boolean = false;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      //'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      'Access-Control-Allow-Origin': '*'
-    })
-  }
-  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService,) { 
+  public isUserLogin = new BehaviorSubject<boolean>(false);
+
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService,) {
     this.checkInternetConnection();
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 
   setToken(token: string) {
@@ -53,19 +49,21 @@ export class SharedServiceService {
   isLoggedIn() {
     const usertoken = this.getToken();
     if (usertoken != null) {
+      this.isUserLogin.next(true);
       return true
     }
+    this.isUserLogin.next(false);
     return false;
   }
 
   postMethod(url, body): Observable<any> {
-    console.log(body);
-    
+    this.isLoggedIn()
     return this.http.post(this.serverUrl + url, body);
   }
 
   getMethod(url: any): Observable<any> {
-    return this.http.get(this.serverUrl + url )
+    this.isLoggedIn()
+    return this.http.get(this.serverUrl + url)
   }
 
   successMsg(msg1, msg2) {
@@ -103,11 +101,11 @@ export class SharedServiceService {
   }
 
   checkInternetConnection() {
-    if(navigator.onLine) {
+    if (navigator.onLine) {
       this.internetOnline = true;
-     }
-     else {
+    }
+    else {
       this.internetOnline = false;
-     }
+    }
   }
 }

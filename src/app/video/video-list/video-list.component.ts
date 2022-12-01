@@ -1,15 +1,20 @@
-import {AfterViewInit, ChangeDetectorRef,TemplateRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
+import { AfterViewInit, ChangeDetectorRef, TemplateRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Video } from '../video.model';
-import { VideoService } from '../video.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
-import { ChapterService } from '../../chapter/chapter.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { HomeworkService } from 'src/app/homework/homework.service';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
@@ -48,18 +53,17 @@ export class VideoListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('demoYouTubePlayer') demoYouTubePlayer!: ElementRef<HTMLDivElement>;
   videoWidth: number | undefined;
   videoHeight: number | undefined;
-  constructor(private _changeDetectorRef: ChangeDetectorRef,private router : Router, private videoService :VideoService,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: ChapterService,private _route: ActivatedRoute,private Homeservice :HomeworkService,private modalService: BsModalService,) { }
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef,private router : Router, private _route: ActivatedRoute,private modalService: BsModalService,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.showMsg = false;
     this.chapterId = this._route.snapshot.paramMap.get('id');
     console.log('ss' + this.chapterId);
-
     if (this.chapterId !== null) {
       this.getVideoData(this.chapterId);
-    }
-    
-    this.getData()
+    }    
+    this.getData();
     if (!this.apiLoaded) {      
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
@@ -69,13 +73,12 @@ export class VideoListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
+      this.appService.hideSpinner();
     })
   }
 
@@ -83,54 +86,49 @@ export class VideoListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subjectModel.subjectId = 'select'
     //console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' +id).subscribe((data) => {
       this.subjects = data.document;
       //console.log(this.subjects);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    })    
   }
 
   loadChapters(ev: any) {
     this.chapterModel.chapterId = 'select'
     const id = ev.target.value;
-    console.log(id);
-    
-    this.spinner.show();
-    this.Homeservice.getChapters(id).subscribe((data) => {
+    console.log(id);    
+    this.appService.showSpinner();
+    this.appService.getMethod('chapter/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       console.log(data);
-      
       this.chapters = data.document;
       console.log(this.chapters);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   loadVideos(ev: any) {
     this.chapterId = ev.target.value;
-    console.log(this.chapterId);
-    
-    this.spinner.show();
+    console.log(this.chapterId);    
+    this.appService.showSpinner();
     this.getVideoData(this.chapterId);
   }
 
   getVideoData(chapterId:any) {
-    this.videoService.getAllVideo(chapterId).subscribe((data) => {
-      console.log(data);      
-       this.videos = data.document;
-       console.log("lenght = " + this.videos.length);
-       if (this.videos.length !== 0) {
-         this.showVideo = true;
-         this.showMsg = false;
-       } else {
-         this.showMsg = true;
-         this.showVideo = false;
-       }
-       
+    this.appService.getMethod('video/read.php?id=' + chapterId).subscribe((data) => {
+      console.log(data);
+      this.videos = data.document;
+      console.log("lenght = " + this.videos.length);
+      if (this.videos.length !== 0) {
+        this.showVideo = true;
+        this.showMsg = false;
+      } else {
+        this.showMsg = true;
+        this.showVideo = false;
+      }
       console.log(this.videos);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
   openModal(template: TemplateRef<any>) {
@@ -143,17 +141,12 @@ export class VideoListComponent implements OnInit, AfterViewInit, OnDestroy {
     const data = {
       'videoId' : id
     }
-    this.videoService.deleteVideo(data).subscribe(res => {
+    this.appService.postMethod('video/delete.php',data).subscribe(res => {
       console.log("deleted");
       this.router.navigate(['/video/videoList']);
       this.getVideoData(this.chapterId);
     });
-    this.toastr.error('Video Deleted Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });
+    this.appService.errorsMsg('Video Deleted Successfully!', 'Weldone!');
     this.modalRef?.hide();
   }
 

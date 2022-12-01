@@ -1,9 +1,16 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { QuizService } from '../quiz.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-quiz-add-question',
   templateUrl: './quiz-add-question.component.html',
@@ -28,17 +35,16 @@ export class QuizAddQuestionComponent implements OnInit {
     defaultFontName: 'Arial',
 
   };
-  constructor(private router: Router, private service: QuizService, private spinner: NgxSpinnerService, private _route: ActivatedRoute, private toastr: ToastrService,) {
+  constructor(private _route: ActivatedRoute, public appService: SharedServiceService) {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.quizId = this._route.snapshot.paramMap.get('id');
-    this.spinner.hide();
+    this.appService.hideSpinner();
   }
 
   addQuestion() {
-
     const data = {
       'questions': this.question,
       'optionA': this.optionA,
@@ -49,22 +55,17 @@ export class QuizAddQuestionComponent implements OnInit {
       'quizId': this.quizId,
     }
 
-    this.service.createQuestions(data).subscribe((res) => {
+    this.appService.postMethod('question/create.php',data).subscribe((res) => {
       console.log(res);
 
-      this.spinner.hide();
+      this.appService.hideSpinner();
       this.question = '';
       this.optionA = '';
       this.optionB = '';
       this.optionC = '';
       this.optionD = '';
     });
-    this.toastr.success('Question Added Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,
-    });
+    this.appService.successMsg('Question Added Successfully!', 'Weldone!');
   }
 
 }

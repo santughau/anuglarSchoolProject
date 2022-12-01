@@ -68,19 +68,19 @@ export class FeeEditComponent implements OnInit {
     studentImage: '',
     studentStatus: true,
     studentCreated: '',
-  }  
-  studentId: any;  
-  
-  constructor(private router: Router, private _route: ActivatedRoute,  public appService: SharedServiceService) { }
+  }
+  studentId: any;
+
+  constructor(private router: Router, private _route: ActivatedRoute, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.appService.showSpinner();
     const id = this._route.snapshot.paramMap.get('id');
     this.appService.getMethod('fees/read_one.php?id=' + id).subscribe((data) => {
       this.fee = data.document;
-      console.log(data.document);      
+      console.log(data.document);
     });
-    console.log(id);   
+    console.log(id);
     this.getAllClass();
     this.appService.hideSpinner();
   }
@@ -118,14 +118,16 @@ export class FeeEditComponent implements OnInit {
 
   updateFees() {
     const data = {
-      'feeId':+this.fee.feeId,
-      'feeClass':+this.classList.classId,
-      'feeBatch':+this.batch.batchId,
-      'feeStudentId':+this.fee.feeStudentId,
-      'feeFeeAmt':+this.fee.feeFeeAmt,
+      'feeId': +this.fee.feeId,
+      'feeClass': +this.classList.classId,
+      'feeBatch': +this.batch.batchId,
+      'feeStudentId': +this.fee.feeStudentId,
+      'feeFeeAmt': +this.fee.feeFeeAmt,
     }
-    this.appService.showSpinner();    
-    this.appService.postMethod('fees/create.php', + data).subscribe(res => {
+    console.log(data);
+    
+    this.appService.showSpinner();
+    this.appService.postMethod('fees/update.php',  data).subscribe(res => {
       if (res.status == 'success') {
         this.appService.successMsg('Fees Updated Successfully!', 'Weldone !');
         this.router.navigate(['/fee/feeList'])

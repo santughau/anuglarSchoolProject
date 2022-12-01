@@ -6,7 +6,6 @@ import { IndexPageComponent } from './index-page/index-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { CommonServiceService } from './common-service.service';
 /*
   Authors : JSWEBAPP (SANTOSH)
   Website : http://jswebapp.com/
@@ -17,6 +16,7 @@ import { CommonServiceService } from './common-service.service';
   Youtube : youtube.com/@jswebapp
 */
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     PageNotFoundComponent,
     IndexPageComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,AppRoutingModule,FormsModule
@@ -39,6 +40,6 @@ import { FormsModule } from '@angular/forms';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [CommonServiceService],
+  providers: [],
 })
 export class CommonServiceModule { }

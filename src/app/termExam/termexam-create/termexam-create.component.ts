@@ -1,14 +1,19 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TermExamService } from '../term-exam.service';
 import { Termexam } from '../termexam.model';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
-import { Chapter } from '../../chapter/chapter.model';
-import { ChapterService } from '../../chapter/chapter.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-termexam-create',
   templateUrl: './termexam-create.component.html',
@@ -53,30 +58,31 @@ export class TermexamCreateComponent implements OnInit {
   progress: number = 0;
   vaildFile: boolean = false;
   disablebtn: boolean = false;
-  constructor(private router: Router, private termService: TermExamService,private spinner: NgxSpinnerService, private toastr: ToastrService,private service: ChapterService,) { }
+  constructor(private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData();
   }
+
   getData() {
-    this.spinner.show();
-    this.service.getAllClass().subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('classlist/read.php').subscribe((data) => {
       this.allClassList = data;
       console.log(this.allClassList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
+
   loadSubjects(ev: any) { 
     this.subjectModel.subjectId = 'select'
     //console.log(ev);
     const id = ev.target.value;
-    this.spinner.show();
-    this.service.getSubjectClassWise(id).subscribe((data) => {
+    this.appService.showSpinner();
+    this.appService.getMethod('subjectmodel/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       this.subjects = data.document;
       //console.log(this.subjects);
-      this.spinner.hide();
-    })
-    
+      this.appService.hideSpinner();
+    });    
   }
 
   
@@ -97,12 +103,10 @@ export class TermexamCreateComponent implements OnInit {
     } else {
       this.vaildFile = true;
       this.disablebtn = true;
-    } 
-   
+    }   
   }
 
-  saveTermExam() {
-    
+  saveTermExam() {    
     const formData = new FormData();
     formData.append('file', this.myfile);
     formData.append('termexamClassId', this.classList.classId as string);
@@ -111,8 +115,8 @@ export class TermexamCreateComponent implements OnInit {
     formData.append('termexamName', this.termexam.termexamName);
 
     console.log(formData);
-    this.spinner.show();   
-    this.termService.createTermExam(formData).subscribe((event: any) => {
+    this.appService.showSpinner();
+    this.appService.postMethod('termexam/create.php',formData).subscribe((event: any) => {
 
       switch (event.type) {
         case HttpEventType.Sent:
@@ -136,12 +140,6 @@ export class TermexamCreateComponent implements OnInit {
         this.router.navigate(['/termexam/termExamList',{subjectId:this.subjectModel.subjectId,termexamExamId:this.exam.examid}]);
       }
     }); 
-    this.toastr.success('Homework File Uploaded Successfully!', 'Weldone!', {
-      timeOut: 3000,
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true,     
-    });
-    
+    this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
   }
 }

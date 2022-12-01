@@ -1,10 +1,17 @@
+/*
+  Authors : JSWEBAPP (SANTOSH)
+  Website : http://jswebapp.com/
+  App Name : School Managment App With Angular 14
+  This App Template Source code is licensed as per the
+  terms found in the Website http://jswebapp.com/license
+  Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
+  Youtube : youtube.com/@jswebapp
+*/
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { EventList } from '../event.model';
-import { EventsService } from '../events.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 @Component({
   selector: 'app-events-edit',
   templateUrl: './events-edit.component.html',
@@ -32,20 +39,20 @@ export class EventsEditComponent implements OnInit {
     new Date('2022-03-05'),
     new Date('2022-03-09')
   ];
-  constructor(private router : Router, private service :EventsService,private spinner: NgxSpinnerService, private toastr: ToastrService,private _route: ActivatedRoute,) { }
+  constructor(private router : Router, private _route: ActivatedRoute,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.appService.showSpinner();
     this.eventId = this._route.snapshot.paramMap.get('id');
     console.log("eventId = " + this.eventId);
     this.bsConfig = Object.assign({}, { isAnimated: true, dateInputFormat: 'DD-MM-YYYY, h:mm:ss a', containerClass: 'theme-red', showWeekNumbers: false, showTodayButton: true, showClearButton: true, withTimepicker: true, initCurrentTime: true, customTodayClass: 'today' });
     
-    this.service.getSingleEvent(this.eventId).subscribe((data) => {      
+    this.appService.getMethod('events/read_one.php?id=' + this.eventId).subscribe((data) => {
       this.eventList = data.document;
       this.eventList.eventDate = new Date();
       console.log(this.eventList);
-      this.spinner.hide();
-    })
+      this.appService.hideSpinner();
+    });
   }
 
 
@@ -58,26 +65,14 @@ export class EventsEditComponent implements OnInit {
       'eventcolor':this.eventList.eventcolor,
       'eventDate':this.eventList.eventDate,
     }
-    this.spinner.show();
-    this.service.updateEvent(data).subscribe(res => {
+    this.appService.showSpinner();
+    this.appService.postMethod('events/update.php', data).subscribe(res => {
       if (res.status == 'success') {
-        this.toastr.success('Event Updated Successfully!', 'Weldone!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
+        this.appService.successMsg('Event Updated Successfully!', 'Weldone!');
         this.router.navigate(['/events/eventList'])
       } else {
-        this.toastr.error('Event Not  Updated Successfully!', 'Try Again!', {
-          timeOut: 3000,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          closeButton: true,     
-        });
-     }
-      
-    })
+        this.appService.errorsMsg('Event Not  Updated Successfully!', 'Try Again!');
+      }
+    });
   }
-
 }

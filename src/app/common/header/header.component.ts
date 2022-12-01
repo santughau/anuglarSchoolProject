@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   constructor(private renderer: Renderer2, private elRef : ElementRef,public appService: SharedServiceService) { }
 
   ngOnInit(): void {
+    console.log(this.appService.isUserLogin.value);
+    
     this.appService.showSpinner();
     this.appService.getMethod('profile/read_one.php?id=1').subscribe((data) => {
       this.profile = data.document;
@@ -41,5 +43,7 @@ export class HeaderComponent implements OnInit {
     });
     
   }
-
+  logOut() {
+    this.appService.deleteToken();
+  }
 }
