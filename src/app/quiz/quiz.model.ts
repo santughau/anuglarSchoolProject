@@ -14,4 +14,5 @@ export class Quiz {
     quizChapterId: string;
     quizTitle: string;
     quizLink?: string;
+    noOfQue?: string;
 }

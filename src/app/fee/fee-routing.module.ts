@@ -10,12 +10,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeeCreateComponent } from './fee-create/fee-create.component';
+import { FeeCreateGuard } from './fee-create/fee-create.guard';
 import { FeeEditComponent } from './fee-edit/fee-edit.component';
 import { FeeListComponent } from './fee-list/fee-list.component';
 
 const routes: Routes = [
   { path: 'feeList', component: FeeListComponent },
-  { path: 'feeCreate', component: FeeCreateComponent },
+  { path: 'feeCreate',canDeactivate:[FeeCreateGuard], component: FeeCreateComponent },
   { path: 'feeEdit/:id', component: FeeEditComponent }
 ];
 

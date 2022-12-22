@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { Gallery } from '../gallery.model';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
+import { HttpResponse } from '@angular/common/http';
 
 
 
@@ -21,6 +23,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./gallery-create.component.css']
 })
 export class GalleryCreateComponent implements OnInit {
+  @ViewChild('galleryForm') public galleryForm: NgForm;
   myfile:any = '';
   rotateStatus: boolean = false;
   flipHorizontalStatus: boolean = false;
@@ -79,13 +82,12 @@ export class GalleryCreateComponent implements OnInit {
      if (ok) {
        this.router.navigate(['gallery/galleryList'])
      } */
-     this.appService.postMethod('gallery/create.php', formData).subscribe((res) => {
-       if (res.status == "success") {
-         this.appService.successMsg('Image Uploaded Successfully!', 'Weldone !');
-         this.router.navigate(['gallery/galleryList'])
-       } else {
-         this.appService.errorsMsg('Image not  Uploaded Successfully!', 'OOPS Try Again !');
-       }
+     this.appService.postMethod('gallery/create.php', formData).subscribe((evt) => {
+       this.galleryForm.reset(); 
+       if (evt.status == 'success') {      
+          this.appService.successMsg('Image Uploaded Successfully!', 'Weldone !');
+          this.router.navigate(['gallery/galleryList'])
+      } 
      });     
    }
  

@@ -20,6 +20,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule } from '@angular/forms';
 import { QuizMarksComponent } from './quiz-marks/quiz-marks.component';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { QuizCreateGuard } from './quiz-create/quiz-create.guard';
+import { QuestionEditComponent } from './question-edit/question-edit.component';
 
 
 
@@ -30,12 +32,13 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     QuizEditComponent,
     QuizDetailsComponent,
     QuizAddQuestionComponent,
-    QuizMarksComponent
+    QuizMarksComponent,
+    QuestionEditComponent
   ],
   imports: [
     CommonModule,FormsModule,
     QuizRoutingModule,SharedModulesModule,EditorModule
   ],
-  providers: [],
+  providers: [QuizCreateGuard],
 })
 export class QuizModule { }

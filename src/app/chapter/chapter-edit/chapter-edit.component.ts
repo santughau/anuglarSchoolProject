@@ -7,12 +7,13 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Chapter } from '../chapter.model';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-chapter-edit',
@@ -20,6 +21,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./chapter-edit.component.css']
 })
 export class ChapterEditComponent implements OnInit {
+  @ViewChild('chapterForm') public chapterForm: NgForm;
   allClassList: any[] = [];
   chapterId: any;
   subjects: any[] = [];

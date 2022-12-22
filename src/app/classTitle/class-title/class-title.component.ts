@@ -8,7 +8,8 @@
   Youtube : youtube.com/@jswebapp
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { ClassList } from '../classList.model';
@@ -20,7 +21,7 @@ import { ClassList } from '../classList.model';
   styleUrls: ['./class-title.component.css']
 })
 export class ClassTitleComponent implements OnInit {
-
+@ViewChild('classForm') public classForm:NgForm;
   classList: ClassList = {
     className: ''
   }

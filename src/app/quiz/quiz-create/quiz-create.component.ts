@@ -7,13 +7,14 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Quiz } from '../quiz.model';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-create',
@@ -21,6 +22,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./quiz-create.component.css']
 })
 export class QuizCreateComponent implements OnInit {
+  @ViewChild('quizForm') public quizForm: NgForm;
   allClassList: any[] = [];
   subjects: any[] = [];
   chapters: any[] = [];
@@ -102,9 +104,11 @@ export class QuizCreateComponent implements OnInit {
     console.log(data);
     this.appService.showSpinner();
     this.appService.postMethod('quiz/create.php', data).subscribe((event: any) => {
+      this.quizForm.reset();
       this.appService.successMsg('Quiz  Uploaded Successfully!', 'Weldone!');
+      this.router.navigate(['/quiz/quizList']);
     });
-    this.router.navigate(['/quiz/quizList']);
+    
   }
 
 }

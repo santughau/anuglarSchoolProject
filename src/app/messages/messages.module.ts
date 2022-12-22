@@ -17,6 +17,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule } from '@angular/forms';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { DataTablesModule } from 'angular-datatables';
+import { MessageCreateGuard } from './messages-create/message-create.guard';
 
 
 @NgModule({
@@ -27,6 +28,6 @@ import { DataTablesModule } from 'angular-datatables';
     CommonModule,FormsModule,DataTablesModule.forRoot(),
     MessagesRoutingModule,EditorModule,SharedModulesModule,
   ],
-  providers: [],
+  providers: [MessageCreateGuard],
 })
 export class MessagesModule { }

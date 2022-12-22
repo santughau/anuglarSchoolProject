@@ -7,19 +7,21 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { Batch } from 'src/app/batch/batch.model';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-messages-create',
   templateUrl: './messages-create.component.html',
   styleUrls: ['./messages-create.component.css']
 })
 export class MessagesCreateComponent implements OnInit {
+  @ViewChild('messageForm') public messageForm:NgForm;
   showBatch: boolean = false;
   htmlContent: any = '';
   msgDate: any = new Date();
@@ -178,6 +180,7 @@ export class MessagesCreateComponent implements OnInit {
        console.log(res);
  
        if (res.code == 1) {
+         this.messageForm.reset();
          this.appService.successMsg('Message Created Successfully!', 'Weldone!');
          this.router.navigate(['/messages/messageList']);
        }

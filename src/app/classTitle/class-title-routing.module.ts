@@ -11,10 +11,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClassListComponent } from './class-list/class-list.component';
 import { ClassTitleEditComponent } from './class-title-edit/class-title-edit.component';
+import { ClassCreateGuard } from './class-title/class-create.guard';
 import { ClassTitleComponent } from './class-title/class-title.component';
 
 const routes: Routes = [
-  { path: 'addClassList', component: ClassTitleComponent },
+  { path: 'addClassList', canDeactivate:[ClassCreateGuard], component: ClassTitleComponent },
   { path: 'classList', component: ClassListComponent },
   
   { path: 'classEdit/:id', component: ClassTitleEditComponent }

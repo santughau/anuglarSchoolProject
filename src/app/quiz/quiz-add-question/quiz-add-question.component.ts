@@ -24,6 +24,7 @@ export class QuizAddQuestionComponent implements OnInit {
   optionC: any = '';
   optionD: any = '';
   answer: any = 'A';
+  quiz = {};
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -41,7 +42,12 @@ export class QuizAddQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.appService.showSpinner();
     this.quizId = this._route.snapshot.paramMap.get('id');
-    this.appService.hideSpinner();
+    this.appService.getMethod('quiz/read_one.php?id=' + this.quizId).subscribe((res) => {
+      this.quiz = res.document;
+      console.log(this.quiz);
+      this.appService.hideSpinner();
+    });
+
   }
 
   addQuestion() {
@@ -55,9 +61,8 @@ export class QuizAddQuestionComponent implements OnInit {
       'quizId': this.quizId,
     }
 
-    this.appService.postMethod('question/create.php',data).subscribe((res) => {
+    this.appService.postMethod('question/create.php', data).subscribe((res) => {
       console.log(res);
-
       this.appService.hideSpinner();
       this.question = '';
       this.optionA = '';

@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
     profileLogo: ''
   }
   user = {
-    email: '',
-    password: ''
+    email: 'santosh',
+    password: '00000000'
   }
   constructor(private router: Router, public appService: SharedServiceService,) {
   }

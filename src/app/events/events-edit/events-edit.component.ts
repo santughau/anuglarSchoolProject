@@ -7,17 +7,19 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { EventList } from '../event.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-events-edit',
   templateUrl: './events-edit.component.html',
   styleUrls: ['./events-edit.component.css']
 })
 export class EventsEditComponent implements OnInit {
+  @ViewChild('eventForm') public eventForm: NgForm;
   eventId: any;
   eventList : EventList = {
     eventId: '',

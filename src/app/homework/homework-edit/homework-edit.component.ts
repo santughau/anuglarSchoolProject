@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
 import { Homework } from '../homework.model';

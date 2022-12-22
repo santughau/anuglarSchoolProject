@@ -10,12 +10,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddChapterComponent } from './add-chapter/add-chapter.component';
+import { ChapterCreateGuard } from './add-chapter/chapter-create.guard';
 import { ChapterEditComponent } from './chapter-edit/chapter-edit.component';
 import { ChapterListComponent } from './chapter-list/chapter-list.component';
 
 const routes: Routes = [
   { path: 'chapterList', component: ChapterListComponent },
-  { path: 'addChapter', component: AddChapterComponent },
+  { path: 'addChapter',canDeactivate: [ChapterCreateGuard],   component: AddChapterComponent },
   { path: 'chapterEdit/:id', component: ChapterEditComponent }
 ];
 

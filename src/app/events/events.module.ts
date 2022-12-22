@@ -23,6 +23,7 @@ import { EventsService } from './events.service';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { DataTablesModule } from 'angular-datatables/src/angular-datatables.module';
 import { FormsModule } from '@angular/forms';
+import { EventCreateGuard } from './events-create/event-create.guard';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -37,6 +38,6 @@ FullCalendarModule.registerPlugins([
     CommonModule,
     EventsRoutingModule,SharedModulesModule,FullCalendarModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [EventCreateGuard],
 })
 export class EventsModule { }

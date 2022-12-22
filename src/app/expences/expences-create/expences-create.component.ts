@@ -7,7 +7,8 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
@@ -18,6 +19,7 @@ import { Expences } from '../expences.model';
   styleUrls: ['./expences-create.component.css']
 })
 export class ExpencesCreateComponent implements OnInit {
+  @ViewChild('expenseForm') public expenseForm: NgForm;
   expences: Expences = {
     expencesId: '',
     expencesParticular: '',
@@ -48,9 +50,14 @@ export class ExpencesCreateComponent implements OnInit {
       'expencesAmt' : this.expences.expencesAmt,
       'expencesDate' : this.expences.expencesDate
     }
-    this.appService.postMethod('expense/create.php',data).subscribe((res) => {
+    this.appService.postMethod('expense/create.php', data).subscribe((res) => {
+      console.log(res);
+      if (res.status == 'success') {
+        this.expenseForm.reset();
       this.appService.successMsg('Expenses Created Successfully !', 'Weldone !');
       this.router.navigate(['/expences/expencesList']);
+      }
+      
     }); 
   }
 }

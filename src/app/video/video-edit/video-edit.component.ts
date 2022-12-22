@@ -7,19 +7,21 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Video } from '../video.model';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-video-edit',
   templateUrl: './video-edit.component.html',
   styleUrls: ['./video-edit.component.css']
 })
 export class VideoEditComponent implements OnInit {
+  @ViewChild('videoForm') public videoForm: NgForm;
   allClassList: any[] = [];
   subjects: any[] = [];
   chapters: any[] = [];

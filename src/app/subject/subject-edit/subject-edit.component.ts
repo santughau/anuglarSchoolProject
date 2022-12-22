@@ -7,10 +7,11 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SubjectModel } from '../subject.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-subject-edit',
@@ -18,6 +19,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./subject-edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
+  @ViewChild('subjectForm') public subjectForm: NgForm;
   classesList:any = []
   subjectModel: SubjectModel = {
     subjectId: '',

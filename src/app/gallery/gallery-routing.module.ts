@@ -10,12 +10,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GalleryCreateComponent } from './gallery-create/gallery-create.component';
+import { GalleryCreateGuard } from './gallery-create/gallery-create.guard';
 import { GalleryEditComponent } from './gallery-edit/gallery-edit.component';
 import { GalleryListComponent } from './gallery-list/gallery-list.component';
 
 const routes: Routes = [
   { path: 'galleryList', component: GalleryListComponent },
-  { path: 'galleryCreate', component: GalleryCreateComponent },
+  { path: 'galleryCreate', canDeactivate: [GalleryCreateGuard], component: GalleryCreateComponent },
   { path: 'galleryEdit/:id', component: GalleryEditComponent }
 ];
 

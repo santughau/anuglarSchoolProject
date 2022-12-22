@@ -18,6 +18,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { DataTablesModule } from 'angular-datatables/src/angular-datatables.module';
+import { VideoCreateGuard } from './video-create/video-create.guard';
 
 
 
@@ -27,6 +28,6 @@ import { DataTablesModule } from 'angular-datatables/src/angular-datatables.modu
     CommonModule,
     VideoRoutingModule,YouTubePlayerModule,SharedModulesModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,
   ],
-  providers: [],
+  providers: [VideoCreateGuard],
 })
 export class VideoModule { }

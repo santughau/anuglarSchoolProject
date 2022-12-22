@@ -13,6 +13,7 @@ import { BatchListComponent } from './batch-list/batch-list.component';
 import { BatchCreateComponent } from './batch-create/batch-create.component';
 import { BatchEditComponent } from './batch-edit/batch-edit.component';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
+import { BatchCreateGuard } from './batch-create/batch-create.guard';
 
 const routes: Routes = [
   { path: 'batchList', component: BatchListComponent },

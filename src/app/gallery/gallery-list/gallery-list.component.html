@@ -13,8 +13,8 @@
         <hr>
     </div>
     <div class="card col-md-2 mb-2" *ngFor="let data of gallery">
-        <img src="http://localhost/ranjana/gallery/images/{{ data.galleryImage }}.jpg"
-             class="card-img-top "
+        <img [src]="appService.serverUrl + 'gallery/images/'+  data.galleryImage + '.jpg'"
+             class="card-img-top " 
              height="200px" width="100%">
         <div class="card-body">
             <h5 class="card-title">{{ data.galleryTitle | truncate : 20}}</h5>

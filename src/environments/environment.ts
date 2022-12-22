@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost/ranjana/'
+ // baseUrl: 'https://schooladmin.jswebapp.com/ranjana/'
 };
 
 /*

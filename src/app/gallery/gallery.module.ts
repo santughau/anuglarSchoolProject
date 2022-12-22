@@ -16,6 +16,7 @@ import { GalleryRoutingModule } from './gallery-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
+import { GalleryCreateGuard } from './gallery-create/gallery-create.guard';
 
 
 
@@ -26,7 +27,7 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
   imports: [
     CommonModule,GalleryRoutingModule,FormsModule,SharedModulesModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [GalleryCreateGuard],
 })
 export class GalleryModule {
  }

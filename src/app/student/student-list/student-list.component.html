@@ -120,7 +120,7 @@
                 <span>{{course}}</span><span *ngIf="!lastItem">,</span>
               </div>
             </td>
-            <td><img src="http://localhost/ranjana/student/images/{{student.studentImage}}.jpg"
+            <td><img [src]="appService.serverUrl + 'student/images/'+  student.studentImage + '.jpg'"
                    class="img-fluid"
                    width="100px"></td>
             <td><a (click)="viewStudent(student.studentId)"

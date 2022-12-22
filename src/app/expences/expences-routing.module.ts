@@ -10,12 +10,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExpencesCreateComponent } from './expences-create/expences-create.component';
+import { ExpensesCreateGuard } from './expences-create/expenses-create.guard';
 import { ExpencesEditComponent } from './expences-edit/expences-edit.component';
 import { ExpencesListComponent } from './expences-list/expences-list.component';
 
 const routes: Routes = [
   { path: 'expencesList', component: ExpencesListComponent },
-  { path: 'expencesCreate', component: ExpencesCreateComponent },
+  { path: 'expencesCreate',canDeactivate:[ExpensesCreateGuard], component: ExpencesCreateComponent },
   { path: 'expencesEdit/:id', component: ExpencesEditComponent }
 ];
 

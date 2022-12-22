@@ -16,6 +16,7 @@ import { ExpencesRoutingModule } from './expences-routing.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { FormsModule } from '@angular/forms';
+import { ExpensesCreateGuard } from './expences-create/expenses-create.guard';
 
 
 
@@ -27,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ExpencesRoutingModule,SharedModulesModule,FormsModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [ExpensesCreateGuard],
 })
 export class ExpencesModule {
 }

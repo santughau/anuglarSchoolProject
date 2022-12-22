@@ -22,6 +22,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { FormsModule } from '@angular/forms';
+import { StudentCreateGuard } from './student-create/student-create.guard';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -36,7 +37,7 @@ FullCalendarModule.registerPlugins([
   imports: [
     CommonModule,StudentRoutingModule,SharedModulesModule,FullCalendarModule,FormsModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [StudentCreateGuard],
 })
 export class StudentModule { 
 }

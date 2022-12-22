@@ -16,6 +16,7 @@ import { ClassList } from 'src/app/classTitle/classList.model';
 import { Batch } from 'src/app/batch/batch.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-student-edit',
@@ -23,6 +24,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./student-edit.component.css']
 })
 export class StudentEditComponent implements OnInit  {
+  @ViewChild('studentForm') public studentForm: NgForm;
   allClassList: any[] = [];
   allBatchList: any[] = [];
   batchId: any = null;

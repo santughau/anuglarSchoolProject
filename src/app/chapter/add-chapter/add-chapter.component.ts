@@ -7,7 +7,8 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
@@ -42,7 +43,7 @@ export class AddChapterComponent implements OnInit {
     chapterTopicId:''
   }
   constructor(private router: Router,public appService: SharedServiceService) { }
-
+  @ViewChild('chapterForm') public chapterForm: NgForm;
   ngOnInit(): void {
     this.getData()
   }
@@ -80,7 +81,7 @@ export class AddChapterComponent implements OnInit {
     chapterForm.form.reset();
     this.appService.postMethod('chapter/create.php', data,).subscribe((res) => {
       this.appService.hideSpinner();
-      this.router.navigate(['/chapter/chapterList'])
+      this.router.navigate(['/chapter/chapterList']);
     });
     this.appService.successMsg('Chapter Created Successfully!', 'Weldone !');
     

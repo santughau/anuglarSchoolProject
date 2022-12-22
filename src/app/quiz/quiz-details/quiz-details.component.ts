@@ -7,12 +7,13 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuizService } from '../quiz.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-quiz-details',
   templateUrl: './quiz-details.component.html',
@@ -21,8 +22,8 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
 export class QuizDetailsComponent implements OnInit {
   questions: any = []
   quizId: any = '';
-
-  constructor(private router: Router, private service: QuizService, private spinner: NgxSpinnerService, private _route: ActivatedRoute, private toastr: ToastrService,public appService: SharedServiceService) { }
+  modalRef?: BsModalRef;
+  constructor(private modalService: BsModalService, private router: Router, private service: QuizService, private spinner: NgxSpinnerService, private _route: ActivatedRoute, private toastr: ToastrService, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.appService.showSpinner();
@@ -36,11 +37,40 @@ export class QuizDetailsComponent implements OnInit {
   }
 
   editQuestions(id: any) {
-    
+    console.log(id);
+    this.router.navigate(['quiz/questionEdit', id])
   }
 
-  deleteQuestions(id: any) {
+  openModal(template: TemplateRef<any>) {
+    console.log(template);
     
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirm(id: any): void {
+    this.appService.showSpinner();
+    console.log(id);
+    const data = {
+      'questionsId': id
+    }
+    this.appService.postMethod('question/delete.php', data).subscribe(res => {
+      console.log("deleted" + res);
+      if (res.status == 'success') {
+        this.appService.hideSpinner();
+        this.appService.successMsg('Question Deleted Successfully!', 'Weldone !');
+        this.modalRef?.hide();
+      } else {
+        this.appService.hideSpinner();
+        this.appService.errorsMsg('Sorry Question Was not Deleted Successfully!', 'OOPs Try Again!');
+        this.modalRef?.hide();
+      }
+      this.modalRef?.hide();
+      this.router.navigate(['/quiz/quizList'])
+    });
+  }
+
+  decline(): void {
+    this.modalRef?.hide();
   }
 
 }

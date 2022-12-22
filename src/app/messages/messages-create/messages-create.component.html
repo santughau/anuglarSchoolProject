@@ -95,7 +95,6 @@
                         class="btn btn-danger ">Send</button>
             </div>
         </form>
-        {{ htmlContent }}
 
     </div>
 
@@ -132,7 +131,7 @@
                     <td>{{p.studentName}}</td>
                     <td>Class {{p.subjectClass}}</td>
                     <td>{{p.studentBatch}}</td>
-                    <td><img src="http://localhost/ranjana/student/images/{{p.studentImage}}.jpg"
+                    <td><img [src]="appService.serverUrl + 'student/images/'+  p.studentImage + '.jpg'"
                              class="img-fluid"
                              width="100px"></td>
                 </tr>

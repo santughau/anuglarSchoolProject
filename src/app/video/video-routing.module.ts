@@ -12,12 +12,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { VideoCreateComponent } from './video-create/video-create.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
+import { VideoCreateGuard } from './video-create/video-create.guard';
 
 const routes: Routes = [
   { path: 'videoList', component: VideoListComponent },
-  { path: 'videoCreate', component: VideoCreateComponent },
+  { path: 'videoCreate',canDeactivate:[VideoCreateGuard], component: VideoCreateComponent },
   
-  { path: 'videoEdit/:id', component: VideoEditComponent },
+  { path: 'videoEdit/:id',component: VideoEditComponent },
 ];
 
 

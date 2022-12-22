@@ -25,12 +25,15 @@ export class HeaderInterceptor implements HttpInterceptor {
         // Authorization: 'Bearer xx.yy.zz',
        }
      }) */
-   /*  if (!this.appService.isUserLogin) {
-      this.router.navigate(['/login']);
-      console.log(this.appService.isUserLogin);
-      
-    } */
+    /*  if (!this.appService.isUserLogin) {
+       this.router.navigate(['/login']);
+       console.log(this.appService.isUserLogin);
+       
+     } */
     let token = this.appService.getToken();
+    if (token == '') {
+      token = 'ss';
+    }
     const httpRequests = request.clone({
       headers: new HttpHeaders({
         /*  'Cache-Control': 'no-cache',

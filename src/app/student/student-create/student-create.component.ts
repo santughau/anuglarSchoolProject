@@ -16,6 +16,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Batch } from '../../batch/batch.model';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-student-create',
@@ -25,6 +26,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
 
 
 export class StudentCreateComponent implements OnInit {
+  @ViewChild('studentForm') public studentForm: NgForm;
   showTable: boolean = false;
   allClassList: any[] = [];
   allBatchList: any[] = [];
@@ -310,8 +312,10 @@ export class StudentCreateComponent implements OnInit {
     formData.append('studentSubject', result);
     console.log( formData);
     
-    this.appService.postMethod('student/create.php',formData).subscribe((event: any) => {
-      switch (event.type) {
+     this.appService.postMethod('student/create.php', formData).subscribe((event: any) => {
+       console.log(event);       
+      this.studentForm.reset();
+      /* switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
           break;
@@ -330,9 +334,15 @@ export class StudentCreateComponent implements OnInit {
           }, 1500);  
       }
       if (this.progress == 100) {
+        //this.studentForm.reset();
         this.router.navigate(['/student/students']);
-      }
+      } */
+      
+       if (event.status == 'success') {
+        this.appService.successMsg('Student   Uploaded Successfully!', 'Weldone !');
+        this.router.navigate(['/student/students']);
+       }
     });
-    this.appService.successMsg('Student   Uploaded Successfully!', 'Weldone !');
+    
   }
 }

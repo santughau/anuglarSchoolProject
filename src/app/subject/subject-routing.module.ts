@@ -10,13 +10,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddSubjectComponent } from './add-subject/add-subject.component';
+import { SubjectCreateGuard } from './add-subject/subject-create.guard';
 import { SubjectEditComponent } from './subject-edit/subject-edit.component';
 import { SubjectListComponent } from './subject-list/subject-list.component';
 
 const routes: Routes = [
-  { path: 'addSubject', component: AddSubjectComponent },
+  { path: 'addSubject', canDeactivate:[SubjectCreateGuard], component: AddSubjectComponent },
   { path: 'subjectList', component: SubjectListComponent },
-  { path: 'subjectEdit/:id', component: SubjectEditComponent }
+  { path: 'subjectEdit/:id',component: SubjectEditComponent }
 ];
 
 @NgModule({

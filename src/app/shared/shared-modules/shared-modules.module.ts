@@ -28,11 +28,13 @@ import { TruncatePipe } from '../pipes/truncate.pipe';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { InternetComponent } from 'src/app/common/internet/internet.component';
+import { AuthGuard } from '../guard/auth.guard';
 const boot: any = [TooltipModule.forRoot(), AccordionModule.forRoot(), AlertModule.forRoot(), ButtonsModule.forRoot(), CarouselModule.forRoot(), BsDatepickerModule.forRoot(), BsDropdownModule.forRoot(), ModalModule.forRoot(), PaginationModule.forRoot(), PopoverModule.forRoot(), ProgressbarModule.forRoot(), RatingModule.forRoot(), SortableModule.forRoot(), TabsModule.forRoot(), TimepickerModule.forRoot(), TypeaheadModule.forRoot(), NgxSpinnerModule, ToastrModule.forRoot(), NgxPaginationModule, RouterModule, NgMultiSelectDropDownModule.forRoot(), AngularEditorModule,NgxPaginationModule]
 
 @NgModule({
   declarations: [SelectRequiredValidatorDirective, FirstCapDirective, ToggleDirective,InternetComponent, TruncatePipe],
   imports: [boot, ImageCropperModule, ReactiveFormsModule,FormsModule],
-  exports: [boot, SelectRequiredValidatorDirective, FirstCapDirective, ToggleDirective, ImageCropperModule, TruncatePipe,InternetComponent]
+  exports: [boot, SelectRequiredValidatorDirective, FirstCapDirective, ToggleDirective, ImageCropperModule, TruncatePipe, InternetComponent],
+  providers: [AuthGuard],
 })
 export class SharedModulesModule { }

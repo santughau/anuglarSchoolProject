@@ -7,9 +7,15 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp 
   ----------->
-  <div class="row box">
+<div class="row box">
     <div class="col-md-12 ">
-        <h1 class="text-muted mb-5">QUIZ TITLE GOES HERE</h1>
+        <h1 class="text-muted mb-5">{{quiz['quizTitle']}} </h1>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <h6><span class="text-danger">Class :</span> {{quiz['subjectClass']}}</h6>
+            <h6><span class="text-danger">Subject Name :</span> {{quiz['subjectName']}}</h6>
+            <h6><span class="text-danger">Chapter Name :</span> {{quiz['chapterName']}}</h6>
+        </div>
     </div>
 
 </div>
@@ -17,76 +23,86 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form class=" g-3 mt-5" #questionForm="ngForm">
+        <form class=" g-3 mt-5"
+              #questionForm="ngForm">
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-danger">ADD QUESTION HERE</label>
-                    <angular-editor name="que" required
+                    <angular-editor name="que"
+                                    required
                                     [(ngModel)]="question"
                                     [config]="config"></angular-editor>
                 </div>
             </div>
-        
+
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-primary">OPTION A</label>
-                    <angular-editor name="opta" required
+                    <angular-editor name="opta"
+                                    required
                                     [(ngModel)]="optionA"
                                     [config]="config"></angular-editor>
                 </div>
             </div>
-        
+
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-primary">OPTION B</label>
-                    <angular-editor name="optb" required
+                    <angular-editor name="optb"
+                                    required
                                     [(ngModel)]="optionB"
                                     [config]="config"></angular-editor>
                 </div>
-        
+
             </div>
-        
+
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-primary">OPTION C</label>
-                    <angular-editor name="optc" required
+                    <angular-editor name="optc"
+                                    required
                                     [(ngModel)]="optionC"
                                     [config]="config"></angular-editor>
                 </div>
-        
+
             </div>
-        
+
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-primary">OPTION D</label>
-                    <angular-editor name="optd" required
+                    <angular-editor name="optd"
+                                    required
                                     [(ngModel)]="optionD"
                                     [config]="config"></angular-editor>
                 </div>
             </div>
-        
-        
+
+
             <div class="row box">
                 <div class="col-md-12">
                     <label for="student"
                            class="form-label text-success">CHOOSE ANSWER</label>
-                    <select id="forMedium" name="answer" required
-                    [(ngModel)]="answer"
+                    <select id="forMedium"
+                            name="answer"
+                            required
+                            [(ngModel)]="answer"
                             class="form-select">
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
                         <option value="D">D</option>
                     </select>
-        
+
                 </div>
                 <div class="col-md-12 d-flex justify-content-center mt-5">
-                    <button type="submit" (click)="addQuestion()" [disabled]="questionForm.invalid"
+                    <button type="submit"
+                            (click)="addQuestion()"
+                            [disabled]="questionForm.invalid"
                             class="btn btn-danger ">ADD QUESTION</button>
                 </div>
             </div>
@@ -94,30 +110,34 @@
     </div>
     <div class="col-md-6 ">
         <div class="row box g-3 mt-5">
-            <h2 class="text-center">Preview Of Question</h2><hr>
-            <div class="text-danger"  >Q1
+            <h2 class="text-center">Preview Of Question</h2>
+            <hr>
+            <div class="text-danger">Q1
                 <span [innerHTML]="question"></span>
-            </div><hr>
+            </div>
+            <hr>
 
-            <div class="font-weight-bold text-dark"  >Option A<br>
-                <span  [innerHTML]="optionA"></span>
+            <div class="font-weight-bold text-dark">Option A<br>
+                <span [innerHTML]="optionA"></span>
             </div>
 
-            <div class="font-weight-bold text-dark"  >Option B<br>
+            <div class="font-weight-bold text-dark">Option B<br>
                 <span [innerHTML]="optionB"></span>
             </div>
 
-            <div class="font-weight-bold text-dark"  >Option C<br>
+            <div class="font-weight-bold text-dark">Option C<br>
                 <span [innerHTML]="optionC"></span>
             </div>
 
-            <div class="font-weight-bold text-dark"  >Option D<br>
+            <div class="font-weight-bold text-dark">Option D<br>
                 <span [innerHTML]="optionD"></span>
-            </div><hr>
+            </div>
+            <hr>
 
-            <div class="font-weight-bold text-dark"  >Answer
+            <div class="font-weight-bold text-dark">Answer
                 <span [innerHTML]="answer"></span>
-            </div><hr>
+            </div>
+            <hr>
         </div>
     </div>
 </div>

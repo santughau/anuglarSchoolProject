@@ -34,7 +34,7 @@
             <div class="col-md-3  mt-5">
                 <button type="submit"
                         [disabled]="attendanceForm.invalid"(click)="updateData()"
-                        class="btn btn-danger ">Add Batch</button>
+                        class="btn btn-danger ">Add Presenty</button>
             </div>
         </form>
         <table class="table table-bordered ">
@@ -64,7 +64,7 @@
                     <td>{{student.studentSchool}}</td>
                     <td>{{student.studentGender}}</td>
                     <td>{{student.subjectClass}}</td>
-                    <td><img src="../../../assets/student/1.jpg"
+                    <td><img [src]="appService.serverUrl + 'student/images/'+  student.studentImage + '.jpg'"
                              class="img-fluid"
                              width="100px"></td>
                 </tr>

@@ -9,6 +9,7 @@
 */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TermCreateGuard } from './termexam-create/term-create.guard';
 import { TermexamCreateComponent } from './termexam-create/termexam-create.component';
 import { TermexamDetailsComponent } from './termexam-details/termexam-details.component';
 import { TermexamEditComponent } from './termexam-edit/termexam-edit.component';
@@ -16,7 +17,7 @@ import { TermexamListComponent } from './termexam-list/termexam-list.component';
 
 const routes: Routes = [
   { path: 'termExamList', component: TermexamListComponent },
-  { path: 'termexamCreate', component: TermexamCreateComponent },
+  { path: 'termexamCreate',canDeactivate:[TermCreateGuard], component: TermexamCreateComponent },
   { path: 'termexamDetails/:id', component: TermexamDetailsComponent },
   { path: 'termexamEdit/:id', component: TermexamEditComponent, },
 ];

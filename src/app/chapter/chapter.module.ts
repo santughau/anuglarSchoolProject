@@ -17,6 +17,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { ChapterCreateGuard } from './add-chapter/chapter-create.guard';
 
 
 
@@ -27,6 +28,6 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     CommonModule,
     ChapterRoutingModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,SharedModulesModule
   ],
-  providers: [],
+  providers: [ChapterCreateGuard],
 })
 export class ChapterModule { }

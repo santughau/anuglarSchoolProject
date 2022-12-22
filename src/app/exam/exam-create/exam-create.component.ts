@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Exam } from '../exam.model';
@@ -15,6 +15,7 @@ import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Batch } from 'src/app/batch/batch.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-exam-create',
@@ -22,6 +23,7 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./exam-create.component.css']
 })
 export class ExamCreateComponent implements OnInit {
+  @ViewChild('examForm') public examForm:NgForm;
   allClassList: any[] = [];
   subjects: any[] = [];
   allBatchList: any[] = [];
@@ -112,8 +114,12 @@ export class ExamCreateComponent implements OnInit {
     }    
     console.log(data);
     this.appService.postMethod('exam/create.php', data).subscribe((res) => {
-      this.appService.successMsg('Exam Created Successfully!', 'Weldone!');
-      this.router.navigate(['/exam/examList']);
+      if (res.status == 'success') {
+        this.examForm.reset();        
+        this.appService.successMsg('Exam Created Successfully!', 'Weldone!');
+        this.router.navigate(['/exam/examList']);
+      }
+   
     });
   }
 }

@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,22 @@ export class SharedServiceService {
   internetOnline: boolean = false;
   public isUserLogin = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService,) {
+  constructor(private meta : Meta, private title: Title,private http: HttpClient, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService,) {
     this.checkInternetConnection();
     if (!this.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
+  }
+
+  setMeta(title, desc,author,keyword,) {
+    this.meta.addTags([
+      { name: 'description', content: desc },
+      { name: 'author', content: author },
+      { name: 'keyword', content: keyword },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'robots', content: 'index,follow' },
+    ]);
+    this.title.setTitle(title)
   }
 
   setToken(token: string) {
@@ -58,7 +70,10 @@ export class SharedServiceService {
 
   postMethod(url, body): Observable<any> {
     this.isLoggedIn()
-    return this.http.post(this.serverUrl + url, body);
+    return this.http.post(this.serverUrl + url, body,/*  {
+      reportProgress: true,
+      observe: 'events'
+    } */);
   }
 
   getMethod(url: any): Observable<any> {

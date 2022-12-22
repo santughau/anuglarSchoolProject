@@ -7,7 +7,8 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
@@ -19,6 +20,7 @@ import { Expences } from '../expences.model';
   styleUrls: ['./expences-edit.component.css']
 })
 export class ExpencesEditComponent implements OnInit {
+  @ViewChild('expenseForm') public expenseForm: NgForm;
   expencesId: any;
   expences: Expences = {
     expencesId: '',

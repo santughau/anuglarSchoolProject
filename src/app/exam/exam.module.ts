@@ -20,6 +20,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { ExamUploadComponent } from './exam-upload/exam-upload.component';
+import { ExamCreateGuard } from './exam-create/exam-create.guard';
 
 
 
@@ -35,6 +36,6 @@ import { ExamUploadComponent } from './exam-upload/exam-upload.component';
     CommonModule,
     ExamRoutingModule, DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,SharedModulesModule
   ],
-  providers: [],
+  providers: [ExamCreateGuard],
 })
 export class ExamModule { }

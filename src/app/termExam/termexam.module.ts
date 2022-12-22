@@ -19,6 +19,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { DataTablesModule } from 'angular-datatables/src/angular-datatables.module';
+import { TermCreateGuard } from './termexam-create/term-create.guard';
 
 
 
@@ -28,6 +29,6 @@ import { DataTablesModule } from 'angular-datatables/src/angular-datatables.modu
     CommonModule,
     TermexamRoutingModule,PdfViewerModule,SharedModulesModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,
   ],
-  providers: [],
+  providers: [TermCreateGuard],
 })
 export class TermexamModule { }

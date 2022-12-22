@@ -19,6 +19,7 @@ import { HomeworkListComponent } from './homework-list/homework-list.component';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { DataTablesModule } from 'angular-datatables/src/angular-datatables.module';
+import { HomeCreateGuard } from './homework-create/home-create.guard';
 
 
 
@@ -28,7 +29,7 @@ import { DataTablesModule } from 'angular-datatables/src/angular-datatables.modu
     CommonModule,
     HomeworkRoutingModule,PdfViewerModule,SharedModulesModule,DataTablesModule.forRoot(),FormsModule,NgxBootstrapModule,
   ],
-  providers: [],
+  providers: [HomeCreateGuard],
   
 
 })

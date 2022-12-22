@@ -17,6 +17,7 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { BatchCreateGuard } from './batch-create/batch-create.guard';
 
 
 
@@ -28,7 +29,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
   imports: [
     CommonModule,BatchRoutingModule,FormsModule,SharedModulesModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [BatchCreateGuard],
 })
 export class BatchModule {
   

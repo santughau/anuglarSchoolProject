@@ -9,14 +9,15 @@
 */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MessageCreateGuard } from './messages-create/message-create.guard';
 import { MessagesCreateComponent } from './messages-create/messages-create.component';
 import { MessagesEditComponent } from './messages-edit/messages-edit.component';
 import { MessagesListComponent } from './messages-list/messages-list.component';
 
 const routes: Routes = [
   { path: 'messageList', component: MessagesListComponent },
-  { path: 'messagesCreate', component: MessagesCreateComponent },
-  { path: 'messagesEdit/:id', component: MessagesEditComponent }
+  { path: 'messagesCreate', canDeactivate:[MessageCreateGuard], component: MessagesCreateComponent },
+  { path: 'messagesEdit/:id',component: MessagesEditComponent }
 ];
 
 @NgModule({

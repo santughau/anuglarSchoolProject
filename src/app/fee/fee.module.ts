@@ -16,6 +16,7 @@ import { FeeRoutingModule } from './fee-routing.module';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { FormsModule } from '@angular/forms';
+import { FeeCreateGuard } from './fee-create/fee-create.guard';
 
 
 
@@ -26,6 +27,6 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,FeeRoutingModule,SharedModulesModule,FormsModule,NgxBootstrapModule
   ],
-  providers: [],
+  providers: [FeeCreateGuard],
 })
 export class FeeModule { }

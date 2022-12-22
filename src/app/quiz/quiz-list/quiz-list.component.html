@@ -101,7 +101,7 @@
     <div class="col-md-9 ">
         <h1 class="text-muted mb-5">{{quiz.quizTitle}}</h1>
         <p class="text-danger">No Of Questions 
-            : <span class="text-muted">{{quizes.length}}</span></p>
+            : <span class="text-muted">{{quiz.noOfQue}}</span></p>
     </div>
     <div class="col-md-3 ">
 
@@ -113,15 +113,11 @@
             <a (click)="viewQuestions(quiz.quizId)" class="btn btn-primary"><i class="fa fa-eye"
                    aria-hidden="true"></i></a>
 
-            <a (click)="listQuestions(quiz.quizId)"
-               class="btn btn-dark"><i class="fa fa-list"
-                   aria-hidden="true"></i></a>
-
+           
             <a (click)="EditdQuestions(quiz.quizId)" class="btn btn-warning"><i class="fa fa-pencil-square-o"
                    aria-hidden="true"></i></a>
 
-            <a (click)="deletedQuestions(quiz.quizId)" class="btn btn-danger"><i class="fa fa-trash-o"
-                   aria-hidden="true"></i></a>
+           
         </div>
 
     </div>

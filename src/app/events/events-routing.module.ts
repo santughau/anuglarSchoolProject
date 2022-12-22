@@ -9,13 +9,14 @@
 */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EventCreateGuard } from './events-create/event-create.guard';
 import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsEditComponent } from './events-edit/events-edit.component';
 import { EventsListComponent } from './events-list/events-list.component';
 
 const routes: Routes = [
   { path: 'eventList', component: EventsListComponent },
-  { path: 'eventsCreate', component: EventsCreateComponent },
+  { path: 'eventsCreate',canDeactivate:[EventCreateGuard], component: EventsCreateComponent },
   { path: 'eventsEdit/:id', component: EventsEditComponent },
  
 ];

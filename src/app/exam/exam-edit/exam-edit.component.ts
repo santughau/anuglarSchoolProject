@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { Exam } from '../exam.model';
@@ -15,12 +15,14 @@ import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { Batch } from 'src/app/batch/batch.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-exam-edit',
   templateUrl: './exam-edit.component.html',
   styleUrls: ['./exam-edit.component.css']
 })
 export class ExamEditComponent implements OnInit {
+  @ViewChild('examForm') public examForm:NgForm;
   examId: any;
   allClassList: any[] = [];
   subjects: any[] = [];

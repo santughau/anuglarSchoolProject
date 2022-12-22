@@ -54,7 +54,7 @@ export class QuizListComponent implements OnInit {
 
   quizes: Quiz[] = [];
   chapterId: any = '';
-  constructor( private router: Router, public appService: SharedServiceService) { }
+  constructor(private router: Router, public appService: SharedServiceService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -85,7 +85,7 @@ export class QuizListComponent implements OnInit {
     this.chapterModel.chapterId = 'select'
     const id = ev.target.value;
     console.log(id);
-        this.appService.showSpinner();
+    this.appService.showSpinner();
     this.appService.getMethod('chapter/read_By_subjectClassId.php?id=' + id).subscribe((data) => {
       console.log(data);
       this.chapters = data.document;
@@ -131,11 +131,8 @@ export class QuizListComponent implements OnInit {
   }
 
   EditdQuestions(id: any) {
-
+    this.router.navigate(['/quiz/quizEdit', id]);
   }
 
-  deletedQuestions(id: any) {
-
-  }
 
 }

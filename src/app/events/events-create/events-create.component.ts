@@ -7,11 +7,12 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig, DatepickerDateTooltipText } from 'ngx-bootstrap/datepicker';
 import { EventList } from '../event.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -20,8 +21,9 @@ import { SharedServiceService } from 'src/app/shared/services/shared-service.ser
   styleUrls: ['./events-create.component.css']
 })
 export class EventsCreateComponent implements OnInit {
+  @ViewChild('eventForm') public eventForm: NgForm;
   colors: any = ['#0078AA', '#E70B89', '#6574CF', '#F02640', '#5cb85c', '#Ff5e43', '#3498db', '#ce1212', '#218c74', '#E80F88'];
-  eventList : EventList = {
+  eventList: EventList = {
     eventId: '',
     eventTitle: '',
     eventMessage: '',
@@ -49,18 +51,22 @@ export class EventsCreateComponent implements OnInit {
   }
 
 
-  addEvent() {    
+  addEvent() {
     const data = {
       'eventTitle': this.eventList.eventTitle,
       'eventMessage': this.eventList.eventMessage,
       'eventcolor': this.eventList.eventcolor,
       'eventDate': this.eventList.eventDate,
     }
-    
-    console.log(data);    
-    this.appService.postMethod('events/create.php',data).subscribe((res) => {
-      this.appService.successMsg('Events Created Successfully!', 'Weldone!');
-      this.router.navigate(['/events/eventList']);
+
+    console.log(data);
+    this.appService.postMethod('events/create.php', data).subscribe((res) => {
+      if (res.status == 'success') {
+        this.eventForm.reset();
+        this.appService.successMsg('Events Created Successfully!', 'Weldone!');
+        this.router.navigate(['/events/eventList']);
+      }
+
     });
   }
 }

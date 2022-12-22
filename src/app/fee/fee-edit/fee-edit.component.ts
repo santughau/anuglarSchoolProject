@@ -7,19 +7,21 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Fee } from '../fee.model';
 import { Student } from 'src/app/student/student.model';
 import { Batch } from '../../batch/batch.model';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-fee-edit',
   templateUrl: './fee-edit.component.html',
   styleUrls: ['./fee-edit.component.css']
 })
 export class FeeEditComponent implements OnInit {
+  @ViewChild('feeForm') public feeForm: NgForm;
   allClassList: any[] = [];
   allBatchList: any[] = [];
   studentList: any[] = [];

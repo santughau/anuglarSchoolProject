@@ -41,14 +41,14 @@ export class GalleryListComponent implements OnInit {
     });
   }
 
-  getData() {    
+  /* getData() {    
     this.appService.showSpinner();
     this.appService.getMethod('gallery/read.php').subscribe((data) => {
       this.gallery = data.document;
       console.log(this.gallery);
       this.appService.hideSpinner();
     });
-  }
+  } */
 
   pageChanged(event: PageChangedEvent | any): void {
     this.page = event.page;

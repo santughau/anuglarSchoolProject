@@ -15,12 +15,14 @@ import { SubjectModel } from 'src/app/subject/subject.model';
 import { Chapter } from '../../chapter/chapter.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-homework-create',
   templateUrl: './homework-create.component.html',
   styleUrls: ['./homework-create.component.css']
 })
 export class HomeworkCreateComponent implements OnInit {
+  @ViewChild('homework') public homework: NgForm;
   allClassList: any[] = [];
   subjects: any[] = [];
   chapters: any[] = [];
@@ -134,9 +136,14 @@ export class HomeworkCreateComponent implements OnInit {
     console.log(data);
     console.log(formData);
     this.appService.showSpinner();   
-    this.appService.postMethod('homework/create.php',formData).subscribe((event: any) => {
+    this.appService.postMethod('homework/create.php', formData).subscribe((event: any) => {
+      if (event.status == 'success') {
+        this.homework.reset();
+        this.router.navigate(['/homework/homeworkList', { id: this.chapterModel.chapterId }]);
+        this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
+      }
 
-      switch (event.type) {
+      /* switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
           break;
@@ -156,8 +163,8 @@ export class HomeworkCreateComponent implements OnInit {
       }
       if (this.progress == 100) {
         this.router.navigate(['/homework/homeworkList',{id:this.chapterModel.chapterId}]);
-      }
+      } */
     });
-    this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
+    
   }
 }

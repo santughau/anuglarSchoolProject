@@ -17,6 +17,7 @@ import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { DataTablesModule } from 'angular-datatables';
 import { ClassListComponent } from './class-list/class-list.component';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { ClassCreateGuard } from './class-title/class-create.guard';
 
 
 
@@ -24,7 +25,7 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
 
 @NgModule({
     declarations: [ClassTitleComponent, ClassTitleEditComponent, ClassListComponent,],
-    providers: [],
+    providers: [ClassCreateGuard],
     imports: [
         CommonModule, DataTablesModule.forRoot(),
         ClassTitleRoutingModule, FormsModule, SharedModulesModule,

@@ -7,19 +7,21 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Termexam } from '../termexam.model';
 import { ClassList } from 'src/app/classTitle/classList.model';
 import { SubjectModel } from 'src/app/subject/subject.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-termexam-create',
   templateUrl: './termexam-create.component.html',
   styleUrls: ['./termexam-create.component.css']
 })
 export class TermexamCreateComponent implements OnInit {
+  @ViewChild('termexams') public termexams: NgForm;
   allClassList: any[] = [];
   subjects: any[] = [];
 
@@ -118,7 +120,12 @@ export class TermexamCreateComponent implements OnInit {
     this.appService.showSpinner();
     this.appService.postMethod('termexam/create.php',formData).subscribe((event: any) => {
 
-      switch (event.type) {
+      if (event.status == 'success') {
+        this.termexams.reset();
+        this.router.navigate(['/termexam/termExamList']);
+        this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
+      }
+     /*  switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
           break;
@@ -138,8 +145,8 @@ export class TermexamCreateComponent implements OnInit {
       }
       if (this.progress == 100) {
         this.router.navigate(['/termexam/termExamList',{subjectId:this.subjectModel.subjectId,termexamExamId:this.exam.examid}]);
-      }
+      } */
     }); 
-    this.appService.successMsg('Homework File Uploaded Successfully!', 'Weldone!');
+   
   }
 }

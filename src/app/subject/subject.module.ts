@@ -17,6 +17,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
 import { NgxBootstrapModule } from '../ngx-bootstrap.module';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { SubjectCreateGuard } from './add-subject/subject-create.guard';
 
 
 
@@ -27,6 +28,6 @@ import { SharedModulesModule } from '../shared/shared-modules/shared-modules.mod
     CommonModule,DataTablesModule.forRoot(),
     SubjectRoutingModule,FormsModule,NgxBootstrapModule,SharedModulesModule
   ],
-  providers: [],
+  providers: [SubjectCreateGuard],
 })
 export class SubjectModule { }

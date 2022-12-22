@@ -12,12 +12,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery } from '../gallery.model';
 import { ImageCroppedEvent, LoadedImage, ImageTransform, ImageCropperComponent, base64ToFile } from 'ngx-image-cropper';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
+import { NgForm } from '@angular/forms';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-gallery-edit',
   templateUrl: './gallery-edit.component.html',
   styleUrls: ['./gallery-edit.component.css']
 })
 export class GalleryEditComponent implements OnInit {
+  @ViewChild('galleryForm') public galleryForm: NgForm;
   myfile:any = '';
   rotateStatus: boolean = false;
   flipHorizontalStatus: boolean = false;
@@ -143,13 +146,13 @@ export class GalleryEditComponent implements OnInit {
     if (ok) {
       this.router.navigate(['gallery/galleryList'])
     } */
-    this.appService.postMethod('gallery/update.php', formData).subscribe((res) => {
-      if (res.status == "success") {
+    this.appService.postMethod('gallery/update.php', formData).subscribe((evt) => {
+      console.log(evt);
+      
+      if (evt instanceof HttpResponse && (evt.status == 200 || evt.status == 201)) {
         this.appService.successMsg('Image Uploaded Successfully!', 'Weldone !');
         this.router.navigate(['gallery/galleryList'])
-      } else {
-        this.appService.errorsMsg('Image not Uploaded Successfully!', 'Weldone !');
-      }
+      } 
     });    
   }
 

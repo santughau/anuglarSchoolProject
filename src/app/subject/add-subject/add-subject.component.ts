@@ -7,7 +7,8 @@
   Copyright and Good Faith Purchasers © 2022-present JSWEBAPP.
   Youtube : youtube.com/@jswebapp
 */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SelectRequiredValidatorDirective } from 'src/app/shared/directive/select-required-validator.directive';
 import { SharedServiceService } from 'src/app/shared/services/shared-service.service';
@@ -19,6 +20,7 @@ import { SubjectModel } from '../subject.model';
   styleUrls: ['./add-subject.component.css']
 })
 export class AddSubjectComponent implements OnInit {
+  @ViewChild('subjectForm') public subjectForm: NgForm;
   subjectModel: SubjectModel = {
     subjectId: '',
     subjectClassId: 'select',
